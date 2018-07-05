@@ -12,7 +12,9 @@ public class Room implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Short roomId;
-
+	
+	private String roomNum;
+	
     private String roomType;
 
     private Byte roomArea;
@@ -23,7 +25,7 @@ public class Room implements Serializable{
 
     private Byte roomAircondition;
 
-    private Byte roomTv;
+    private Byte roomTV;
 
     private Byte roomWifi;
 
@@ -79,12 +81,12 @@ public class Room implements Serializable{
         this.roomAircondition = roomAircondition;
     }
 
-    public Byte getRoomTv() {
-        return roomTv;
+    public Byte getRoomTV() {
+        return roomTV;
     }
 
-    public void setRoomTv(Byte roomTv) {
-        this.roomTv = roomTv;
+    public void setRoomTV(Byte roomTV) {
+        this.roomTV = roomTV;
     }
 
     public Byte getRoomWifi() {
@@ -110,13 +112,39 @@ public class Room implements Serializable{
     public void setRoomIsStay(Byte roomIsStay) {
         this.roomIsStay = roomIsStay;
     }
+    public String getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(String roomNum) {
+		this.roomNum = roomNum;
+	}
 
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", roomType=" + roomType + ", roomArea=" + roomArea + ", roomMaxnumOfPeople="
-				+ roomMaxnumOfPeople + ", roomPrice=" + roomPrice + ", roomAircondition=" + roomAircondition
-				+ ", roomTv=" + roomTv + ", roomWifi=" + roomWifi + ", roomWashroom=" + roomWashroom + ", roomIsStay="
-				+ roomIsStay + "]";
+		return "Room [roomId=" + roomId + ", roomNum=" + roomNum + ", roomType=" + roomType + ", roomArea=" + roomArea
+				+ ", roomMaxnumOfPeople=" + roomMaxnumOfPeople + ", roomPrice=" + roomPrice + ", roomAircondition="
+				+ roomAircondition + ", roomTv=" + roomTV + ", roomWifi=" + roomWifi + ", roomWashroom=" + roomWashroom
+				+ ", roomIsStay=" + roomIsStay + "]";
 	}
+
+	public Room(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople, Short roomPrice,
+			Byte roomAircondition, Byte roomTV, Byte roomWifi, Byte roomWashroom, Byte roomIsStay) {
+		super();
+		this.roomId = roomId;
+		this.roomNum = roomNum;
+		this.roomType = roomType;
+		this.roomArea = roomArea;
+		this.roomMaxnumOfPeople = roomMaxnumOfPeople;
+		this.roomPrice = roomPrice;
+		this.roomAircondition = roomAircondition;
+		this.roomTV = roomTV;
+		this.roomWifi = roomWifi;
+		this.roomWashroom = roomWashroom;
+		this.roomIsStay = roomIsStay;
+	}
+
+
+	
     
 }

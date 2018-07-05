@@ -244,6 +244,26 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_roomSelect` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_roomSelect` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_roomSelect`(In roomNum varchar(10), out state varchar(30))
+BEGIN
+	set state='selectInit';
+	if roomNum is NUll then
+		SELECT * FROM `room` ORDER BY room_id ASC;
+		SET state='selectAllRoom';
+	else
+		Select * from `room` where room_num=roomNum;
+		set state='selectOneRoom';
+	end if;
+	
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_roomUpdate` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_roomUpdate` */;
@@ -292,24 +312,24 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `proc_select` */
+/* Procedure structure for procedure `proc_selectAll` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `proc_select` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_selectAll` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_select`(In choice Varchar(20),out state varchar(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_selectAll`(In choice Varchar(20),out state varchar(30))
 BEGIN
-	set state='selectInit';
-	case choice
-		when 'room' then
-			SELECT * FROM `room` ORDER BY room_id ASC;
-		SET state='selectRoomSuccess';
-	else 
-		set state='selectUnknowError';
-	end case;
-	
-end */$$
+	SET state='initSelectAll';
+	CASE choice
+	WHEN 'room' THEN 
+		SELECT * from `room` ORDER BY room_id ASC;
+		SET state='selectAllRoom';
+	       
+	ELSE
+		SET state='selectUnknowError';
+     END CASE;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_userAdd` */
