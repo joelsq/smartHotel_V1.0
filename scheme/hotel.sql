@@ -111,8 +111,9 @@ CREATE TABLE `login_log` (
 DROP TABLE IF EXISTS `room`;
 
 CREATE TABLE `room` (
-  `room_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '客房编号',
-  `room_type` varchar(30) DEFAULT '''默认''' COMMENT '客房类型',
+  `room_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '客房id',
+  `room_num` varchar(10) DEFAULT NULL COMMENT '客房编号',
+  `room_type` varchar(30) DEFAULT '标准间' COMMENT '客房类型',
   `room_area` tinyint(3) unsigned DEFAULT '25' COMMENT '客房面积',
   `room_maxnum_of_people` tinyint(3) unsigned DEFAULT '2' COMMENT '客房最大容纳人数',
   `room_price` smallint(5) unsigned DEFAULT '200' COMMENT '客房价格',
@@ -122,14 +123,17 @@ CREATE TABLE `room` (
   `room_washroom` tinyint(4) unsigned DEFAULT '1' COMMENT '卫生间',
   `room_is_stay` tinyint(4) unsigned DEFAULT '0' COMMENT '是否入住',
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `room` */
 
-insert  into `room`(`room_id`,`room_type`,`room_area`,`room_maxnum_of_people`,`room_price`,`room_aircondition`,`room_TV`,`room_wifi`,`room_washroom`,`room_is_stay`) values 
-(1,'大床房',25,2,200,1,1,1,1,0),
-(2,'双床房',25,2,200,1,1,1,1,0),
-(3,'家庭房',35,4,300,1,1,1,1,0);
+insert  into `room`(`room_id`,`room_num`,`room_type`,`room_area`,`room_maxnum_of_people`,`room_price`,`room_aircondition`,`room_TV`,`room_wifi`,`room_washroom`,`room_is_stay`) values 
+(1,'R1-1','大床房',25,2,200,1,1,1,1,0),
+(2,'R2-1','双床房',25,2,200,1,1,1,1,0),
+(3,'R3-1','家庭房',35,4,300,1,1,1,1,0),
+(4,'R1-2','大床房',25,2,200,1,1,1,1,0),
+(5,'R1-3','大床房',25,2,200,1,1,1,1,0),
+(7,'R2-2','家庭房',25,2,250,1,1,1,1,0);
 
 /*Table structure for table `room_review` */
 
@@ -137,14 +141,14 @@ DROP TABLE IF EXISTS `room_review`;
 
 CREATE TABLE `room_review` (
   `review_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论编号',
-  `review_room_id` smallint(5) unsigned NOT NULL COMMENT '评论的房间编号',
+  `review_room_num` varchar(10) DEFAULT NULL COMMENT '评论的房间编号',
   `review_guest_id` smallint(5) unsigned DEFAULT NULL COMMENT '评论的客人编号',
   `review_score` tinyint(3) unsigned DEFAULT NULL COMMENT '评分',
   `review_comment` text COMMENT '评论内容',
   `review_photo` varchar(50) DEFAULT NULL COMMENT '评论的照片',
   PRIMARY KEY (`review_id`),
-  KEY `review_room_id` (`review_room_id`),
-  CONSTRAINT `room_review_ibfk_1` FOREIGN KEY (`review_room_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `review_room_id` (`review_room_num`),
+  CONSTRAINT `room_review_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `room_review` */
@@ -196,79 +200,128 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `proc_room` */
+/* Procedure structure for procedure `proc_roomAdd` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `proc_room` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_roomAdd` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_room`(IN choice VARCHAR(20), IN roomId SMALLINT, IN roomType VARCHAR(30),
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_roomAdd`(IN roomNum varchar(10), IN roomType VARCHAR(30),
 IN roomArea TINYINT, IN roomMaxnum TINYINT, IN roomPrice SMALLINT, IN roomAircondition TINYINT, IN roomTV TINYINt,
 in roomWIFI tinyint, roomWashroom tinyint, IN roomIsStay tinyint, OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
-     SET state='init';
-
-     CASE choice
-	WHEN 'addRoom' THEN 
-		SET id_exist=(SELECT room_id FROM `room` WHERE roomId=room_id);
-		IF  id_exist IS NOT NULL THEN
-		    SET state='addRoomSuccess';
-	        ELSE
-		    INSERT INTO `room`
-		    VALUES(roomId,roomType,roomArea,roomMaxnum,roomPrice,roomAircondition,
-		    roomTV,roomWIFI,roomWashroom,roomIsStay);
-	            SET state='addRoomFailed';
-		END IF;
-	WHEN 'delRoom' THEN 
-		SET id_exist=(SELECT roomId FROM `room` WHERE roomId=room_id);
-		IF  id_exist IS NULL THEN
-		    SET state='delRoomSuccess';
-	        ELSE
-		    DELETE FROM `room` 
-		    WHERE roomId=room_id;
-	            SET state='delRoomFailed';
-		END IF;
-	WHEN 'updateRoom' THEN 
-		SET id_exist=(SELECT roomId FROM `room` WHERE roomId=room_id);
-		IF  id_exist IS NULL THEN
-		    SET state='updateRoomFailed';
-	        ELSE
-		   IF roomType IS NOT NULL THEN
-			UPDATE `room` SET room_type=roomType WHERE roomId=room_id;
-		   END IF;
-		   IF roomArea IS NOT NULL THEN
-			UPDATE `room` SET room_area=roomArea WHERE roomId=room_id;
-		   END IF;
-		   IF roomMaxnum IS NOT NULL THEN
-			UPDATE `room` SET room_maxnum_of_people=roomMaxnum WHERE roomId=room_id;
-		   END IF;
-		   IF roomPrice IS NOT NULL THEN
-			UPDATE `room` SET room_price=roomPrice WHERE roomId=room_id;
-		   END IF;
-		   IF roomAircondition IS NOT NULL THEN
-			UPDATE `room` SET room_aircondition=roomAircondition WHERE roomId=room_id;
-		   END IF;
-		   IF roomTV IS NOT NULL THEN
-			UPDATE `room` SET room_TV=roomTV WHERE roomId=room_id;
-		   END IF;
-		   IF roomWIFI IS NOT NULL THEN
-			UPDATE `room` SET room_wifi=roomWIFI WHERE roomId=room_id;
-		   END IF;
-		   
-		   IF roomWashroom IS NOT NULL THEN
-			UPDATE `room` SET room_washroom=roomWashroom WHERE roomId=room_id;
-		   END IF;
-		   
-		   IF roomIsStay IS NOT NULL THEN
-			UPDATE `room` SET room_is_stay=roomIsStay WHERE roomId=room_id;
-		   END IF;
-		   SET state='updateRoomSuccess';
-		END IF;
-	ELSE
-	    SET state='unknowError';
-     END CASE;
+     SET state='addroominit';
+     SET id_exist=(SELECT room_num FROM `room` WHERE roomNum=room_num);
+     IF  id_exist IS NOT NULL THEN
+	SET state='addRoomFailed';
+     ELSE
+	INSERT INTO `room` VALUES(NULL,roomNum,roomType,roomArea,roomMaxnum,roomPrice,roomAircondition,
+	roomTV,roomWIFI,roomWashroom,roomIsStay);
+	SET state='addRoomSuccess';
+     END IF;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_roomDel` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_roomDel` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_roomDel`(IN roomNum varchar(10), OUT state VARCHAR(30))
+BEGIN
+     DECLARE id_exist smallint;
+     SET state='delroominit';
+     SET id_exist=(SELECT room_id FROM `room` WHERE roomNum=room_num);
+	IF  id_exist IS NULL THEN
+	    SET state='delRoomFailed';
+	ELSE
+	    DELETE FROM `room` 
+	    WHERE roomNum=room_num;
+	    SET state='delRoomSuccess';
+	END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_roomUpdate` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_roomUpdate` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_roomUpdate`(IN roomNum VARCHAR(10), IN roomType VARCHAR(30),
+IN roomArea TINYINT, IN roomMaxnum TINYINT, IN roomPrice SMALLINT, IN roomAircondition TINYINT, 
+IN roomTV TINYINT,IN roomWIFI TINYINT, roomWashroom TINYINT, IN roomIsStay TINYINT, OUT state VARCHAR(30))
+BEGIN
+     DECLARE id_exist smallint;
+     SET state='updateRoomInit';
+     SET id_exist=(SELECT room_id FROM `room` WHERE roomNum=room_num);
+	IF  id_exist IS NULL THEN
+	    SET state='updateRoomFailed';
+	ELSE
+	   IF roomType IS NOT NULL THEN
+		UPDATE `room` SET room_type=roomType WHERE roomNum=room_num;
+	   END IF;
+	   IF roomArea IS NOT NULL THEN
+		UPDATE `room` SET room_area=roomArea WHERE roomNum=room_num;
+	   END IF;
+	   IF roomMaxnum IS NOT NULL THEN
+		UPDATE `room` SET room_maxnum_of_people=roomMaxnum WHERE roomNum=room_num;
+	   END IF;
+	   IF roomPrice IS NOT NULL THEN
+		UPDATE `room` SET room_price=roomPrice WHERE roomNum=room_num;
+	   END IF;
+	   IF roomAircondition IS NOT NULL THEN
+		UPDATE `room` SET room_aircondition=roomAircondition WHERE roomNum=room_num;
+	   END IF;
+	   IF roomTV IS NOT NULL THEN
+		UPDATE `room` SET room_TV=roomTV WHERE roomNum=room_num;
+	   END IF;
+	   IF roomWIFI IS NOT NULL THEN
+		UPDATE `room` SET room_wifi=roomWIFI WHERE roomNum=room_num;
+	   END IF;
+	   IF roomWashroom IS NOT NULL THEN
+		UPDATE `room` SET room_washroom=roomWashroom WHERE roomNum=room_num;
+	   END IF;
+	   IF roomIsStay IS NOT NULL THEN
+		UPDATE `room` SET room_is_stay=roomIsStay WHERE roomNum=room_num;
+	   END IF;
+	   SET state='updateRoomSuccess';
+	END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_select` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_select` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_select`(In choice Varchar(20),out state varchar(30))
+BEGIN
+	set state='selectInit';
+	case choice
+		when 'room' then
+			SELECT * FROM `room` ORDER BY room_id ASC;
+		SET state='selectRoomSuccess';
+	else 
+		set state='selectUnknowError';
+	end case;
+	
+end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_userAdd` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_userAdd` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userAdd`()
+BEGIN
+
+	END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

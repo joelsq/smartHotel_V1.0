@@ -5,7 +5,7 @@ USE hotel;
 #call proc_roomDel('R1-4',@state);
 #call proc_roomUpdate('R2-2','家庭房',null,null,null,null,null,null,null,null,@state);
 
-#call proc_Select('room',@state);
+CALL proc_Select('room',@state);
 
 #打印输出参数state
 SELECT @state;
