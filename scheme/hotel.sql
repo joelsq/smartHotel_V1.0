@@ -122,9 +122,14 @@ CREATE TABLE `room` (
   `room_washroom` tinyint(4) unsigned DEFAULT '1' COMMENT '卫生间',
   `room_is_stay` tinyint(4) unsigned DEFAULT '0' COMMENT '是否入住',
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `room` */
+
+insert  into `room`(`room_id`,`room_type`,`room_area`,`room_maxnum_of_people`,`room_price`,`room_aircondition`,`room_TV`,`room_wifi`,`room_washroom`,`room_is_stay`) values 
+(1,'大床房',25,2,200,1,1,1,1,0),
+(2,'双床房',25,2,200,1,1,1,1,0),
+(3,'家庭房',35,4,300,1,1,1,1,0);
 
 /*Table structure for table `room_review` */
 
@@ -189,6 +194,81 @@ BEGIN
 	END IF;
     END IF;
     END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_room` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_room` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_room`(IN choice VARCHAR(20), IN roomId SMALLINT, IN roomType VARCHAR(30),
+IN roomArea TINYINT, IN roomMaxnum TINYINT, IN roomPrice SMALLINT, IN roomAircondition TINYINT, IN roomTV TINYINt,
+in roomWIFI tinyint, roomWashroom tinyint, IN roomIsStay tinyint, OUT state VARCHAR(30))
+BEGIN
+     DECLARE id_exist SMALLINT;
+     SET state='init';
+
+     CASE choice
+	WHEN 'addRoom' THEN 
+		SET id_exist=(SELECT room_id FROM `room` WHERE roomId=room_id);
+		IF  id_exist IS NOT NULL THEN
+		    SET state='addRoomSuccess';
+	        ELSE
+		    INSERT INTO `room`
+		    VALUES(roomId,roomType,roomArea,roomMaxnum,roomPrice,roomAircondition,
+		    roomTV,roomWIFI,roomWashroom,roomIsStay);
+	            SET state='addRoomFailed';
+		END IF;
+	WHEN 'delRoom' THEN 
+		SET id_exist=(SELECT roomId FROM `room` WHERE roomId=room_id);
+		IF  id_exist IS NULL THEN
+		    SET state='delRoomSuccess';
+	        ELSE
+		    DELETE FROM `room` 
+		    WHERE roomId=room_id;
+	            SET state='delRoomFailed';
+		END IF;
+	WHEN 'updateRoom' THEN 
+		SET id_exist=(SELECT roomId FROM `room` WHERE roomId=room_id);
+		IF  id_exist IS NULL THEN
+		    SET state='updateRoomFailed';
+	        ELSE
+		   IF roomType IS NOT NULL THEN
+			UPDATE `room` SET room_type=roomType WHERE roomId=room_id;
+		   END IF;
+		   IF roomArea IS NOT NULL THEN
+			UPDATE `room` SET room_area=roomArea WHERE roomId=room_id;
+		   END IF;
+		   IF roomMaxnum IS NOT NULL THEN
+			UPDATE `room` SET room_maxnum_of_people=roomMaxnum WHERE roomId=room_id;
+		   END IF;
+		   IF roomPrice IS NOT NULL THEN
+			UPDATE `room` SET room_price=roomPrice WHERE roomId=room_id;
+		   END IF;
+		   IF roomAircondition IS NOT NULL THEN
+			UPDATE `room` SET room_aircondition=roomAircondition WHERE roomId=room_id;
+		   END IF;
+		   IF roomTV IS NOT NULL THEN
+			UPDATE `room` SET room_TV=roomTV WHERE roomId=room_id;
+		   END IF;
+		   IF roomWIFI IS NOT NULL THEN
+			UPDATE `room` SET room_wifi=roomWIFI WHERE roomId=room_id;
+		   END IF;
+		   
+		   IF roomWashroom IS NOT NULL THEN
+			UPDATE `room` SET room_washroom=roomWashroom WHERE roomId=room_id;
+		   END IF;
+		   
+		   IF roomIsStay IS NOT NULL THEN
+			UPDATE `room` SET room_is_stay=roomIsStay WHERE roomId=room_id;
+		   END IF;
+		   SET state='updateRoomSuccess';
+		END IF;
+	ELSE
+	    SET state='unknowError';
+     END CASE;
+END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
