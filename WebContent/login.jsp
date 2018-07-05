@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理员登陆</title>
+<!-- 注意事项 -->
+<!-- 请勿更改action、method、id、name等有关数据和控制的命名 -->
+<!-- 注意事项 -->
+
 <body>
 	<div class="container" style="text-align: center">
 		<div class="row clearfix">
@@ -47,8 +51,7 @@
 
 </body>
 <script> 
-  var errori ='<%=request.getParameter("error")%>
-	';
+  var errori ='<%=request.getParameter("error")%>';
 	if (errori == 'yes') {
 		alert("登录失败!");
 

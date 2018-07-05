@@ -36,10 +36,11 @@ public class DBUtil {
 		return conn;
 	}
 
-	// 管理员登录验证
-	public boolean loginSuccess(String adminName, String password) {
+	// 管理人员登录验证
+	public boolean loginSuccess(String Name, String password) {
 		boolean returnValue = false;
-		String sql = "CALL proc_login('" + adminName + "','" + password + "',@state)";
+		//调用数据库的proc_login存储过程
+		String sql = "CALL proc_login('" +Name + "','" + password + "',@state)";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -47,7 +48,7 @@ public class DBUtil {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			System.out.println("管理员准备登录！" + sql);
+			System.out.println("准备登录！" + sql);
 			stmt.executeQuery(sql);
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Smart Hotel</title>
+<title>客人信息</title>
 </head>
 <body>
-<h3>酒店主页——展示酒店</h3>
+<h3>客人信息页面，客人登录之后才有</h3>
 </body>
 </html>
