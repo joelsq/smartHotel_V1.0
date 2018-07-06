@@ -1,6 +1,7 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +17,8 @@ import team.hotel.domain.Room;
 public class DBRoom extends DBUtil {
 
 	List<Room> roomList = new ArrayList<Room>();
-
+	DBPrint printer=new DBPrint();
+	
 	// 读取所有房间信息
 	public List<Room> readRoom() {
 		roomList.clear();
@@ -78,20 +80,45 @@ public class DBRoom extends DBUtil {
 		return roomList;
 	}
 
-	// 查询房间——根据房间编号
-	public List<Room> RoomList(String inputRoomNum) {
+	// 查询房间——混杂查询
+	public List<Room> RoomList(String room_num,String type,String maxnum,String isStay) {
 		roomList.clear();
 		Connection conn = null;
-		Statement stmt = null;
 		ResultSet rs = null;
-
-		String sql = "CALL proc_select('" + inputRoomNum + "',@state)";
+		PreparedStatement ptmt = null;
 		try {
+
 			conn = getConnection();
-			stmt = conn.createStatement();
-			System.out.println("准备读取数据库room表数据");
-			System.out.println("执行的sql语句=" + sql);
-			rs = stmt.executeQuery(sql);
+
+			System.out.println("准备 筛选数据库Room表 数据");
+			StringBuilder sql = new StringBuilder(" SELECT * FROM room   where 1=1 ");
+			List<String> paramList = new ArrayList<String>();
+			if (room_num != null && !"".equals(room_num.trim())) {
+				sql.append(" and room_name like '%' ? '%' ");
+				paramList.add(room_num);
+			}
+			if (type != null && !"".equals(type.trim())) {
+				sql.append(" and room_phone=? ");
+				paramList.add(type);
+			}
+			if (maxnum != null && !"".equals(maxnum.trim())) {
+				sql.append(" and room_document_num=? ");
+				paramList.add(maxnum);
+			}
+			if (isStay != null && !"".equals(isStay.trim())) {
+				sql.append(" and room_isStay=? ");
+				paramList.add(isStay);
+			}
+
+			ptmt = conn.prepareStatement(sql.toString());
+			for (int i = 0; i < paramList.size(); i++) {
+				ptmt.setString(i + 1, paramList.get(i));
+				System.out.println(paramList.get(i));
+			}
+
+			printer.PrintSQL("Room", ptmt.toString());
+
+			rs = ptmt.executeQuery();
 			while (rs.next()) {
 				Short id = rs.getShort("room_id");
 				String roomNum = rs.getString("room_num");
@@ -117,13 +144,6 @@ public class DBRoom extends DBUtil {
 			if (rs != null) {
 				try {
 					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (stmt != null) {
-				try {
-					stmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

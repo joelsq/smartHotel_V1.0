@@ -50,6 +50,7 @@
 	</div>
 
 </body>
+
 <script> 
   var errori ='<%=request.getParameter("error")%>';
 	if (errori == 'yes') {
