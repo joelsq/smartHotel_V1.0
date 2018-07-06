@@ -27,7 +27,7 @@ public class DBGuest extends DBUtil {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "CALL proc_selectAll('guest',@state)";
+		String sql = "CALL proc_select(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();

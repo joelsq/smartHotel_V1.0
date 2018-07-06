@@ -24,7 +24,7 @@ public class DBRoom extends DBUtil {
 		Statement stmt = null;
 		ResultSet rs = null;
 
-		String sql = "CALL proc_selectAll('room',@state)";
+		String sql = "CALL proc_select(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();

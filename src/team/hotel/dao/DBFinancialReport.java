@@ -27,7 +27,7 @@ public class DBFinancialReport extends DBUtil{
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "CALL proc_selectAll('financial_report',@state)";
+		String sql = "CALL proc_select(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
