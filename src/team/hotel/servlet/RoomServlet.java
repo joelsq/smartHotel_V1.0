@@ -1,6 +1,7 @@
 package team.hotel.servlet;
 
-import team.hotel.dao.DBUtil;
+import team.hotel.dao.DBRoom;
+//import team.hotel.dao.DBUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,8 +42,8 @@ public class RoomServlet extends HttpServlet {
 		request.setAttribute("roomNum", roomNum);
 
 		// 业务需要
-		DBUtil DB = new DBUtil();
-
+		DBRoom DB = new DBRoom();
+		
 		// 查询消息列表并传给页面
 		request.setAttribute("roomList", DB.queryRoomList(roomNum));
 
