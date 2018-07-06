@@ -29,6 +29,7 @@ public class DBLogin extends DBUtil {
 			stmt.executeQuery(sql);
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
+				System.out.println("loginReturn="+returnValue);
 				returnValue = rs.getString(1);
 			}
 		} catch (ClassNotFoundException e) {
