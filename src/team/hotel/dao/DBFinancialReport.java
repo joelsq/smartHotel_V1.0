@@ -1,7 +1,6 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import team.hotel.domain.FinancialReport;
 import team.hotel.domain.FinancialReport;
 
 /**
@@ -39,8 +37,8 @@ public class DBFinancialReport extends DBUtil{
 				Short id = rs.getShort(1);
 				Short todayIncome = rs.getShort(2);
 				Short todayExpend = rs.getShort(3);
-
-				FinancialReport financialReport = new FinancialReport(id, todayIncome,todayExpend);
+				Date date=rs.getDate(4);
+				FinancialReport financialReport = new FinancialReport(id, todayIncome,todayExpend,date);
 				financialReportList.add(financialReport);
 			}
 		} catch (ClassNotFoundException e) {
@@ -127,13 +125,10 @@ public class DBFinancialReport extends DBUtil{
 		return financialReportList;
 	}
 
-
 	// 更新财务报表信息
-	public boolean FinancialReportUpdate(String id,String guestid,String finid, String checkinDate,String Days,
-			String checkoutDate,String mealType,String numOfPeople,String finConsume,String totalConsume) {
-		String sql = "CALL proc_financialReportUpdate(" + id + "," + guestid+ "," + finid + ",'"
-				+ checkinDate+ "'," +Days + ",'" + checkoutDate + "','" + mealType + "','"
-				+"','"+numOfPeople+","+finConsume+","+totalConsume+",@state)";
+	public boolean FinancialReportUpdate(String id,String income,String expend,String date) {
+		String sql = "CALL proc_financialReportUpdate(" + id + "," + income+ "," + expend+ ",'"
+				+ date+ "',@state)";
 		printer.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
