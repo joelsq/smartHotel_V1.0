@@ -22,6 +22,8 @@ public class User implements Serializable {
 
 	private int credits;
 
+	private String authority;
+
 	private String lastIp;
 
 	private Date lastVisit;
@@ -74,13 +76,22 @@ public class User implements Serializable {
 		this.credits = credits;
 	}
 
-	
-	public User(int userId, String userName, String password, int credits, String lastIp, Date lastVisit) {
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	public User(int userId, String userName, String password, int credits, String authority, Date lastVisit,
+			String lastIp) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.credits = credits;
+		this.authority = authority;
 		this.lastIp = lastIp;
 		this.lastVisit = lastVisit;
 	}
@@ -88,7 +99,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", credits=" + credits
-				+ ", lastIp=" + lastIp + ", lastVisit=" + lastVisit + "]";
+				+ ", authority=" + authority + ", lastIp=" + lastIp + ", lastVisit=" + lastVisit + "]";
 	}
 
 }
