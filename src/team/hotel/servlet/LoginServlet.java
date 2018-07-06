@@ -35,8 +35,8 @@ public class LoginServlet extends HttpServlet {
 		//boolean canLogin = db.loginSuccess(adminName, password);
 		
 		String loginState=(String) db.loginSuccess(adminName, password);
-		//String[] states= {"loginNameError","loginPasswordError","loginManager","loginUser","loginGuest","loginUnknowAu"};
-		if (loginState.equalsIgnoreCase("loginManager")){// 待实现根据不同权限登陆，跳转不同页面
+
+		if (loginState.equalsIgnoreCase("loginManager")){//实现根据不同权限登陆，跳转不同页面
 			System.out.println("manager登录成功！");
 			response.sendRedirect("pages/manager/managerHome.jsp");
 		} 

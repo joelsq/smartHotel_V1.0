@@ -45,7 +45,7 @@ public class RoomServlet extends HttpServlet {
 		DBRoom DB = new DBRoom();
 		
 		// 查询消息列表并传给页面
-		request.setAttribute("roomList", DB.queryRoomList(roomNum));
+		request.setAttribute("roomList", DB.RoomList(roomNum));
 
 		// 向页面跳转
 		request.getRequestDispatcher("pages/manager/roomlist.jsp").forward(request, response);

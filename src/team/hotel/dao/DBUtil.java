@@ -4,11 +4,10 @@ import java.sql.*;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月5日 数据库操作
+ * @version 创建时间：2018年7月5日 数据库连接
  */
 public class DBUtil {
 	boolean bInited = false;
-	
 
 	// 加载驱动，连接数据库
 	public void initJDBC() throws ClassNotFoundException {
@@ -32,58 +31,4 @@ public class DBUtil {
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
 		return conn;
 	}
-
-/*	// 管理人员登录验证
-	public boolean loginSuccess(String Name, String password) {
-		boolean returnValue = false;
-		// 调用数据库的proc_login存储过程
-		String sql = "CALL proc_login('" + Name + "','" + password + "',@state)";
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-			stmt = conn.createStatement();
-			System.out.println("准备登录！" + sql);
-			stmt.executeQuery(sql);
-			rs = stmt.executeQuery("SELECT @state");
-			while (rs.next()) {
-				String state = rs.getString(1);
-				if (state.equals("1")) {
-					returnValue = true;
-					break;
-				}
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					 ignored }
-			}
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					 ignored }
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					 ignored }
-			}
-		}
-
-		return returnValue;
-
-	}
-*/
-
-
 }

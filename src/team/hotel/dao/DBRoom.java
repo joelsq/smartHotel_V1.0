@@ -10,14 +10,13 @@ import java.util.List;
 import team.hotel.domain.Room;
 
 /**
-* @author Suqiao Lin
-* @version 创建时间：2018年7月6日
-* 数据库-房间
-*/
-public class DBRoom extends DBUtil{
-	
+ * @author Suqiao Lin
+ * @version 创建时间：2018年7月6日 数据库-房间
+ */
+public class DBRoom extends DBUtil {
+
 	List<Room> roomList = new ArrayList<Room>();
-	
+
 	// 读取所有房间信息
 	public List<Room> readRoom() {
 		roomList.clear();
@@ -58,26 +57,29 @@ public class DBRoom extends DBUtil{
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 		}
 		return roomList;
 	}
 
 	// 查询房间——根据房间编号
-	public List<Room> queryRoomList(String inputRoomNum) {
+	public List<Room> RoomList(String inputRoomNum) {
 		roomList.clear();
 		Connection conn = null;
 		Statement stmt = null;
@@ -116,26 +118,29 @@ public class DBRoom extends DBUtil{
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 		}
 		return roomList;
 	}
 
 	// 更新房间信息
-	public boolean updateRoom(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople,
+	public boolean RoomUpdate(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople,
 			Short roomPrice, Byte roomAircondition, Byte roomTV, Byte roomWifi, Byte roomWashroom, Byte roomIsStay) {
 		String sql = "CALL proc_roomUpdate(," + roomId + ",'" + roomNum + "'," + roomType + "," + roomArea + ","
 				+ roomMaxnumOfPeople + "," + roomPrice + "," + roomAircondition + "," + roomTV + "," + roomWifi + ","
@@ -169,23 +174,82 @@ public class DBRoom extends DBUtil{
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 		}
 
 		return returnValue;
 	}
 
+	// 删除房间——根据房间编号
+	public boolean RoomDelete(String roomNum) {
+		String sql = "CALL proc_roomDel( '" + roomNum + "',@state)";
+		System.out.println("更新房间的sql语句=" + sql);
+		boolean returnValue = false;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			System.out.println("准备 从数据库删除房间" + roomNum);
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				String state = rs.getString(1);
+				if (state.equals("delRoomSuccess")) {
+					returnValue = true;
+					break;
+				} else if (state.equals("delRoomFailed")) {
+					returnValue = false;
+					break;
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
 }

@@ -8,15 +8,14 @@ import java.sql.Statement;
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月6日 
- * 登录系统
+ * 数据库-登录系统
  */
 public class DBLogin extends DBUtil {
 
 	// 管理人员登录验证
 	public String loginSuccess(String Name, String password) {
 		String returnValue = "loginInit";
-		// 调用数据库的proc_login存储过程
-		//String sql = "CALL proc_login('" + Name + "','" + password + "',@state)";
+		// 调用数据库的proc_login_au存储过程
 		String sql = "CALL proc_login_au('" + Name + "','" + password + "',@state)";
 		
 		Connection conn = null;
@@ -31,10 +30,6 @@ public class DBLogin extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				returnValue = rs.getString(1);
-//				if (returnValue.equals("loginNameError")) {
-//					returnValue = ;
-//					break;
-//				}
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
