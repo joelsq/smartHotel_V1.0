@@ -12,11 +12,10 @@ import java.util.List;
 import team.hotel.domain.CheckList;
 
 /**
-* @author Suqiao Lin
-* @version 创建时间：2018年7月6日
-* 数据库-入住表
-*/
-public class DBCheckList extends DBUtil{
+ * @author Suqiao Lin
+ * @version 创建时间：2018年7月6日 数据库-入住表
+ */
+public class DBCheckList extends DBUtil {
 
 	List<CheckList> checklistList = new ArrayList<CheckList>();
 	DBPrint printer = new DBPrint();
@@ -36,18 +35,19 @@ public class DBCheckList extends DBUtil{
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Short id = rs.getShort(1);
-				Short guestid=rs.getShort(2);
-				String guestphone= rs.getString(3);
-				Short roomid=rs.getShort(4);
-				Date checkInDate= rs.getTimestamp(5);
-				String checklistPassword = rs.getString("checklist_password");
-				String checklistDocNum = rs.getString("checklist_document_num");
-				String checklistGender = rs.getString("checklist_gender");
-				Date checklistLastVisit = rs.getDate("checklist_last_visit");
-				String checklistLastIP = rs.getString("checklist_last_ip");
+				Short guestid = rs.getShort(2);
+				String guestphone = rs.getString(3);
+				Short roomid = rs.getShort(4);
+				Date checkinDate = rs.getDate(5);
+				Short checkDays = rs.getShort(6);
+				Date checkoutDate = rs.getDate(7);
+				String checkMealType = rs.getString(8);
+				Byte checkNumofPeople = rs.getByte(9);
+				Byte checkRoomConsume = rs.getByte(10);
+				Byte checkTotalConsume = rs.getByte(11);
 
-				CheckList checklist = new CheckList(id, checklistName, checklistPhone, checklistPassword, checklistDocNum, checklistGender,
-						checklistLastVisit, checklistLastIP);
+				CheckList checklist = new CheckList(id, guestid, guestphone, roomid, checkinDate, checkDays,
+						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
@@ -81,7 +81,7 @@ public class DBCheckList extends DBUtil{
 	}
 
 	// 查询入住表——自定义语句
-	public List<CheckList> CheckListSelect(Short checklistId, String Name, String Phone, String docNum, String gender) {
+	public List<CheckList> CheckListSelect(String guestId, String Phone, String docNum, String gender) {
 		checklistList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -91,22 +91,26 @@ public class DBCheckList extends DBUtil{
 			conn = getConnection();
 
 			System.out.println("准备 筛选数据库CheckList表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM checklist   where 1=1 ");
+			StringBuilder sql = new StringBuilder(
+					"SELECT checklist_id, guest_id, guest_phone,guest_name,guest_gender,room_id,room_num,check_in_date,"
+							+ "check_in_date,check_days,check_out_date,check_meal_type,check_num_of_people,check_room_consume,check_total_consume"
+							+ "FROM checklist LEFT JOIN `guest` ON `check_guest_id`=`guest_id`"
+							+ "LEFT JOIN room ON `check_room_id`=`room_id` WHERE 1=1;");
 			List<String> paramList = new ArrayList<String>();
-			if (Name != null && !"".equals(Name.trim())) {
-				sql.append(" and checklist_name like '%' ? '%' ");
-				paramList.add(Name);
+			if (guestId != null && !"".equals(guestId.trim())) {
+				sql.append(" and check_guest_id like '%' ? '%' ");
+				paramList.add(guestId);
 			}
 			if (Phone != null && !"".equals(Phone.trim())) {
-				sql.append(" and checklist_phone=? ");
+				sql.append(" and guest_phone=? ");
 				paramList.add(Phone);
 			}
 			if (docNum != null && !"".equals(docNum.trim())) {
-				sql.append(" and checklist_document_num=? ");
+				sql.append(" and guest_document_num=? ");
 				paramList.add(docNum);
 			}
 			if (gender != null && !"".equals(gender.trim())) {
-				sql.append(" and checklist_gender=? ");
+				sql.append(" and guest_gender=? ");
 				paramList.add(gender);
 			}
 
@@ -120,17 +124,20 @@ public class DBCheckList extends DBUtil{
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Short id = rs.getShort("checklist_id");
-				String checklistName = rs.getString("checklist_Name");
-				String checklistPhone = rs.getString("checklist_phone");
-				String checklistPassword = rs.getString("checklist_password");
-				String checklistDocNum = rs.getString("checklist_document_num");
-				String checklistGender = rs.getString("checklist_gender");
-				Date checklistLastVisit = rs.getDate("checklist_last_visit");
-				String checklistLastIP = rs.getString("checklist_last_ip");
+				Short id = rs.getShort(1);
+				Short guestid = rs.getShort(2);
+				String guestphone = rs.getString(3);
+				Short roomid = rs.getShort(4);
+				Date checkinDate = rs.getDate(5);
+				Short checkDays = rs.getShort(6);
+				Date checkoutDate = rs.getDate(7);
+				String checkMealType = rs.getString(8);
+				Byte checkNumofPeople = rs.getByte(9);
+				Byte checkRoomConsume = rs.getByte(10);
+				Byte checkTotalConsume = rs.getByte(11);
 
-				CheckList checklist = new CheckList(id, checklistName, checklistPhone, checklistPassword, checklistDocNum, checklistGender,
-						checklistLastVisit, checklistLastIP);
+				CheckList checklist = new CheckList(id, guestid, guestphone, roomid, checkinDate, checkDays,
+						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
@@ -164,10 +171,11 @@ public class DBCheckList extends DBUtil{
 	}
 
 	// 更新入住表信息
-	public boolean CheckListUpdate(Short checklistId, String checklistName, String checklistPhone, String checklistPassword,
-			String checklistDocumentNum, String checklistGender, Date gusetLastVisit, String gusetLastIp) {
-		String sql = "CALL proc_checklistUpdate(," + checklistId + ",'" + checklistName + "'," + checklistPhone + "," + checklistPassword
-				+ "," + checklistDocumentNum + "," + checklistGender + "," + gusetLastVisit + "," + gusetLastIp + ",@state)";
+	public boolean CheckListUpdate(String id, String guestid, String roomid, String checkinDate, String Days,
+			String checkoutDate, String mealType, String numOfPeople, String roomConsume, String totalConsume) {
+		String sql = "CALL proc_checklistUpdate(" + id + "," + guestid + "," + roomid + ",'" + checkinDate + "'," + Days
+				+ ",'" + checkoutDate + "','" + mealType + "','" + "','" + numOfPeople + "," + roomConsume + ","
+				+ totalConsume + ",@state)";
 		printer.PrintUpdateSQL("CheckList", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -220,8 +228,8 @@ public class DBCheckList extends DBUtil{
 	}
 
 	// 删除入住表——根据入住表编号
-	public boolean CheckListDelete(String checklistName) {
-		String sql = "CALL proc_checklistDel( '" + checklistName + "',@state)";
+	public boolean CheckListDelete(String checklistid) {
+		String sql = "CALL proc_checklistDel( '" + checklistid + "',@state)";
 		printer.PrintDelSQL("CheckList", sql);
 		boolean returnValue = false;
 		Connection conn = null;

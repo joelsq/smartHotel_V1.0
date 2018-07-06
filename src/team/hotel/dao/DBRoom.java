@@ -142,7 +142,7 @@ public class DBRoom extends DBUtil {
 	// 更新房间信息
 	public boolean RoomUpdate(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople,
 			Short roomPrice, Byte roomAircondition, Byte roomTV, Byte roomWifi, Byte roomWashroom, Byte roomIsStay) {
-		String sql = "CALL proc_roomUpdate(," + roomId + ",'" + roomNum + "'," + roomType + "," + roomArea + ","
+		String sql = "CALL proc_roomUpdate(," + roomId + ",'" + roomNum + "','" + roomType + "'," + roomArea + ","
 				+ roomMaxnumOfPeople + "," + roomPrice + "," + roomAircondition + "," + roomTV + "," + roomWifi + ","
 				+ roomWashroom + "," + roomIsStay + ",@state)";
 		System.out.println("更新房间的sql语句=" + sql);

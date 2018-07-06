@@ -74,6 +74,17 @@ public class User implements Serializable {
 		this.credits = credits;
 	}
 
+	
+	public User(int userId, String userName, String password, int credits, String lastIp, Date lastVisit) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.credits = credits;
+		this.lastIp = lastIp;
+		this.lastVisit = lastVisit;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", credits=" + credits

@@ -1,6 +1,7 @@
 package team.hotel.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月5日 财务报表
@@ -18,6 +19,8 @@ public class FinancialReport implements Serializable{
 
 	private Short finTodayExpend;
 
+	private Date finDate;
+	
 	public Short getFinId() {
 		return finId;
 	}
@@ -42,17 +45,28 @@ public class FinancialReport implements Serializable{
 		this.finTodayExpend = finTodayExpend;
 	}
 
-	public FinancialReport(Short finId, Short finTodayIncome, Short finTodayExpend) {
+
+	public Date getFinDate() {
+		return finDate;
+	}
+
+	public void setFinDate(Date finDate) {
+		this.finDate = finDate;
+	}
+
+	public FinancialReport(Short finId, Short finTodayIncome, Short finTodayExpend, Date finDate) {
 		super();
 		this.finId = finId;
 		this.finTodayIncome = finTodayIncome;
 		this.finTodayExpend = finTodayExpend;
+		this.finDate = finDate;
 	}
 
 	@Override
 	public String toString() {
 		return "FinancialReport [finId=" + finId + ", finTodayIncome=" + finTodayIncome + ", finTodayExpend="
-				+ finTodayExpend + "]";
+				+ finTodayExpend + ", finDate=" + finDate + "]";
 	}
+	
 	
 }

@@ -163,8 +163,8 @@ public class DBGuest extends DBUtil {
 	// 更新客人信息
 	public boolean GuestUpdate(Short guestId, String guestName, String guestPhone, String guestPassword,
 			String guestDocumentNum, String guestGender, Date gusetLastVisit, String gusetLastIp) {
-		String sql = "CALL proc_guestUpdate(," + guestId + ",'" + guestName + "'," + guestPhone + "," + guestPassword
-				+ "," + guestDocumentNum + "," + guestGender + "," + gusetLastVisit + "," + gusetLastIp + ",@state)";
+		String sql = "CALL proc_guestUpdate(," + guestId + ",'" + guestName + "','" + guestPhone + "','" + guestPassword
+				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
 		printer.PrintUpdateSQL("Guest", sql);
 		boolean returnValue = false;
 		Connection conn = null;
