@@ -91,22 +91,23 @@ public class DBRoom extends DBUtil {
 			conn = getConnection();
 
 			System.out.println("准备 筛选数据库Room表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM room   where 1=1 ");
+			System.out.println("参数："+room_num+","+type+","+maxnum+","+isStay);
+			StringBuilder sql = new StringBuilder(" SELECT * FROM room where 1=1");
 			List<String> paramList = new ArrayList<String>();
 			if (room_num != null && !"".equals(room_num.trim())) {
-				sql.append(" and room_name like '%' ? '%' ");
+				sql.append(" and room_num= ?");
 				paramList.add(room_num);
 			}
 			if (type != null && !"".equals(type.trim())) {
-				sql.append(" and room_phone=? ");
+				sql.append(" and room_type like '%' ? '%' ");
 				paramList.add(type);
 			}
 			if (maxnum != null && !"".equals(maxnum.trim())) {
-				sql.append(" and room_document_num=? ");
+				sql.append(" and room_maxnum_of_people=? ");
 				paramList.add(maxnum);
 			}
 			if (isStay != null && !"".equals(isStay.trim())) {
-				sql.append(" and room_isStay=? ");
+				sql.append(" and room_is_stay=? ");
 				paramList.add(isStay);
 			}
 
@@ -272,4 +273,6 @@ public class DBRoom extends DBUtil {
 
 		return returnValue;
 	}
+
+	
 }
