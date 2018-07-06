@@ -5,41 +5,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import team.hotel.domain.FinancialReport;
+import team.hotel.domain.RoomReview;
 
 /**
-* @author Suqiao Lin
-* @version 创建时间：2018年7月6日
-* 数据库-财务报表
-*/
-public class DBFinancialReport extends DBUtil{
-
-	List<FinancialReport> financialReportList = new ArrayList<FinancialReport>();
+ * @author Suqiao Lin
+ * @version 创建时间：2018年7月6日 数据库-客户评价
+ */
+public class DBRoomReview extends DBUtil {
+	List<RoomReview> RoomReviewList = new ArrayList<RoomReview>();
 	DBPrint printer = new DBPrint();
 
-	// 读取所有财务报表信息
-	public List<FinancialReport> FinancialReportRead() {
-		financialReportList.clear();
+	// 读取所有客户评价信息
+	public List<RoomReview> RoomReviewRead() {
+		RoomReviewList.clear();
 
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "CALL proc_selectAll('financial_report',@state)";
+		String sql = "CALL proc_selectAll('room_review',@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintReadSQL("FinancialReport", sql);// printer输出
+			printer.PrintReadSQL("RoomReview", sql);// printer输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Short id = rs.getShort(1);
-				Short todayIncome = rs.getShort(2);
-				Short todayExpend = rs.getShort(3);
-				Date date=rs.getDate(4);
-				FinancialReport financialReport = new FinancialReport(id, todayIncome,todayExpend,date);
-				financialReportList.add(financialReport);
+				String roomNum= rs.getString(2);
+				Short guestid = rs.getShort(3);
+				Byte score = rs.getByte(4);
+				String comment=rs.getString(5);
+				String photo=rs.getString(6);
+			
+				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -68,32 +68,33 @@ public class DBFinancialReport extends DBUtil{
 				}
 			}
 		}
-		return financialReportList;
+		return RoomReviewList;
 	}
 
-	// 查询财务报表——日期
-	public List<FinancialReport> FinancialReportList(String date) {
-		financialReportList.clear();
+	// 查询客户评价——房间
+	public List<RoomReview> RoomReviewList(String roomnum) {
+		RoomReviewList.clear();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 
-		String sql = "CALL proc_select('" + date+ "',@state)";
+		String sql = "CALL proc_review_select('" + roomnum + "',@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintSeleteSQL("FinancialReport" ,sql);
-			
+			printer.PrintSeleteSQL("RoomReview", sql);
+
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Short id = rs.getShort(1);
-				Short finIncome = rs.getShort(2);
-				Short finExpend = rs.getShort(3);
-				Date finDate=rs.getDate(4);
+				String roomNum= rs.getString(2);
+				Short guestid = rs.getShort(3);
+				Byte score = rs.getByte(4);
+				String comment=rs.getString(5);
+				String photo=rs.getString(6);
 			
-
-				FinancialReport fin = new FinancialReport(id,finIncome,finExpend,finDate);
-				financialReportList.add(fin);
+				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -122,14 +123,13 @@ public class DBFinancialReport extends DBUtil{
 				}
 			}
 		}
-		return financialReportList;
+		return RoomReviewList;
 	}
 
-	// 更新财务报表信息
-	public boolean FinancialReportUpdate(String id,String income,String expend,String date) {
-		String sql = "CALL proc_financialReportUpdate(" + id + "," + income+ "," + expend+ ",'"
-				+ date+ "',@state)";
-		printer.PrintUpdateSQL("FinancialReport", sql);
+	// 更新客户评价信息
+	public boolean RoomReviewUpdate(String id, String income, String expend, String date) {
+		String sql = "CALL proc_RoomReviewUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
+		printer.PrintUpdateSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -143,7 +143,7 @@ public class DBFinancialReport extends DBUtil{
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateFinancialReportSuccess")) {
+				if (state.equals("updateRoomReviewSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -180,10 +180,10 @@ public class DBFinancialReport extends DBUtil{
 		return returnValue;
 	}
 
-	// 删除财务报表——根据财务报表编号
-	public boolean FinancialReportDelete(String financialReportid) {
-		String sql = "CALL proc_financialReportDel( '" + financialReportid + "',@state)";
-		printer.PrintDelSQL("FinancialReport", sql);
+	// 删除客户评价——根据客户评价编号
+	public boolean RoomReviewDelete(String RoomReviewid) {
+		String sql = "CALL proc_RoomReviewDel( '" + RoomReviewid + "',@state)";
+		printer.PrintDelSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -196,7 +196,7 @@ public class DBFinancialReport extends DBUtil{
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("delFinancialReportSuccess")) {
+				if (state.equals("delRoomReviewSuccess")) {
 					returnValue = true;
 					break;
 				}

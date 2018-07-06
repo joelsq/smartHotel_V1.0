@@ -15,15 +15,16 @@ public class RoomReview implements Serializable{
 
 	private Short reviewId;
 
-    private Short reviewRoomId;
+    private String reviewRoomNum;
 
     private Short reviewGuestId;
 
     private Byte reviewScore;
 
+    private String reviewComment;
+    
     private String reviewPhoto;
 
-    private String reviewComment;
 
     public Short getReviewId() {
         return reviewId;
@@ -31,14 +32,6 @@ public class RoomReview implements Serializable{
 
     public void setReviewId(Short reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public Short getReviewRoomId() {
-        return reviewRoomId;
-    }
-
-    public void setReviewRoomId(Short reviewRoomId) {
-        this.reviewRoomId = reviewRoomId;
     }
 
     public Short getReviewGuestId() {
@@ -73,11 +66,30 @@ public class RoomReview implements Serializable{
         this.reviewComment = reviewComment == null ? null : reviewComment.trim();
     }
 
+	public String getReviewRoomNum() {
+		return reviewRoomNum;
+	}
+
+	public void setReviewRoomNum(String reviewRoomNum) {
+		this.reviewRoomNum = reviewRoomNum;
+	}
+
 	@Override
 	public String toString() {
-		return "RoomReview [reviewId=" + reviewId + ", reviewRoomId=" + reviewRoomId + ", reviewGuestId="
-				+ reviewGuestId + ", reviewScore=" + reviewScore + ", reviewPhoto=" + reviewPhoto + ", reviewComment="
-				+ reviewComment + "]";
+		return "RoomReview [reviewId=" + reviewId + ", reviewRoomNum=" + reviewRoomNum + ", reviewGuestId="
+				+ reviewGuestId + ", reviewScore=" + reviewScore + ", reviewComment=" + reviewComment + ", reviewPhoto="
+				+ reviewPhoto + "]";
+	}
+
+	public RoomReview(Short reviewId, String reviewRoomNum, Short reviewGuestId, Byte reviewScore, String reviewComment,
+			String reviewPhoto) {
+		super();
+		this.reviewId = reviewId;
+		this.reviewRoomNum = reviewRoomNum;
+		this.reviewGuestId = reviewGuestId;
+		this.reviewScore = reviewScore;
+		this.reviewComment = reviewComment;
+		this.reviewPhoto = reviewPhoto;
 	}
     
     
