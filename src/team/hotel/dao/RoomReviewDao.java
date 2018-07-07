@@ -13,10 +13,9 @@ import team.hotel.domain.RoomReview;
  * @author Suqiao Lin
  * @version 创建时间：2018年7月6日 数据库-客户评价
  */
-public class DBRoomReview extends DBUtil {
+public class RoomReviewDao extends DBUtil {
 	List<RoomReview> RoomReviewList = new ArrayList<RoomReview>();
-	DBPrint printer = new DBPrint();
-
+	
 	// 读取所有客户评价信息
 	public List<RoomReview> RoomReviewRead() {
 		RoomReviewList.clear();
@@ -28,7 +27,7 @@ public class DBRoomReview extends DBUtil {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintReadSQL("RoomReview", sql);// printer输出
+			DBPrint.PrintReadSQL("RoomReview", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				Short id = rs.getShort(1);
@@ -82,7 +81,7 @@ public class DBRoomReview extends DBUtil {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintSeleteSQL("RoomReview", sql);
+			DBPrint.PrintSeleteSQL("RoomReview", sql);
 
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -129,7 +128,7 @@ public class DBRoomReview extends DBUtil {
 	// 更新客户评价信息
 	public boolean RoomReviewUpdate(String id, String income, String expend, String date) {
 		String sql = "CALL proc_RoomReviewUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
-		printer.PrintUpdateSQL("RoomReview", sql);
+		DBPrint.PrintUpdateSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -183,7 +182,7 @@ public class DBRoomReview extends DBUtil {
 	// 删除客户评价——根据客户评价编号
 	public boolean RoomReviewDelete(String RoomReviewid) {
 		String sql = "CALL proc_RoomReviewDel( '" + RoomReviewid + "',@state)";
-		printer.PrintDelSQL("RoomReview", sql);
+		DBPrint.PrintDelSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;

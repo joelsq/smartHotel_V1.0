@@ -1,7 +1,6 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,20 +8,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import team.hotel.domain.User;
+import team.hotel.domain.FinancialReport;
 
 /**
- * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 数据库-user
- */
-public class DBUser extends DBUtil {
+* @author Suqiao Lin
+* @version 创建时间：2018年7月6日
+* 数据库-财务报表
+*/
+public class FinancialReportDao extends DBUtil{
 
-	List<User> userList = new ArrayList<User>();
-	DBPrint printer = new DBPrint();
+	List<FinancialReport> financialReportList = new ArrayList<FinancialReport>();
 
-	// 读取所有用户信息
-	public List<User> UserRead() {
-		userList.clear();
+	// 读取所有财务报表信息
+	public List<FinancialReport> FinancialReportRead() {
+		financialReportList.clear();
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -31,19 +30,15 @@ public class DBUser extends DBUtil {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintReadSQL("User", sql);// printer输出
+			DBPrint.PrintReadSQL("FinancialReport", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
-				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
-				String userLastIP = rs.getString(7);
-
-				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				userList.add(user);
+				Short id = rs.getShort(1);
+				Short todayIncome = rs.getShort(2);
+				Short todayExpend = rs.getShort(3);
+				Date date=rs.getDate(4);
+				FinancialReport financialReport = new FinancialReport(id, todayIncome,todayExpend,date);
+				financialReportList.add(financialReport);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -72,50 +67,32 @@ public class DBUser extends DBUtil {
 				}
 			}
 		}
-		return userList;
+		return financialReportList;
 	}
 
-	// 查询用户——自定义语句
-	public List<User> UserSelect(String Name,String auth) {
-		userList.clear();
+	// 查询财务报表——日期
+	public List<FinancialReport> FinancialReportList(String date) {
+		financialReportList.clear();
 		Connection conn = null;
+		Statement stmt = null;
 		ResultSet rs = null;
-		PreparedStatement ptmt = null;
+
+		String sql = "CALL proc_select('" + date+ "',@state)";
 		try {
 			conn = getConnection();
-			System.out.println("准备 筛选数据库User表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM user   where 1=1 ");
-			List<String> paramList = new ArrayList<String>();
-
-			if (Name != null && !"".equals(Name.trim())) {
-				sql.append(" and user_name like '%' ? '%' ");
-				paramList.add(Name);
-			}
-			if (auth != null && !"".equals(auth.trim())) {
-				sql.append(" and user_authority=? ");
-				paramList.add(auth);
-			}
+			stmt = conn.createStatement();
+			DBPrint.PrintSeleteSQL("FinancialReport" ,sql);
 			
-			ptmt = conn.prepareStatement(sql.toString());
-			for (int i = 0; i < paramList.size(); i++) {
-				ptmt.setString(i + 1, paramList.get(i));
-				System.out.println(paramList.get(i));
-			}
-
-			printer.PrintSQL("User", ptmt.toString());
-
-			rs = ptmt.executeQuery();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
-				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
-				String userLastIP = rs.getString(7);
+				Short id = rs.getShort(1);
+				Short finIncome = rs.getShort(2);
+				Short finExpend = rs.getShort(3);
+				Date finDate=rs.getDate(4);
+			
 
-				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				userList.add(user);
+				FinancialReport fin = new FinancialReport(id,finIncome,finExpend,finDate);
+				financialReportList.add(fin);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -129,9 +106,9 @@ public class DBUser extends DBUtil {
 					e.printStackTrace();
 				}
 			}
-			if (ptmt != null) {
+			if (stmt != null) {
 				try {
-					ptmt.close();
+					stmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -144,15 +121,14 @@ public class DBUser extends DBUtil {
 				}
 			}
 		}
-		return userList;
+		return financialReportList;
 	}
 
-	// 更新用户信息
-	public boolean UserUpdate(Short userId, String userName, String userPassword,
-			int credit, String auth, Date LastVisit, String LastIp) {
-		String sql = "CALL proc_userUpdate(," + userId + ",'" + userName + "','" + 
-			userPassword + "'," + credit + ",'"+ auth+"','" +LastVisit + "','" + LastIp+ "',@state)";
-		printer.PrintUpdateSQL("User", sql);
+	// 更新财务报表信息
+	public boolean FinancialReportUpdate(String id,String income,String expend,String date) {
+		String sql = "CALL proc_financialReportUpdate(" + id + "," + income+ "," + expend+ ",'"
+				+ date+ "',@state)";
+		DBPrint.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -166,7 +142,7 @@ public class DBUser extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateUserSuccess")) {
+				if (state.equals("updateFinancialReportSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -203,10 +179,10 @@ public class DBUser extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除用户——根据用户编号
-	public boolean UserDelete(String userId) {
-		String sql = "CALL proc_userDel( '" + userId + "',@state)";
-		printer.PrintDelSQL("User", sql);
+	// 删除财务报表——根据财务报表编号
+	public boolean FinancialReportDelete(String financialReportid) {
+		String sql = "CALL proc_financialReportDel( '" + financialReportid + "',@state)";
+		DBPrint.PrintDelSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -219,7 +195,7 @@ public class DBUser extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("delUserSuccess")) {
+				if (state.equals("delFinancialReportSuccess")) {
 					returnValue = true;
 					break;
 				}

@@ -14,10 +14,9 @@ import team.hotel.domain.Room;
  * @author Suqiao Lin
  * @version 创建时间：2018年7月6日 数据库-房间
  */
-public class DBRoom extends DBUtil {
+public class RoomDao extends DBUtil {
 
 	List<Room> roomList = new ArrayList<Room>();
-	DBPrint printer=new DBPrint();
 	
 	// 读取所有房间信息
 	public List<Room> readRoom() {
@@ -34,19 +33,19 @@ public class DBRoom extends DBUtil {
 			System.out.println("执行的sql语句=" + sql);
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Short id = rs.getShort("room_id");
+				Integer id = Integer.getInteger(rs.getString("room_id"));
 				String roomNum = rs.getString("room_num");
 				String roomType = rs.getString("room_type");
-				Byte roomArea = rs.getByte("room_area");
-				Byte roomMaxnumOfPeople = rs.getByte("room_maxnum_of_people");
-				Short roomPrice = rs.getShort("room_price");
+				Integer area= Integer.getInteger(rs.getString("room_area"));
+				Integer maxnum = Integer.getInteger(rs.getString("room_maxnum_of_people"));
+				Integer price = Integer.getInteger(rs.getString("room_price"));
 				Byte roomAircondition = rs.getByte("room_aircondition");
 				Byte roomTV = rs.getByte("room_aircondition");
 				Byte roomWifi = rs.getByte("room_wifi");
 				Byte roomWashroom = rs.getByte("room_washroom");
 				Byte roomIsStay = rs.getByte("room_is_stay");
 
-				Room room = new Room(id, roomNum, roomType, roomArea, roomMaxnumOfPeople, roomPrice, roomAircondition,
+				Room room = new Room(id, roomNum, roomType, area, maxnum, price, roomAircondition,
 						roomTV, roomWifi, roomWashroom, roomIsStay);
 				roomList.add(room);
 			}
@@ -117,23 +116,23 @@ public class DBRoom extends DBUtil {
 				System.out.println(paramList.get(i));
 			}
 
-			printer.PrintSQL("Room", ptmt.toString());
+			DBPrint.PrintSQL("Room", ptmt.toString());
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Short id = rs.getShort("room_id");
+				Integer id = Integer.getInteger(rs.getString("room_id"));
 				String roomNum = rs.getString("room_num");
 				String roomType = rs.getString("room_type");
-				Byte roomArea = rs.getByte("room_area");
-				Byte roomMaxnumOfPeople = rs.getByte("room_maxnum_of_people");
-				Short roomPrice = rs.getShort("room_price");
+				Integer area= Integer.getInteger(rs.getString("room_area"));
+				Integer maxNum = Integer.getInteger(rs.getString("room_maxnum_of_people"));
+				Integer price = Integer.getInteger(rs.getString("room_price"));
 				Byte roomAircondition = rs.getByte("room_aircondition");
 				Byte roomTV = rs.getByte("room_aircondition");
 				Byte roomWifi = rs.getByte("room_wifi");
 				Byte roomWashroom = rs.getByte("room_washroom");
 				Byte roomIsStay = rs.getByte("room_is_stay");
 
-				Room room = new Room(id, roomNum, roomType, roomArea, roomMaxnumOfPeople, roomPrice, roomAircondition,
+				Room room = new Room(id, roomNum, roomType, area, maxNum, price, roomAircondition,
 						roomTV, roomWifi, roomWashroom, roomIsStay);
 				roomList.add(room);
 			}

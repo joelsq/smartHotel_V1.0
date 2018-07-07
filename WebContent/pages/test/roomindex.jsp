@@ -25,7 +25,7 @@
 	<h3 class="text-center">Room Select 测试 Good Luck</h3>
 
 
-	<form action="<%=request.getContextPath()%>/RoomServlet" id="RoomForm"
+	<form action="<%=request.getContextPath()%>/RoomSelect" id="RoomForm"
 		method="post">
 		<!-- 查询输入栏 -->
 		<table class="tab1">

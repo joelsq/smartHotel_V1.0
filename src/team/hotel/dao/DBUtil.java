@@ -1,12 +1,87 @@
 package team.hotel.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import java.sql.SQLException;
 
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月5日 数据库连接
  */
 public class DBUtil {
+	/*
+	public static final String DRIVER = "com.mysql.jdbc.Driver";
+	public static final String URL = "jdbc:mysql://localhost:3306/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	public static final String USER = "root";
+	public static final String PASSWORD = "root";
+ 
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+ 
+	public void getConnection() {
+		try {
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+ 
+	public int executeUpdate(String sql, Object... obj) {
+		int num = 0;
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i < obj.length; i++) {
+				pstmt.setObject(i + 1, obj[i]);
+			}
+			num = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll();
+		}
+		return num;
+	}
+ 
+	public ResultSet executeQuery(String sql, Object... obj) {
+		getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i < obj.length; i++) {
+				pstmt.setObject(i + 1, obj[i]);
+			}
+			rs = pstmt.executeQuery();
+			DBPrint.PrintSQL(pstmt.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+ 
+	public void closeAll() {
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+*/
 	boolean bInited = false;
 
 	// 加载驱动，连接数据库
@@ -30,5 +105,5 @@ public class DBUtil {
 		// 后面的2个参数分别是登陆用户名和密码
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
 		return conn;
-	}
+	}	
 }
