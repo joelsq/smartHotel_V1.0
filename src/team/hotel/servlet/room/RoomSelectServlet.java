@@ -56,7 +56,7 @@ public class RoomSelectServlet extends HttpServlet {
 		request.setAttribute("roomList", DB.RoomList(roomNum, roomType, maxnum, isStay));
 		
 		// 向页面跳转(刷新页面)
-		request.getRequestDispatcher("pages/test/room.jsp").forward(request, response);
+		request.getRequestDispatcher("pages/test/roomSelect.jsp").forward(request, response);
 		}
 
 	/**

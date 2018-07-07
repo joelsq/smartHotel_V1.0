@@ -17,7 +17,7 @@ import team.hotel.domain.Room;
 public class RoomDao extends DBUtil {
 
 	List<Room> roomList = new ArrayList<Room>();
-	
+
 	// 读取所有房间信息
 	public List<Room> readRoom() {
 		roomList.clear();
@@ -25,28 +25,27 @@ public class RoomDao extends DBUtil {
 		Statement stmt = null;
 		ResultSet rs = null;
 
-		String sql = "CALL proc_select(NULL,@state)";
+		String sql = "CALL proc_roomSelect(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			System.out.println("准备读取数据库room表数据");
-			System.out.println("执行的sql语句=" + sql);
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Integer id = Integer.getInteger(rs.getString("room_id"));
+				String id = rs.getString("room_id");
 				String roomNum = rs.getString("room_num");
 				String roomType = rs.getString("room_type");
-				Integer area= Integer.getInteger(rs.getString("room_area"));
-				Integer maxnum = Integer.getInteger(rs.getString("room_maxnum_of_people"));
-				Integer price = Integer.getInteger(rs.getString("room_price"));
-				Byte roomAircondition = rs.getByte("room_aircondition");
-				Byte roomTV = rs.getByte("room_aircondition");
-				Byte roomWifi = rs.getByte("room_wifi");
-				Byte roomWashroom = rs.getByte("room_washroom");
-				Byte roomIsStay = rs.getByte("room_is_stay");
+				String area = rs.getString("room_area");
+				String maxnum = rs.getString("room_maxnum_of_people");
+				String price = rs.getString("room_price");
+				String roomAircondition = rs.getString("room_aircondition");
+				String roomTV = rs.getString("room_aircondition");
+				String roomWifi = rs.getString("room_wifi");
+				String roomWashroom = rs.getString("room_washroom");
+				String roomIsStay = rs.getString("room_is_stay");
 
-				Room room = new Room(id, roomNum, roomType, area, maxnum, price, roomAircondition,
-						roomTV, roomWifi, roomWashroom, roomIsStay);
+				Room room = new Room(id, roomNum, roomType, area, maxnum, price, roomAircondition, roomTV, roomWifi,
+						roomWashroom, roomIsStay);
+				System.out.println(room.toString());
 				roomList.add(room);
 			}
 		} catch (ClassNotFoundException e) {
@@ -80,7 +79,7 @@ public class RoomDao extends DBUtil {
 	}
 
 	// 查询房间——混杂查询
-	public List<Room> RoomList(String room_num,String type,String maxnum,String isStay) {
+	public List<Room> RoomList(String room_num, String type, String maxnum, String isStay) {
 		roomList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -90,7 +89,7 @@ public class RoomDao extends DBUtil {
 			conn = getConnection();
 
 			System.out.println("准备 筛选数据库Room表 数据");
-			System.out.println("参数："+room_num+","+type+","+maxnum+","+isStay);
+			System.out.println("参数：" + room_num + "," + type + "," + maxnum + "," + isStay);
 			StringBuilder sql = new StringBuilder(" SELECT * FROM room where 1=1");
 			List<String> paramList = new ArrayList<String>();
 			if (room_num != null && !"".equals(room_num.trim())) {
@@ -120,20 +119,20 @@ public class RoomDao extends DBUtil {
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Integer id = Integer.getInteger(rs.getString("room_id"));
+				String id = rs.getString("room_id");
 				String roomNum = rs.getString("room_num");
 				String roomType = rs.getString("room_type");
-				Integer area= Integer.getInteger(rs.getString("room_area"));
-				Integer maxNum = Integer.getInteger(rs.getString("room_maxnum_of_people"));
-				Integer price = Integer.getInteger(rs.getString("room_price"));
-				Byte roomAircondition = rs.getByte("room_aircondition");
-				Byte roomTV = rs.getByte("room_aircondition");
-				Byte roomWifi = rs.getByte("room_wifi");
-				Byte roomWashroom = rs.getByte("room_washroom");
-				Byte roomIsStay = rs.getByte("room_is_stay");
+				String area = rs.getString("room_area");
+				String maxNum = rs.getString("room_maxnum_of_people");
+				String price = rs.getString("room_price");
+				String roomAircondition = rs.getString("room_aircondition");
+				String roomTV = rs.getString("room_aircondition");
+				String roomWifi = rs.getString("room_wifi");
+				String roomWashroom = rs.getString("room_washroom");
+				String roomIsStay = rs.getString("room_is_stay");
 
-				Room room = new Room(id, roomNum, roomType, area, maxNum, price, roomAircondition,
-						roomTV, roomWifi, roomWashroom, roomIsStay);
+				Room room = new Room(id, roomNum, roomType, area, maxNum, price, roomAircondition, roomTV, roomWifi,
+						roomWashroom, roomIsStay);
 				roomList.add(room);
 			}
 		} catch (ClassNotFoundException e) {
@@ -160,8 +159,9 @@ public class RoomDao extends DBUtil {
 	}
 
 	// 更新房间信息
-	public boolean RoomUpdate(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople,
-			Short roomPrice, Byte roomAircondition, Byte roomTV, Byte roomWifi, Byte roomWashroom, Byte roomIsStay) {
+	public boolean RoomUpdate(String roomId, String roomNum, String roomType, String roomArea,
+			String roomMaxnumOfPeople, String roomPrice, String roomAircondition, String roomTV, String roomWifi,
+			String roomWashroom, String roomIsStay) {
 		String sql = "CALL proc_roomUpdate(," + roomId + ",'" + roomNum + "','" + roomType + "'," + roomArea + ","
 				+ roomMaxnumOfPeople + "," + roomPrice + "," + roomAircondition + "," + roomTV + "," + roomWifi + ","
 				+ roomWashroom + "," + roomIsStay + ",@state)";
@@ -273,5 +273,61 @@ public class RoomDao extends DBUtil {
 		return returnValue;
 	}
 
-	
+	// 新增房间
+	public boolean RoomAdd(String roomId, String roomNum, String roomType, String roomArea, String roomMaxnumOfPeople,
+			String roomPrice, String roomAircondition, String roomTV, String roomWifi, String roomWashroom,
+			String roomIsStay) {
+		String sql = "CALL proc_roomAdd('" + roomNum + "','" + roomType + "'," + roomArea + ","
+				+ roomMaxnumOfPeople + "," + roomPrice + "," + roomAircondition + "," + roomTV + "," + roomWifi + ","
+				+ roomWashroom + "," + roomIsStay + ",@state)";
+		System.out.println("新增房间的sql语句=" + sql);
+		boolean returnValue = false;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			System.out.println("准备 更新房间信息 到数据库");
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				String state = rs.getString(1);
+				if (state.equals("addRoomSuccess")) {
+					returnValue = true;
+					break;
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
 }

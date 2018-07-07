@@ -22,69 +22,80 @@
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h3 class="text-center">Room Select 测试 Good Luck</h3>
-
-
-	<form action="<%=request.getContextPath()%>/RoomSelect" id="RoomForm"
-		method="post">
-		<!-- 查询输入栏 -->
+	<h3 class="text-center">Room 增删查改 测试 Good Luck</h3>
+	
+	<!-- 新增房间 -->
+	<form action="<%=request.getContextPath()%>/RoomServlet?method=add"
+		id="RoomForm" method="post">
+		<!-- 输入栏 -->
 		<table class="tab1">
 			<tbody>
 				<tr>
-					<td width="60" align="right">房间编号</td>
+					<td align="justify">房间编号</td>
 					<td><input name="roomNum" type="text" class="allInput"
 						value="${roomNum}" /></td>
 
-					<td width="60" align="right">房间类型</td>
+					<td align="justify">房间类型</td>
 					<td><input name="roomType" type="text" class="allInput"
 						value="${roomType}" /></td>
 
-					<td width="60" align="right">房间可容纳人数</td>
+					<td align="justify">房间可容纳人数</td>
 					<td><input name="roomMaxnumOfPeople" type="text"
 						class="allInput" value="${roomMaxnumOfPeople}" /></td>
 
-					<td width="60" align="right">是否入住</td>
-					<td><input name="roomIsStay" type="text" class="allInput"
-						value="${roomIsStay}" /></td>
+					<td align="justify">面积</td>
+					<td><input name="roomArea" type="text" class="allInput"
+						value="${roomArea}" /></td>
 
-					<td width="85" align="right">
-						<button type="submit" class="tabSub" value="查 询">查询</button>
+					<td align="justify">价格</td>
+					<td><input name="roomPrice" type="text" class="allInput"
+						value="${roomPrice}" /></td>
+					<td align="justify">
+						<button type="submit" class="tabSub" value="新增">新增</button>
 				</tr>
 			</tbody>
 		</table>
-		<br>
-		<!-- 查询结果 -->
-		<div class="zixun fix">
-			<table class="tab2" width="100%">
-				<tbody>
-				<!-- 表格首行 -->
-					<tr>
-						<th><input type="checkbox" id="all" onclick="#" /></th>
-						<th>序号</th>
-						<th>房间编号</th>
-						<th>房间类型</th>
-						<th>可容纳人数</th>
-						<th>是否入住</th>
-					</tr>
-					<!-- 表格主体，显示查询结果 -->
-					<c:forEach items="${roomList}" var="room" varStatus="status">
-						<tr
-							<c:if test="${status.index % 2!= 0}">style="background-color:#81DAF5;"</c:if>>
-							<td><input type="checkbox" /></td>
-							<td>${status.index+1}</td>
-							<td>${room.roomNum}</td>
-							<td>${room.roomType}</td>
-							<td>${room.roomMaxnumOfPeople}</td>
-							<td>${room.roomIsStay}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-
-		</div>
 	</form>
 
-
+	<!-- 查询房间 -->
+	
+	<h3>所有房间</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>房间编号</th>
+				<th>类型</th>
+				<th>可容纳人数</th>
+				<th>是否入住</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<%
+			RoomDao db = new RoomDao();
+			List<Room> list = db.readRoom();
+			int state = 1;
+			for (Room room : list) {
+		%>
+		<tbody>
+			<tr>
+				<td><%=state++%></td>
+				<td><%=room.getRoomNum()%></td>
+				<td><%=room.getRoomType()%></td>
+				<td><%=room.getRoomMaxnumOfPeople()%></td>
+				<td><%=room.getRoomIsStay()%></td>
+				<td><a
+					href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=<%=room.getRoomNum()%>">详细</a>
+					<a
+					href="<%=request.getContextPath()%>/RoomServlet?method=update&num=<%=room.getRoomNum()%>">修改</a>
+					<a
+					href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=<%=room.getRoomNum()%>"
+					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
+			</tr>
+		</tbody>
+		<%
+			}
+		%>
+	</table>
 </body>
-
 </html>

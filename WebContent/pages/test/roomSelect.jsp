@@ -12,52 +12,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Good servelt</title>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link
-	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>房间查询</title>
 </head>
 <body>
-	<h3 class="text-center">Room Select 测试 Good Luck</h3>
 
-
-	<form action="<%=request.getContextPath()%>/RoomServlet" id="RoomForm"
+	<!-- 房间查询 -->
+	<form action="<%=request.getContextPath()%>/RoomSelect" id="RoomForm"
 		method="post">
 		<!-- 查询输入栏 -->
 		<table class="tab1">
 			<tbody>
 				<tr>
-					<td width="60" align="right">房间编号</td>
+					<td align="justify">房间编号</td>
 					<td><input name="roomNum" type="text" class="allInput"
 						value="${roomNum}" /></td>
 
-					<td width="60" align="right">房间类型</td>
+					<td align="justify">房间类型</td>
 					<td><input name="roomType" type="text" class="allInput"
 						value="${roomType}" /></td>
 
-					<td width="60" align="right">房间可容纳人数</td>
+					<td align="justify">房间可容纳人数</td>
 					<td><input name="roomMaxnumOfPeople" type="text"
 						class="allInput" value="${roomMaxnumOfPeople}" /></td>
 
-					<td width="60" align="right">是否入住</td>
+					<td align="justify">是否入住</td>
 					<td><input name="roomIsStay" type="text" class="allInput"
 						value="${roomIsStay}" /></td>
 
-					<td width="85" align="right">
+					<td align="justify">
 						<button type="submit" class="tabSub" value="查 询">查询</button>
 				</tr>
 			</tbody>
 		</table>
 		<br>
 		<!-- 查询结果 -->
-		<div class="zixun fix">
-			<table class="tab2" width="100%">
+		<div class="">
+			<table class="tab2" width="50%">
 				<tbody>
-				<!-- 表格首行 -->
+					<!-- 表格首行 -->
 					<tr>
 						<th><input type="checkbox" id="all" onclick="#" /></th>
 						<th>序号</th>
@@ -83,8 +75,5 @@
 
 		</div>
 	</form>
-
-
 </body>
-
 </html>
