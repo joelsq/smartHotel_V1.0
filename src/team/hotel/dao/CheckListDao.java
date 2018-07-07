@@ -9,43 +9,46 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import team.hotel.domain.Guest;
+import team.hotel.domain.CheckList;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 数据库-客人
+ * @version 创建时间：2018年7月6日 数据库-入住表
  */
-public class DBGuest extends DBUtil {
+public class CheckListDao extends DBUtil {
 
-	List<Guest> guestList = new ArrayList<Guest>();
-	DBPrint printer = new DBPrint();
+	List<CheckList> checklistList = new ArrayList<CheckList>();
+	DBPrint DBPrint = new DBPrint();
 
-	// 读取所有客人信息
-	public List<Guest> GuestRead() {
-		guestList.clear();
+	// 读取所有入住表信息
+	public List<CheckList> CheckListRead() {
+		checklistList.clear();
 
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "CALL proc_selectAll('guest',@state)";
+		String sql = "CALL proc_select(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintReadSQL("Guest", sql);// printer输出
+			team.hotel.dao.DBPrint.PrintReadSQL("CheckList", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Short id = rs.getShort("guest_id");
-				String guestName = rs.getString("guest_num");
-				String guestPhone = rs.getString("guest_phone");
-				String guestPassword = rs.getString("guest_password");
-				String guestDocNum = rs.getString("guest_document_num");
-				String guestGender = rs.getString("guest_gender");
-				Date guestLastVisit = rs.getDate("guest_last_visit");
-				String guestLastIP = rs.getString("guest_last_ip");
+				Short id = rs.getShort(1);
+				Short guestid = rs.getShort(2);
+				String guestphone = rs.getString(3);
+				Short roomid = rs.getShort(4);
+				Date checkinDate = rs.getDate(5);
+				Short checkDays = rs.getShort(6);
+				Date checkoutDate = rs.getDate(7);
+				String checkMealType = rs.getString(8);
+				Byte checkNumofPeople = rs.getByte(9);
+				Byte checkRoomConsume = rs.getByte(10);
+				Byte checkTotalConsume = rs.getByte(11);
 
-				Guest guest = new Guest(id, guestName, guestPhone, guestPassword, guestDocNum, guestGender,
-						guestLastVisit, guestLastIP);
-				guestList.add(guest);
+				CheckList checklist = new CheckList(id, guestid, guestphone, roomid, checkinDate, checkDays,
+						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
+				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -74,12 +77,12 @@ public class DBGuest extends DBUtil {
 				}
 			}
 		}
-		return guestList;
+		return checklistList;
 	}
 
-	// 查询客人——自定义语句
-	public List<Guest> GuestSelect(Short guestId, String Name, String Phone, String docNum, String gender) {
-		guestList.clear();
+	// 查询入住表——自定义语句
+	public List<CheckList> CheckListSelect(String guestId, String Phone, String docNum, String gender) {
+		checklistList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
 		PreparedStatement ptmt = null;
@@ -87,12 +90,16 @@ public class DBGuest extends DBUtil {
 
 			conn = getConnection();
 
-			System.out.println("准备 筛选数据库Guest表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM guest   where 1=1 ");
+			System.out.println("准备 筛选数据库CheckList表 数据");
+			StringBuilder sql = new StringBuilder(
+					"SELECT checklist_id, guest_id, guest_phone,guest_name,guest_gender,room_id,room_num,check_in_date,"
+							+ "check_in_date,check_days,check_out_date,check_meal_type,check_num_of_people,check_room_consume,check_total_consume"
+							+ "FROM checklist LEFT JOIN `guest` ON `check_guest_id`=`guest_id`"
+							+ "LEFT JOIN room ON `check_room_id`=`room_id` WHERE 1=1;");
 			List<String> paramList = new ArrayList<String>();
-			if (Name != null && !"".equals(Name.trim())) {
-				sql.append(" and guest_name like '%' ? '%' ");
-				paramList.add(Name);
+			if (guestId != null && !"".equals(guestId.trim())) {
+				sql.append(" and check_guest_id like '%' ? '%' ");
+				paramList.add(guestId);
 			}
 			if (Phone != null && !"".equals(Phone.trim())) {
 				sql.append(" and guest_phone=? ");
@@ -113,22 +120,25 @@ public class DBGuest extends DBUtil {
 				System.out.println(paramList.get(i));
 			}
 
-			printer.PrintSQL("Guest", ptmt.toString());
+			team.hotel.dao.DBPrint.PrintSQL("CheckList", ptmt.toString());
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Short id = rs.getShort("guest_id");
-				String guestName = rs.getString("guest_Name");
-				String guestPhone = rs.getString("guest_phone");
-				String guestPassword = rs.getString("guest_password");
-				String guestDocNum = rs.getString("guest_document_num");
-				String guestGender = rs.getString("guest_gender");
-				Date guestLastVisit = rs.getDate("guest_last_visit");
-				String guestLastIP = rs.getString("guest_last_ip");
+				Short id = rs.getShort(1);
+				Short guestid = rs.getShort(2);
+				String guestphone = rs.getString(3);
+				Short roomid = rs.getShort(4);
+				Date checkinDate = rs.getDate(5);
+				Short checkDays = rs.getShort(6);
+				Date checkoutDate = rs.getDate(7);
+				String checkMealType = rs.getString(8);
+				Byte checkNumofPeople = rs.getByte(9);
+				Byte checkRoomConsume = rs.getByte(10);
+				Byte checkTotalConsume = rs.getByte(11);
 
-				Guest guest = new Guest(id, guestName, guestPhone, guestPassword, guestDocNum, guestGender,
-						guestLastVisit, guestLastIP);
-				guestList.add(guest);
+				CheckList checklist = new CheckList(id, guestid, guestphone, roomid, checkinDate, checkDays,
+						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
+				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -157,15 +167,16 @@ public class DBGuest extends DBUtil {
 				}
 			}
 		}
-		return guestList;
+		return checklistList;
 	}
 
-	// 更新客人信息
-	public boolean GuestUpdate(Short guestId, String guestName, String guestPhone, String guestPassword,
-			String guestDocumentNum, String guestGender, Date gusetLastVisit, String gusetLastIp) {
-		String sql = "CALL proc_guestUpdate(," + guestId + ",'" + guestName + "','" + guestPhone + "','" + guestPassword
-				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
-		printer.PrintUpdateSQL("Guest", sql);
+	// 更新入住表信息
+	public boolean CheckListUpdate(String id, String guestid, String roomid, String checkinDate, String Days,
+			String checkoutDate, String mealType, String numOfPeople, String roomConsume, String totalConsume) {
+		String sql = "CALL proc_checklistUpdate(" + id + "," + guestid + "," + roomid + ",'" + checkinDate + "'," + Days
+				+ ",'" + checkoutDate + "','" + mealType + "','" + "','" + numOfPeople + "," + roomConsume + ","
+				+ totalConsume + ",@state)";
+		team.hotel.dao.DBPrint.PrintUpdateSQL("CheckList", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -179,7 +190,7 @@ public class DBGuest extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateGuestSuccess")) {
+				if (state.equals("updateCheckListSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -216,10 +227,10 @@ public class DBGuest extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除客人——根据客人编号
-	public boolean GuestDelete(String guestName) {
-		String sql = "CALL proc_guestDel( '" + guestName + "',@state)";
-		printer.PrintDelSQL("Guest", sql);
+	// 删除入住表——根据入住表编号
+	public boolean CheckListDelete(String checklistid) {
+		String sql = "CALL proc_checklistDel( '" + checklistid + "',@state)";
+		team.hotel.dao.DBPrint.PrintDelSQL("CheckList", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -232,7 +243,7 @@ public class DBGuest extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("delGuestSuccess")) {
+				if (state.equals("delCheckListSuccess")) {
 					returnValue = true;
 					break;
 				}

@@ -1,49 +1,44 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import team.hotel.domain.User;
+import team.hotel.domain.RoomReview;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 数据库-user
+ * @version 创建时间：2018年7月6日 数据库-客户评价
  */
-public class DBUser extends DBUtil {
-
-	List<User> userList = new ArrayList<User>();
-	DBPrint printer = new DBPrint();
-
-	// 读取所有用户信息
-	public List<User> UserRead() {
-		userList.clear();
+public class RoomReviewDao extends DBUtil {
+	List<RoomReview> RoomReviewList = new ArrayList<RoomReview>();
+	
+	// 读取所有客户评价信息
+	public List<RoomReview> RoomReviewRead() {
+		RoomReviewList.clear();
 
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "CALL proc_selectAll('user',@state)";
+		String sql = "CALL proc_select(NULL,@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			printer.PrintReadSQL("User", sql);// printer输出
+			DBPrint.PrintReadSQL("RoomReview", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
-				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
-				String userLastIP = rs.getString(7);
-
-				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				userList.add(user);
+				Short id = rs.getShort(1);
+				String roomNum= rs.getString(2);
+				Short guestid = rs.getShort(3);
+				Byte score = rs.getByte(4);
+				String comment=rs.getString(5);
+				String photo=rs.getString(6);
+			
+				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -72,50 +67,33 @@ public class DBUser extends DBUtil {
 				}
 			}
 		}
-		return userList;
+		return RoomReviewList;
 	}
 
-	// 查询用户——自定义语句
-	public List<User> UserSelect(String Name,String auth) {
-		userList.clear();
+	// 查询客户评价——房间
+	public List<RoomReview> RoomReviewList(String roomnum) {
+		RoomReviewList.clear();
 		Connection conn = null;
+		Statement stmt = null;
 		ResultSet rs = null;
-		PreparedStatement ptmt = null;
+
+		String sql = "CALL proc_review_select('" + roomnum + "',@state)";
 		try {
 			conn = getConnection();
-			System.out.println("准备 筛选数据库User表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM user   where 1=1 ");
-			List<String> paramList = new ArrayList<String>();
+			stmt = conn.createStatement();
+			DBPrint.PrintSeleteSQL("RoomReview", sql);
 
-			if (Name != null && !"".equals(Name.trim())) {
-				sql.append(" and user_name like '%' ? '%' ");
-				paramList.add(Name);
-			}
-			if (auth != null && !"".equals(auth.trim())) {
-				sql.append(" and user_authority=? ");
-				paramList.add(auth);
-			}
-			
-			ptmt = conn.prepareStatement(sql.toString());
-			for (int i = 0; i < paramList.size(); i++) {
-				ptmt.setString(i + 1, paramList.get(i));
-				System.out.println(paramList.get(i));
-			}
-
-			printer.PrintSQL("User", ptmt.toString());
-
-			rs = ptmt.executeQuery();
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
-				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
-				String userLastIP = rs.getString(7);
-
-				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				userList.add(user);
+				Short id = rs.getShort(1);
+				String roomNum= rs.getString(2);
+				Short guestid = rs.getShort(3);
+				Byte score = rs.getByte(4);
+				String comment=rs.getString(5);
+				String photo=rs.getString(6);
+			
+				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -129,9 +107,9 @@ public class DBUser extends DBUtil {
 					e.printStackTrace();
 				}
 			}
-			if (ptmt != null) {
+			if (stmt != null) {
 				try {
-					ptmt.close();
+					stmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -144,15 +122,13 @@ public class DBUser extends DBUtil {
 				}
 			}
 		}
-		return userList;
+		return RoomReviewList;
 	}
 
-	// 更新用户信息
-	public boolean UserUpdate(Short userId, String userName, String userPassword,
-			int credit, String auth, Date LastVisit, String LastIp) {
-		String sql = "CALL proc_userUpdate(," + userId + ",'" + userName + "','" + 
-			userPassword + "'," + credit + ",'"+ auth+"','" +LastVisit + "','" + LastIp+ "',@state)";
-		printer.PrintUpdateSQL("User", sql);
+	// 更新客户评价信息
+	public boolean RoomReviewUpdate(String id, String income, String expend, String date) {
+		String sql = "CALL proc_RoomReviewUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
+		DBPrint.PrintUpdateSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -166,7 +142,7 @@ public class DBUser extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateUserSuccess")) {
+				if (state.equals("updateRoomReviewSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -203,10 +179,10 @@ public class DBUser extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除用户——根据用户编号
-	public boolean UserDelete(String userId) {
-		String sql = "CALL proc_userDel( '" + userId + "',@state)";
-		printer.PrintDelSQL("User", sql);
+	// 删除客户评价——根据客户评价编号
+	public boolean RoomReviewDelete(String RoomReviewid) {
+		String sql = "CALL proc_RoomReviewDel( '" + RoomReviewid + "',@state)";
+		DBPrint.PrintDelSQL("RoomReview", sql);
 		boolean returnValue = false;
 		Connection conn = null;
 		Statement stmt = null;
@@ -219,7 +195,7 @@ public class DBUser extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("delUserSuccess")) {
+				if (state.equals("delRoomReviewSuccess")) {
 					returnValue = true;
 					break;
 				}

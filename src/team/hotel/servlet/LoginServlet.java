@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import team.hotel.dao.DBLogin;
+import team.hotel.dao.LoginDao;
 
 /**
  * Servlet implementation class LoginServlet
@@ -31,28 +31,36 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String adminName = request.getParameter("adminName");// 取得用户名
 		String password = request.getParameter("password");// 取得密码
-		DBLogin db = new DBLogin();// 构建数据库对象
-		//boolean canLogin = db.loginSuccess(adminName, password);
-		
-		String loginState=(String) db.loginSuccess(adminName, password);
+		LoginDao db = new LoginDao();// 构建数据库对象
+		// boolean canLogin = db.loginSuccess(adminName, password);
 
-		if (loginState.equalsIgnoreCase("loginManager")){//实现根据不同权限登陆，跳转不同页面
-			System.out.println("manager登录成功！");
-			response.sendRedirect("pages/manager/managerHome.jsp");
-		} 
-		else if(loginState.equalsIgnoreCase("loginUser"))
-		{
-			System.out.println("user登录成功！");
-			response.sendRedirect("pages/user/userHome.jsp");
-		}
-		else if(loginState.equalsIgnoreCase("loginGuest")){
-			System.out.println("guest登录成功！");
-			response.sendRedirect("pages/guest/guestHome.jsp");
-		}
-		else {
-			System.out.println("登录失败！");
-			response.sendRedirect("login.jsp?error=yes");
-		}
-}
+		String loginState;
+		try {
+			loginState = (String) db.loginSuccess(adminName, password);
 
+			if (loginState.equalsIgnoreCase("loginManager")) {// 实现根据不同权限登陆，跳转不同页面
+				System.out.println("manager登录成功！");
+				response.sendRedirect("pages/manager/managerHome.jsp");
+			} else if (loginState.equalsIgnoreCase("loginUser")) {
+				System.out.println("user登录成功！");
+				response.sendRedirect("pages/user/userHome.jsp");
+			} else if (loginState.equalsIgnoreCase("loginGuest")) {
+				System.out.println("guest登录成功！");
+				response.sendRedirect("pages/guest/guestHome.jsp");
+			} 
+			/********* 测试页面************/
+			else if (loginState.equalsIgnoreCase("test")) {
+				System.out.println("test登录成功！");
+				response.sendRedirect("pages/test/roomindex.jsp");
+			}
+			/********* 测试页面************/
+			else {
+				System.out.println("登录失败！");
+				response.sendRedirect("login.jsp?error=yes");
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

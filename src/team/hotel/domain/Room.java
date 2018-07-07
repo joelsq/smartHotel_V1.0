@@ -1,118 +1,124 @@
 package team.hotel.domain;
+
 import java.io.Serializable;
+
 /**
-* @author Suqiao Lin
-* @version 创建时间：2018年7月5日
-* 房间实体
-*/
-public class Room implements Serializable{
-    /**
+ * @author Suqiao Lin
+ * @version 创建时间：2018年7月5日 房间实体
+ */
+public class Room implements Serializable {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Short roomId;
-	
+	private String roomId;
+
 	private String roomNum;
-	
-    private String roomType;
 
-    private Byte roomArea;
+	private String roomType;
 
-    private Byte roomMaxnumOfPeople;
+	private String roomArea;
 
-    private Short roomPrice;
+	private String roomMaxnumOfPeople;
 
-    private Byte roomAircondition;
+	private String roomPrice;
 
-    private Byte roomTV;
+	private String roomAircondition;
 
-    private Byte roomWifi;
+	private String roomTV;
 
-    private Byte roomWashroom;
+	private String roomWifi;
 
-    private Byte roomIsStay;
+	private String roomWashroom;
 
-    public Short getRoomId() {
-        return roomId;
-    }
+	private String roomIsStay;
 
-    public void setRoomId(Short roomId) {
-        this.roomId = roomId;
-    }
+	public String getRoomId() {
+		return roomId;
+	}
 
-    public String getRoomType() {
-        return roomType;
-    }
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
+	}
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType == null ? null : roomType.trim();
-    }
+	public String getRoomType() {
+		return roomType;
+	}
 
-    public Byte getRoomArea() {
-        return roomArea;
-    }
+	public void setRoomType(String roomType) {
+		this.roomType = roomType == null ? null : roomType.trim();
+	}
 
-    public void setRoomArea(Byte roomArea) {
-        this.roomArea = roomArea;
-    }
+	public String getRoomArea() {
+		return roomArea;
+	}
 
-    public Byte getRoomMaxnumOfPeople() {
-        return roomMaxnumOfPeople;
-    }
+	public void setRoomArea(String roomArea) {
+		this.roomArea = roomArea;
+	}
 
-    public void setRoomMaxnumOfPeople(Byte roomMaxnumOfPeople) {
-        this.roomMaxnumOfPeople = roomMaxnumOfPeople;
-    }
+	public String getRoomMaxnumOfPeople() {
+		return roomMaxnumOfPeople;
+	}
 
-    public Short getRoomPrice() {
-        return roomPrice;
-    }
+	public void setRoomMaxnumOfPeople(String roomMaxnumOfPeople) {
+		this.roomMaxnumOfPeople = roomMaxnumOfPeople;
+	}
 
-    public void setRoomPrice(Short roomPrice) {
-        this.roomPrice = roomPrice;
-    }
+	public String getRoomPrice() {
+		return roomPrice;
+	}
 
-    public Byte getRoomAircondition() {
-        return roomAircondition;
-    }
+	public void setRoomPrice(String roomPrice) {
+		this.roomPrice = roomPrice;
+	}
 
-    public void setRoomAircondition(Byte roomAircondition) {
-        this.roomAircondition = roomAircondition;
-    }
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    public Byte getRoomTV() {
-        return roomTV;
-    }
+	public String getRoomAircondition() {
+		return roomAircondition;
+	}
 
-    public void setRoomTV(Byte roomTV) {
-        this.roomTV = roomTV;
-    }
+	public void setRoomAircondition(String roomAircondition) {
+		this.roomAircondition = roomAircondition;
+	}
 
-    public Byte getRoomWifi() {
-        return roomWifi;
-    }
+	public String getRoomTV() {
+		return roomTV;
+	}
 
-    public void setRoomWifi(Byte roomWifi) {
-        this.roomWifi = roomWifi;
-    }
+	public void setRoomTV(String roomTV) {
+		this.roomTV = roomTV;
+	}
 
-    public Byte getRoomWashroom() {
-        return roomWashroom;
-    }
+	public String getRoomWifi() {
+		return roomWifi;
+	}
 
-    public void setRoomWashroom(Byte roomWashroom) {
-        this.roomWashroom = roomWashroom;
-    }
+	public void setRoomWifi(String roomWifi) {
+		this.roomWifi = roomWifi;
+	}
 
-    public Byte getRoomIsStay() {
-        return roomIsStay;
-    }
+	public String getRoomWashroom() {
+		return roomWashroom;
+	}
 
-    public void setRoomIsStay(Byte roomIsStay) {
-        this.roomIsStay = roomIsStay;
-    }
-    public String getRoomNum() {
+	public void setRoomWashroom(String roomWashroom) {
+		this.roomWashroom = roomWashroom;
+	}
+
+	public String getRoomIsStay() {
+		return roomIsStay;
+	}
+
+	public void setRoomIsStay(String roomIsStay) {
+		this.roomIsStay = roomIsStay;
+	}
+
+	public String getRoomNum() {
 		return roomNum;
 	}
 
@@ -128,15 +134,15 @@ public class Room implements Serializable{
 				+ ", roomIsStay=" + roomIsStay + "]";
 	}
 
-	public Room(Short roomId, String roomNum, String roomType, Byte roomArea, Byte roomMaxnumOfPeople, Short roomPrice,
-			Byte roomAircondition, Byte roomTV, Byte roomWifi, Byte roomWashroom, Byte roomIsStay) {
+	public Room(String id, String roomNum, String roomType, String area, String maxnum, String price,
+			String roomAircondition, String roomTV, String roomWifi, String roomWashroom, String roomIsStay) {
 		super();
-		this.roomId = roomId;
+		this.roomId = id;
 		this.roomNum = roomNum;
 		this.roomType = roomType;
-		this.roomArea = roomArea;
-		this.roomMaxnumOfPeople = roomMaxnumOfPeople;
-		this.roomPrice = roomPrice;
+		this.roomArea = area;
+		this.roomMaxnumOfPeople = maxnum;
+		this.roomPrice = price;
 		this.roomAircondition = roomAircondition;
 		this.roomTV = roomTV;
 		this.roomWifi = roomWifi;
@@ -144,7 +150,4 @@ public class Room implements Serializable{
 		this.roomIsStay = roomIsStay;
 	}
 
-
-	
-    
 }

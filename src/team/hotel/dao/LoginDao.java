@@ -1,23 +1,47 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 
- * 数据库-登录系统
+ * @version 创建时间：2018年7月6日 数据库-登录系统
  */
-public class DBLogin extends DBUtil {
+public class LoginDao {
 
-	// 管理人员登录验证
-	public String loginSuccess(String Name, String password) {
+	boolean bInited = false;
+
+	// 加载驱动，连接数据库
+	public void initJDBC() throws ClassNotFoundException {
+		// 加载MYSQL JDBC驱动程序
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		bInited = true;
+		System.out.println("Success loading Mysql Driver!");
+	}
+
+	// 用户名和密码登录数据库
+	public Connection getConnection() throws ClassNotFoundException, SQLException {
+		if (!bInited) {
+			initJDBC();
+		}
+		// 连接URL为 jdbc:mysql//服务器地址/数据库名
+		// 后面的2个参数分别是登陆用户名和密码
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
+		return conn;
+	}
+
+	public String loginSuccess(String Name, String password) throws ClassNotFoundException {
 		String returnValue = "loginInit";
 		// 调用数据库的proc_login_au存储过程
 		String sql = "CALL proc_login_au('" + Name + "','" + password + "',@state)";
-		
+
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -29,10 +53,9 @@ public class DBLogin extends DBUtil {
 			stmt.executeQuery(sql);
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
+				System.out.println("loginReturn=" + returnValue);
 				returnValue = rs.getString(1);
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
