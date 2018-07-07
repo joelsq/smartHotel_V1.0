@@ -8,18 +8,13 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Good servelt</title>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link
-	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<base href="<%=basePath%>">
 </head>
 <body>
 	<h3 class="text-center">Room 增删查改 测试 Good Luck</h3>
@@ -107,11 +102,11 @@
 				<td>${data.getRoomMaxnumOfPeople()}</td>
 				<td>${data.getRoomIsStay()}</td>
 				<td><a
-					href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
+					href="RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a> 
 					<a
-					href="<%=request.getContextPath()%>/RoomServlet?method=update&num=${data.getRoomNum()}">修改</a>
-					<a
-					href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
+					href="RoomServlet?method=updateBefore&num=${data.getRoomNum()}">更新</a>
+					<a 
+					href="RoomServlet?method=delete&num=${data.getRoomNum()}"
 					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
 			</tr>
 		</c:forEach>
