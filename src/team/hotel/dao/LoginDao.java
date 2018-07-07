@@ -11,8 +11,10 @@ import java.sql.Statement;
  * @version 创建时间：2018年7月6日 数据库-登录系统
  */
 public class LoginDao {
-
 	boolean bInited = false;
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
 
 	// 加载驱动，连接数据库
 	public void initJDBC() throws ClassNotFoundException {
@@ -26,7 +28,7 @@ public class LoginDao {
 		System.out.println("Success loading Mysql Driver!");
 	}
 
-	// 用户名和密码登录数据库
+	// 连接数据库
 	public Connection getConnection() throws ClassNotFoundException, SQLException {
 		if (!bInited) {
 			initJDBC();
@@ -37,15 +39,11 @@ public class LoginDao {
 		return conn;
 	}
 
+	// 用户登录
 	public String loginSuccess(String Name, String password) throws ClassNotFoundException {
 		String returnValue = "loginInit";
 		// 调用数据库的proc_login_au存储过程
 		String sql = "CALL proc_login_au('" + Name + "','" + password + "',@state)";
-
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
@@ -63,19 +61,23 @@ public class LoginDao {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+					e.printStackTrace();
+				}
 			}
 			if (stmt != null) {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					/* ignored */}
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -83,4 +85,48 @@ public class LoginDao {
 
 	}
 
+	// 用户注册
+	public String Register(String Name, String pw1, String pw2) throws ClassNotFoundException {
+		String returnValue = "registerInit";
+		// 调用数据库的proc_register存储过程
+		String sql = "CALL proc_register('" + Name + "','" + pw1 + "','" + pw2 + "',@state)";
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			DBPrint.PrintSQL("User", sql);
+
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				System.out.println("registerReturn=" + returnValue);
+				returnValue = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
 }

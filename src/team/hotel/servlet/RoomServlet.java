@@ -51,25 +51,19 @@ public class RoomServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		RoomDao db = new RoomDao();
 
-		String method = request.getParameter("method");
+		String method = request.getParameter("method");//请求的操作
 		if (method == null || method.equals("")) {
 			method = "index";
 		}
 
-		/**
-		 * room主页
-		 */
+		/******************* 主页index ******************/
 		if (method.endsWith("index")) {
 			List<Room> roomlist = db.readRoom();
 			session.setAttribute("roomlist", roomlist);
 			response.sendRedirect("pages/test/roomindex.jsp");
-			// request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request,
-			// response);
 			return;
 		}
-		/**
-		 * 增加
-		 */
+		/******************* 添加 ******************/
 		else if (method.endsWith("add")) {
 			String roomNum = request.getParameter("roomNum");
 			String roomType = request.getParameter("roomType");
@@ -84,9 +78,7 @@ public class RoomServlet extends HttpServlet {
 				out.print("<script>alert('编号重复，新增失败!');window.location='RoomServlet?method=index';</script>");
 			return;
 		}
-		/**
-		 * 查询
-		 */
+		/******************* 查询 ******************/
 		else if (method.endsWith("select")) {
 			System.out.println("进入RoomSelect");
 			// 接受表单内容
@@ -100,21 +92,17 @@ public class RoomServlet extends HttpServlet {
 			// 向页面跳转(刷新页面)
 			request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
 		}
-		/*
-		 * 更新跳转
-		 */
+		/*******************更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
 			String num = request.getParameter("num");
-			System.out.println("edit处理中！房间编号为："+num);
+			System.out.println("edit处理中！房间编号为：" + num);
 			List<Room> room = db.RoomList(num, null, null, null);
 			System.out.println(room.get(0));
 			session.setAttribute("updateRoom", room.get(0));// 传到页面的实体，用于提取当前的值
 			response.sendRedirect("pages/test/roomUpdate.jsp");
 			return;
-		} 
-		/*
-		 * 更新
-		 */
+		}
+		/******************* 更新操作 ******************/
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
 			String roomNum = request.getParameter("roomNum");
@@ -122,17 +110,16 @@ public class RoomServlet extends HttpServlet {
 			String roomArea = request.getParameter("roomArea");
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String roomPrice = request.getParameter("roomPrice");
-			boolean canUpdate = db.RoomUpdate( null,roomNum, roomType,roomArea, maxnum, roomPrice,null, null, null, null,"0");
-			 if (canUpdate) {// 根据登陆情况，跳转页面
-			 out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index';</script>");
-			 } else {
-			 out.print("<script>alert('修改失败！');window.location='RoomServlet?method=index';</script>");
-			 }
+			boolean canUpdate = db.RoomUpdate(null, roomNum, roomType, roomArea, maxnum, roomPrice, null, null, null,
+					null, "0");
+			if (canUpdate) {// 根据登陆情况，跳转页面
+				out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index';</script>");
+			} else {
+				out.print("<script>alert('修改失败！');window.location='RoomServlet?method=index';</script>");
+			}
 			return;
 		}
-		/**
-		 * 删除
-		 */
+		/******************* 删除******************/
 		else if (method.endsWith("delete")) {
 			String num = request.getParameter("num");
 			boolean success = db.RoomDelete(num);
