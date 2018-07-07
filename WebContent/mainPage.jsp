@@ -6,8 +6,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Smart Hotel</title>
-        <!-- 新 Bootstrap 核心 CSS 文件 -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/media/css/mainPageStyle.css">
+		
+        <!-- 新 Bootstrap 核心 CSS 文件 -->
         <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
          
         <!-- 可选的Bootstrap主题文件（一般不使用） -->

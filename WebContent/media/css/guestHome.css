@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+.contain{
+    width:1000px;
+    height:600px;
+    margin:50px auto;
+}
+.bgimg{
+    float: left;
+    width:600px;
+}
+.bgimg > img{
+    width:600px;
+    height:400px;
+}
+.ordermMessage{
+    float: right;
+    width:380px;
+}
+.ordermMessage > .ordernav{
+    background-color: #337ab7;
+    color:#fff;
+    height:40px;
+    line-height: 40px;
+    text-indent: 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+table{
+    margin-left: 10px;
+}
+td{
+    width:400px;
+    height:40px;
+}
+.btn{
+    background-color: #337ab7;
+    border:none;
+    color:#fff;
+    text-align:center;
+}
+tr:last-child{
+    text-align:center;
+}
