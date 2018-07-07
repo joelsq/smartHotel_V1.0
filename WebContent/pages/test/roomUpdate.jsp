@@ -20,14 +20,11 @@
 	<h3>更新房间信息</h3>
 	<form action="RoomServlet?method=update" method="post">
 		编号<input readonly name="roomNum" value="${updateRoom.getRoomNum()}">
-		<br> 
-		类型<input name="roomType"
-			value="${updateRoom.getRoomType() }"> <br> 
-		面积<input
+		<br> 类型<input name="roomType"
+			value="${updateRoom.getRoomType() }"> <br> 面积<input
 			name="roomArea" value="${updateRoom.getRoomArea() }"> <br>
 		最大可容纳人数<input name="roomMaxnumOfPeople"
-			value="${updateRoom.getRoomMaxnumOfPeople()}"> <br> 
-		价格<input
+			value="${updateRoom.getRoomMaxnumOfPeople()}"> <br> 价格<input
 			name="roomPrice" value="${updateRoom.getRoomPrice()}"> <br>
 		空调<input type="checkbox" name="checkbox1"
 			value="${updateRoom.getRoomAircondition()}"> 电视<input

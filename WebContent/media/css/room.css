@@ -1,21 +1,25 @@
-.nav{
-    height:30px;
-    background-color:#0e4685;
-    border-radius: 16px;
+.nav {
+	height: 30px;
+	background-color: #0e4685;
+	border-radius: 16px;
 }
-.roomTex{
-    line-height: 30px;
+
+.roomTex {
+	line-height: 30px;
 }
-.order{
-    margin:60px 0 0 0;
+
+.order {
+	margin: 60px 0 0 0;
 }
-.order > .order_item{
-    margin:30px 0;
+
+.order>.order_item {
+	margin: 30px 0;
 }
-button{
-    float: right;
-    width:100px;
-    height:30px;
-    background: #58a71f;
-    border:none;
+
+button {
+	float: right;
+	width: 100px;
+	height: 30px;
+	background: #58a71f;
+	border: none;
 }

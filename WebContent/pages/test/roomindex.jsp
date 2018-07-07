@@ -102,11 +102,9 @@
 				<td>${data.getRoomMaxnumOfPeople()}</td>
 				<td>${data.getRoomIsStay()}</td>
 				<td><a
-					href="RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a> 
-					<a
+					href="RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a> <a
 					href="RoomServlet?method=updateBefore&num=${data.getRoomNum()}">更新</a>
-					<a 
-					href="RoomServlet?method=delete&num=${data.getRoomNum()}"
+					<a href="RoomServlet?method=delete&num=${data.getRoomNum()}"
 					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
 			</tr>
 		</c:forEach>
