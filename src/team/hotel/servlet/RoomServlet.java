@@ -77,10 +77,11 @@ public class RoomServlet extends HttpServlet {
 			String area = request.getParameter("roomArea");
 			String price = request.getParameter("roomPrice");
 			boolean success = db.RoomAdd(null, roomNum, roomType, area, maxnum, price, null, null, null, null, "0");
+			System.out.println("新增房间：" + success);
 			if (success)
-				out.print("<script>alert('新增成功!');window.location='RoomServlet?method=index'</script>");
+				out.print("<script>alert('新增成功!');window.location='RoomServlet?method=index';</script>");
 			else
-				out.print("<script>alert('新增失败!');window.location='RoomServlet?method=index</script>");
+				out.print("<script>alert('编号重复，新增失败!');window.location='RoomServlet?method=index';</script>");
 			return;
 		}
 		/**
@@ -98,25 +99,35 @@ public class RoomServlet extends HttpServlet {
 			request.setAttribute("roomlist", db.RoomList(roomNum, roomType, maxnum, isStay));
 			// 向页面跳转(刷新页面)
 			request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
-		
 		}
+		/*
+		 * 更新跳转
+		 */
+		else if (method.endsWith("updateBefore")) {
+			String num = request.getParameter("num");
+			System.out.println("edit处理中！房间编号为："+num);
+			List<Room> room = db.RoomList(num, null, null, null);
+			System.out.println(room.get(0));
+			session.setAttribute("updateRoom", room.get(0));// 传到页面的实体，用于提取当前的值
+			response.sendRedirect("pages/test/roomUpdate.jsp");
+			return;
+		} 
 		/*
 		 * 更新
 		 */
 		else if (method.endsWith("update")) {
-			System.out.println("updateRoom表单数据处理中！");
-			String type = request.getParameter("roomType");
-			String area = request.getParameter("roomArea");
-			String maxnum = request.getParameter("roomMaxnum");
-			String price = request.getParameter("roomPrice");
-			String isStay = request.getParameter("roomIsStay");
-
-			boolean canUpdate = db.RoomUpdate(null, null, type, area, maxnum, price, null, null, null, null, isStay);
-			if (canUpdate) {// 根据登陆情况，跳转页面
-				out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index'</script>");
-			} else {
-				out.print("<script>alert('修改失败！');window.location='RoomServlet?method=index'</script>");
-			}
+			System.out.println("update处理中！");
+			String roomNum = request.getParameter("roomNum");
+			String roomType = request.getParameter("roomType");
+			String roomArea = request.getParameter("roomArea");
+			String maxnum = request.getParameter("roomMaxnumOfPeople");
+			String roomPrice = request.getParameter("roomPrice");
+			boolean canUpdate = db.RoomUpdate( null,roomNum, roomType,roomArea, maxnum, roomPrice,null, null, null, null,"0");
+			 if (canUpdate) {// 根据登陆情况，跳转页面
+			 out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index';</script>");
+			 } else {
+			 out.print("<script>alert('修改失败！');window.location='RoomServlet?method=index';</script>");
+			 }
 			return;
 		}
 		/**

@@ -13,39 +13,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>房间更新</title>
+<base href="<%=basePath%>">
 </head>
 <body>
 	<!-- 新增房间 -->
-	<form action="<%=request.getContextPath()%>/RoomServlet?method=update"
-		id="RoomForm" method="post">
-		<!-- 输入栏 -->
-		<table class="tab1">
-			<tbody>
-				<tr>
-					<td align="justify">房间编号</td>
-					<td><input name="roomNum" type="text" class="allInput"
-						value="${roomNum}" /></td>
-
-					<td align="justify">房间类型</td>
-					<td><input name="roomType" type="text" class="allInput"
-						value="${roomType}" /></td>
-
-					<td align="justify">房间可容纳人数</td>
-					<td><input name="roomMaxnumOfPeople" type="text"
-						class="allInput" value="${roomMaxnumOfPeople}" /></td>
-
-					<td align="justify">面积</td>
-					<td><input name="roomArea" type="text" class="allInput"
-						value="${roomArea}" /></td>
-
-					<td align="justify">价格</td>
-					<td><input name="roomPrice" type="text" class="allInput"
-						value="${roomPrice}" /></td>
-					<td align="justify">
-						<button type="submit" class="tabSub" value="update">修改</button>
-				</tr>
-			</tbody>
-		</table>
+	<h3>更新房间信息</h3>
+	<form action="RoomServlet?method=update" method="post">
+		编号<input readonly name="roomNum" value="${updateRoom.getRoomNum()}">
+		<br> 
+		类型<input name="roomType"
+			value="${updateRoom.getRoomType() }"> <br> 
+		面积<input
+			name="roomArea" value="${updateRoom.getRoomArea() }"> <br>
+		最大可容纳人数<input name="roomMaxnumOfPeople"
+			value="${updateRoom.getRoomMaxnumOfPeople()}"> <br> 
+		价格<input
+			name="roomPrice" value="${updateRoom.getRoomPrice()}"> <br>
+		空调<input type="checkbox" name="checkbox1"
+			value="${updateRoom.getRoomAircondition()}"> 电视<input
+			type="checkbox" name="checkbox2" value="${updateRoom.getRoomTV()}">
+		Wifi<input type="checkbox" name="checkbox3"
+			value="${updateRoom.getRoomWifi()}"> 浴室<input type="checkbox"
+			name="checkbox4" value="${updateRoom.getRoomWashroom()}"> <br>
+		<button type="submit" class="tabSub" value="update">更新</button>
 	</form>
+
 </body>
 </html>
