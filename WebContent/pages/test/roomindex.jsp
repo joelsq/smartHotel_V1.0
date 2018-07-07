@@ -23,7 +23,7 @@
 </head>
 <body>
 	<h3 class="text-center">Room 增删查改 测试 Good Luck</h3>
-	
+
 	<!-- 新增房间 -->
 	<form action="<%=request.getContextPath()%>/RoomServlet?method=add"
 		id="RoomForm" method="post">
@@ -51,16 +51,72 @@
 					<td><input name="roomPrice" type="text" class="allInput"
 						value="${roomPrice}" /></td>
 					<td align="justify">
-						<button type="submit" class="tabSub" value="新增">新增</button>
+						<button type="submit" class="tabSub" value="add">新增</button>
 				</tr>
 			</tbody>
 		</table>
 	</form>
 
+
 	<!-- 查询房间 -->
-	
 	<h3>所有房间</h3>
-	<table class="table">
+	<!-- 房间查询 -->
+	<form action="<%=request.getContextPath()%>/RoomServlet?method=select"
+		id="RoomForm" method="post">
+		<!-- 查询输入栏 -->
+		<table class="tab2">
+			<tbody>
+				<tr>
+					<td align="justify">房间编号</td>
+					<td><input name="roomNum" type="text" class="allInput"
+						value="${roomNum}" /></td>
+
+					<td align="justify">房间类型</td>
+					<td><input name="roomType" type="text" class="allInput"
+						value="${roomType}" /></td>
+
+					<td align="justify">房间可容纳人数</td>
+					<td><input name="roomMaxnumOfPeople" type="text"
+						class="allInput" value="${roomMaxnumOfPeople}" /></td>
+
+					<td align="justify">是否入住</td>
+					<td><input name="roomIsStay" type="text" class="allInput"
+						value="${roomIsStay}" /></td>
+
+					<td align="justify">
+						<button type="submit" class="tabSub" value="select">查询</button>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+	<table border="1px">
+		<tr>
+			<th>序号</th>
+			<th>房间编号</th>
+			<th>类型</th>
+			<th>可容纳人数</th>
+			<th>是否入住</th>
+			<th>操作</th>
+		</tr>
+		<c:forEach items="${roomlist}" var="data" varStatus="status">
+			<tr>
+				<td>${status.index+1}</td>
+				<td>${data.getRoomNum()}</td>
+				<td>${data.getRoomType()}</td>
+				<td>${data.getRoomMaxnumOfPeople()}</td>
+				<td>${data.getRoomIsStay()}</td>
+				<td><a
+					href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
+					<a
+					href="<%=request.getContextPath()%>/RoomServlet?method=update&num=${data.getRoomNum()}">修改</a>
+					<a
+					href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
+					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<%-- <table class="table">
 		<thead>
 			<tr>
 				<th>序号</th>
@@ -96,6 +152,6 @@
 		<%
 			}
 		%>
-	</table>
+	</table> --%>
 </body>
 </html>

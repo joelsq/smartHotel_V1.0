@@ -45,7 +45,7 @@ public class RoomDao extends DBUtil {
 
 				Room room = new Room(id, roomNum, roomType, area, maxnum, price, roomAircondition, roomTV, roomWifi,
 						roomWashroom, roomIsStay);
-				System.out.println(room.toString());
+				//System.out.println(room.toString());
 				roomList.add(room);
 			}
 		} catch (ClassNotFoundException e) {
@@ -162,7 +162,7 @@ public class RoomDao extends DBUtil {
 	public boolean RoomUpdate(String roomId, String roomNum, String roomType, String roomArea,
 			String roomMaxnumOfPeople, String roomPrice, String roomAircondition, String roomTV, String roomWifi,
 			String roomWashroom, String roomIsStay) {
-		String sql = "CALL proc_roomUpdate(," + roomId + ",'" + roomNum + "','" + roomType + "'," + roomArea + ","
+		String sql = "CALL proc_roomUpdate(" + roomId + ",'" + roomNum + "','" + roomType + "'," + roomArea + ","
 				+ roomMaxnumOfPeople + "," + roomPrice + "," + roomAircondition + "," + roomTV + "," + roomWifi + ","
 				+ roomWashroom + "," + roomIsStay + ",@state)";
 		System.out.println("更新房间的sql语句=" + sql);

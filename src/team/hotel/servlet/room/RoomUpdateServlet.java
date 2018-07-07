@@ -38,7 +38,6 @@ public class RoomUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		System.out.println("updateRoom表单数据处理中！");
 		request.setCharacterEncoding("UTF-8");

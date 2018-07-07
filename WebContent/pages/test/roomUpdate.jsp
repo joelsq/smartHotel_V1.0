@@ -15,57 +15,37 @@
 <title>房间更新</title>
 </head>
 <body>
-	<div class="col-md-6 column" style="background: #eeeeee">
-		<h4 align="center">更新房间信息</h4>
-		<form action="<%=request.getContextPath()%>/RoomUpdate" method="POST"
-			class="form-horizontal">
-			<div class="form-group">
-				<label for="roomType" class="col-sm-2 control-label">房间类型</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id=""
-						name="roomType" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="update_goods_name" class="col-sm-2 control-label">货物名</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id=""
-						name="update_goods_name" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="update_goods_price" class="col-sm-2 control-label">单价</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="" name="update_price" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="update_goods_quantity" class="col-sm-2 control-label">数量</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id=""
-						name="update_quantity" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="update_owner_id" class="col-sm-2 control-label">货主ID</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id=""
-						name="update_owner_id" />
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="update_warehouse_id" class="col-sm-2 control-label">仓库ID</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id=""
-						name="update_warehouse_id" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-4">
-					<button type="submit" value="提交" class="btn btn-default">提交表单</button>
-				</div>
-			</div>
-		</form>
-	</div>
+	<!-- 新增房间 -->
+	<form action="<%=request.getContextPath()%>/RoomServlet?method=update"
+		id="RoomForm" method="post">
+		<!-- 输入栏 -->
+		<table class="tab1">
+			<tbody>
+				<tr>
+					<td align="justify">房间编号</td>
+					<td><input name="roomNum" type="text" class="allInput"
+						value="${roomNum}" /></td>
+
+					<td align="justify">房间类型</td>
+					<td><input name="roomType" type="text" class="allInput"
+						value="${roomType}" /></td>
+
+					<td align="justify">房间可容纳人数</td>
+					<td><input name="roomMaxnumOfPeople" type="text"
+						class="allInput" value="${roomMaxnumOfPeople}" /></td>
+
+					<td align="justify">面积</td>
+					<td><input name="roomArea" type="text" class="allInput"
+						value="${roomArea}" /></td>
+
+					<td align="justify">价格</td>
+					<td><input name="roomPrice" type="text" class="allInput"
+						value="${roomPrice}" /></td>
+					<td align="justify">
+						<button type="submit" class="tabSub" value="update">修改</button>
+				</tr>
+			</tbody>
+		</table>
+	</form>
 </body>
 </html>

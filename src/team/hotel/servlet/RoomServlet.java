@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,22 +44,33 @@ public class RoomServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String method = request.getParameter("method");
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-
 		RoomDao db = new RoomDao();
 
+		String method = request.getParameter("method");
+		if (method == null || method.equals("")) {
+			method = "index";
+		}
+
+		/**
+		 * room主页
+		 */
+		if (method.endsWith("index")) {
+			List<Room> roomlist = db.readRoom();
+			session.setAttribute("roomlist", roomlist);
+			response.sendRedirect("pages/test/roomindex.jsp");
+			// request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request,
+			// response);
+			return;
+		}
 		/**
 		 * 增加
 		 */
-		if(method.endsWith("index"))
-			request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
-		
-		if (method.endsWith("add")) {
+		else if (method.endsWith("add")) {
 			String roomNum = request.getParameter("roomNum");
 			String roomType = request.getParameter("roomType");
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
@@ -71,8 +81,7 @@ public class RoomServlet extends HttpServlet {
 				out.print("<script>alert('新增成功!');window.location='RoomServlet?method=index'</script>");
 			else
 				out.print("<script>alert('新增失败!');window.location='RoomServlet?method=index</script>");
-			
-			
+			return;
 		}
 		/**
 		 * 查询
@@ -85,26 +94,41 @@ public class RoomServlet extends HttpServlet {
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String isStay = request.getParameter("roomIsStay");
 
-			/*
-			 * 向页面传值 request.setAttribute("roomNum", roomNum);
-			 * request.setAttribute("roomType",roomType);
-			 * request.setAttribute("roomMaxnumOfPeople",roomMaxnumOfPeople);
-			 * request.setAttribute("roomIsStay ",roomIsStay );
-			 */
-			// 业务需要
-			RoomDao DB = new RoomDao();
 			// 查询消息列表并传给页面
-			request.setAttribute("roomList", DB.RoomList(roomNum, roomType, maxnum, isStay));
+			request.setAttribute("roomlist", db.RoomList(roomNum, roomType, maxnum, isStay));
 			// 向页面跳转(刷新页面)
 			request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
-		} else if (method.endsWith("update")) {
+		
+		}
+		/*
+		 * 更新
+		 */
+		else if (method.endsWith("update")) {
+			System.out.println("updateRoom表单数据处理中！");
+			String type = request.getParameter("roomType");
+			String area = request.getParameter("roomArea");
+			String maxnum = request.getParameter("roomMaxnum");
+			String price = request.getParameter("roomPrice");
+			String isStay = request.getParameter("roomIsStay");
 
-			request.getRequestDispatcher("pages/test/roomUpdate.jsp").forward(request, response);
-		} else if (method.endsWith("delete")) {
-			String num = request.getParameter("num");
-			db.RoomDelete(num);
-			out.print("<script>alert('删除成功！');window.location='RoomSerlvet?method=index';</script>");
+			boolean canUpdate = db.RoomUpdate(null, null, type, area, maxnum, price, null, null, null, null, isStay);
+			if (canUpdate) {// 根据登陆情况，跳转页面
+				out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index'</script>");
+			} else {
+				out.print("<script>alert('修改失败！');window.location='RoomServlet?method=index'</script>");
+			}
 			return;
+		}
+		/**
+		 * 删除
+		 */
+		else if (method.endsWith("delete")) {
+			String num = request.getParameter("num");
+			boolean success = db.RoomDelete(num);
+			if (success)
+				out.print("<script>alert('删除成功!');window.location='RoomServlet?method=index'</script>");
+			else
+				out.print("<script>alert('删除失败!');window.location='RoomServlet?method=index</script>");
 		}
 	}
 
