@@ -11,7 +11,7 @@
 .friendLink > .linkContent > dl{
 	width:270px;
 	height:80px;
-	margin:30px 0 0 30px;
+	margin-top:30px;
 }
 .friendLink > .linkContent > dl > dt{
 	line-height: 30px;

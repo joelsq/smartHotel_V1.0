@@ -54,7 +54,7 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img alt="" src="media/image/hotel-home-001.jpg" />
+								<img alt="" src="media/image/mainPage/hotel-home-001.jpg" />
 								<div class="carousel-caption">
 									<h4>
 										First Thumbnail label
@@ -65,7 +65,7 @@
 								</div>
 							</div>
 							<div class="item">
-								<img alt="" src="media/image/hotel-home-002.jpg" />
+								<img alt="" src="media/image/mainPage/hotel-home-002.jpg" />
 								<div class="carousel-caption">
 									<h4>
 										Second Thumbnail label
@@ -76,7 +76,7 @@
 								</div>
 							</div>
 							<div class="item">
-								<img alt="" src="media/image/hotel-home-003.jpg" />
+								<img alt="" src="media/image/mainPage/hotel-home-003.jpg" />
 								<div class="carousel-caption">
 									<h4>
 										Third Thumbnail label
@@ -88,8 +88,66 @@
 							</div>
 						</div> <a class="left carousel-control" href="#carousel-655212" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-655212" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 					</div>
+                    
+                    
+                    
+                    <!-- 房型缩略图 -->
+					<div class="row">
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="media/image/mainPage/room1-1.png" />
+								<div class="caption">
+									<h3>
+										客房
+									</h3>
+									<p>
+										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+									</p>
+									<p>
+										 <a class="btn btn-primary" href="pages/room/room1.jsp">查看详情</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="media/image/mainPage/room2-1.jpg" />
+								<div class="caption">
+									<h3>
+										行政房
+									</h3>
+									<p>
+										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+									</p>
+									<p>
+										 <a class="btn btn-primary" href="pages/room/room2.jsp">查看详情</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="thumbnail">
+								<img alt="300x200" src="media/image/mainPage/room3-1.jpg" />
+								<div class="caption">
+									<h3>
+										总统套房
+									</h3>
+									<p>
+										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+									</p>
+									<p>
+										 <a class="btn btn-primary" href="pages/room/room3.jsp">查看详情</a> 
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>  
                 </div>
             </div>
+            
+            
+            
+         
             
             <!-- 友情链接 -->
             <div class="friendLink">
@@ -124,9 +182,9 @@
 				</div>
 				<div class="linkContent">
 					<dl>
-						<dt><h4>慕淘特色</h4></dt>
-						<dd><a href="#">手机慕淘</a></dd>
-						<dd><a href="#">慕淘信</a></dd>
+						<dt><h4>酒店特色</h4></dt>
+						<dd><a href="#">手机酒店</a></dd>
+						<dd><a href="#">酒店信</a></dd>
 						<dd><a href="#">大众评审</a></dd>
 						<dd><a href="#">B格指南</a></dd>
 					</dl>
@@ -138,7 +196,7 @@
 			<div class="footer">
 				<div class="footerContent">
 					<ul>
-						<li><a href="#">关于慕淘</a></li>
+						<li><a href="#">关于酒店</a></li>
 						<li><a href="#">合作伙伴</a></li>
 						<li><a href="#">廉正举报</a></li>
 						<li><a href="#">联系客服</a></li>
@@ -149,9 +207,10 @@
 						<li><a href="#">法律声明</a></li>
 						<li><a href="#">知识产权</a></li>
 					</ul>
-					<div>&copy; 2016 imooc.com All Rights Reserved</div>
+					<div>&copy; 2016 smartHotel_V1.0.com All Rights Reserved</div>
 				</div>
 			</div>
+
 
             <!--登陆窗口遮罩层-->
             <div class="modal fade" id="modal-container-269755" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
