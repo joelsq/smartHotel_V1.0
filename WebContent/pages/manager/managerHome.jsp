@@ -53,8 +53,9 @@
 	margin-left: 280px;
 	border: none;
 }
-.table{
-	margin-top:30px;
+
+.table {
+	margin-top: 30px;
 }
 </style>
 <link rel="stylesheet"
@@ -69,13 +70,15 @@
 			<div class="col-md-12 column">
 				<div class="tabbable" id="tabs-672275">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#panel-633686" data-toggle="tab">客房标准管理</a>
+						<li class="active"><a href="#panel-room" data-toggle="tab">客房标准管理</a>
 						</li>
-						<li><a href="#panel-314816" data-toggle="tab">酒店信息管理</a></li>
-						<li><a href="#panel-314817" data-toggle="tab">用户管理</a></li>
+						<li><a href="#panel-info" data-toggle="tab">酒店信息管理</a></li>
+						<li><a href="#panel-financial" data-toggle="tab">财务信息</a></li>
+						<li><a href="#panel-user" data-toggle="tab">用户管理</a></li>
 					</ul>
 					<div class="tab-content">
-						<div class="tab-pane active" id="panel-633686">
+						<!-- 第一个tab -->
+						<div class="tab-pane active" id="panel-room">
 							<div class="row clearfix">
 								<div class="col-md-12 column">
 									<div class="list-group">
@@ -172,25 +175,34 @@
 													<form action="RoomServlet?method=update" method="post">
 														<!-- 输入栏 -->
 														<div class="list-group-item">
-															房间编号<input readonly name="roomNum" value="${updateRoom.getRoomNum()}">
+															房间编号<input readonly name="roomNum"
+																value="${updateRoom.getRoomNum()}">
 														</div>
 														<div class="list-group-item">
-															房间类型<input name="roomType" value="${updateRoom.getRoomType() }">
+															房间类型<input name="roomType"
+																value="${updateRoom.getRoomType() }">
 														</div>
 														<div class="list-group-item">
-															面积<input name="roomArea" value="${updateRoom.getRoomArea() }">
+															面积<input name="roomArea"
+																value="${updateRoom.getRoomArea() }">
 														</div>
 														<div class="list-group-item">
-															最大容纳人数<input name="roomMaxnumOfPeople" value="${updateRoom.getRoomMaxnumOfPeople() }">
+															最大容纳人数<input name="roomMaxnumOfPeople"
+																value="${updateRoom.getRoomMaxnumOfPeople() }">
 														</div>
 														<div class="list-group-item">
-															价格<input name="roomPrice" value="${updateRoom.getRoomPrice()}">
+															价格<input name="roomPrice"
+																value="${updateRoom.getRoomPrice()}">
 														</div>
 														<div class="list-group-item">
-															空调<input type="checkbox" name="checkbox1" value="${updateRoom.getRoomAircondition()}"> 
-															电视<input type="checkbox" name="checkbox2" value="${updateRoom.getRoomTV()}">
-															Wifi<input type="checkbox" name="checkbox3" value="${updateRoom.getRoomWifi()}">
-															 浴室<input type="checkbox" name="checkbox4" value="${updateRoom.getRoomWashroom()}"> 
+															空调<input type="checkbox" name="checkbox1"
+																value="${updateRoom.getRoomAircondition()}"> 电视<input
+																type="checkbox" name="checkbox2"
+																value="${updateRoom.getRoomTV()}"> Wifi<input
+																type="checkbox" name="checkbox3"
+																value="${updateRoom.getRoomWifi()}"> 浴室<input
+																type="checkbox" name="checkbox4"
+																value="${updateRoom.getRoomWashroom()}">
 														</div>
 														<div class="list-group-item">
 															<button type="submit" class="tabSub" value="update">更新</button>
@@ -198,20 +210,21 @@
 													</form>
 												</div>
 											</div>
-											
+
 											<table class="table">
-										        <thead>
-										            <tr class="success">
-										                <th>序号</th>
-										                <th>房间编号</th>
-										                <th>类型</th>
-										                <th>可容纳人数</th>
-										                <th>是否入住</th>
-										                <th>操作</th>
-										            </tr>
-										        </thead>
-										        <tbody>
-													<c:forEach items="${roomlist}" var="data" varStatus="status">
+												<thead>
+													<tr class="success">
+														<th>序号</th>
+														<th>房间编号</th>
+														<th>类型</th>
+														<th>可容纳人数</th>
+														<th>是否入住</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${roomlist}" var="data"
+														varStatus="status">
 														<tr>
 															<td>${status.index+1}</td>
 															<td>${data.getRoomNum()}</td>
@@ -220,9 +233,9 @@
 															<td>${data.getRoomIsStay()}</td>
 															<td><a
 																href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
-															<a 	 href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}" 
-															class="btn">	修改</a>
 																<a
+																href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}"
+																class="btn"> 修改</a> <a
 																href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
 																onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
 														</tr>
@@ -234,12 +247,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="panel-314816">
+						<div class="tab-pane" id="panel-info">
+							<p>Howdy, I'm in Section 酒店信息.</p>
 
-							<hr />
 						</div>
-						<div class="tab-pane" id="panel-314817">
-							<p>Howdy, I'm in Section 3.</p>
+						<div class="tab-pane" id="panel-financial">
+							<p>Howdy, I'm in Section 财务信息.</p>
+
+						</div>
+						<div class="tab-pane" id="panel-user">
+							<p>Howdy, I'm in Section 用户信息.</p>
 						</div>
 					</div>
 				</div>
