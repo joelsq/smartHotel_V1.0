@@ -72,8 +72,8 @@ public class GuestServlet extends HttpServlet {
 			String guestPhone = request.getParameter("guestPhone");
 			String docNum = request.getParameter("docNum");
 			String gender = request.getParameter("gender");
-			
-			boolean success = db.;
+			Guest guest=new Guest(null, guestName, guestPhone, null, docNum, gender, null, null);
+			boolean success = db.GuestAdd(guest);
 			System.out.println("新增客人：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='GuestServlet?method=index';</script>");
@@ -86,12 +86,13 @@ public class GuestServlet extends HttpServlet {
 			System.out.println("进入GuestSelect");
 			// 接受表单内容
 			String guestName = request.getParameter("guestName");
-			String guestType = request.getParameter("guestType");
-			String maxphoneNum = request.getParameter("guestMaxphoneNumOfPeople");
-			String isStay = request.getParameter("guestIsStay");
-
+			String phoneNum = request.getParameter("guestphoneNum");
+			String docNum = request.getParameter("guestDocNum");
+			String gender=request.getParameter("gender");
+			Guest guest=new Guest(null, guestName,phoneNum, "123456", docNum,gender,null, null);
+			
 			// 查询消息列表并传给页面
-			request.setAttribute("guestlist", db.GuestList(guestName, guestType, maxphoneNum, isStay));
+			request.setAttribute("guestlist", db.GuestSelect(guest));
 			// 向页面跳转(刷新页面)
 			request.getRequestDispatcher("pages/test/guestindex.jsp").forward(request, response);
 		}
@@ -99,9 +100,10 @@ public class GuestServlet extends HttpServlet {
 		else if (method.endsWith("updateBefore")) {
 			String phoneNum = request.getParameter("phoneNum");
 			System.out.println("edit处理中！客人编号为：" + phoneNum);
-			List<Guest> guest = db.GuestList(phoneNum, null, null, null);
-			System.out.println(guest.get(0));
-			session.setAttribute("updateGuest", guest.get(0));// 传到页面的实体，用于提取当前的值
+			Guest guest=new Guest(null, null,phoneNum, null,null,null,null, null);
+			List<Guest> guestlist = db.GuestSelect(guest);
+			System.out.println(guestlist.get(0));
+			session.setAttribute("updateGuest", guestlist.get(0));// 传到页面的实体，用于提取当前的值
 			response.sendRedirect("pages/test/guestUpdate.jsp");
 			return;
 		}
@@ -109,12 +111,12 @@ public class GuestServlet extends HttpServlet {
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
 			String guestName = request.getParameter("guestName");
-			String guestType = request.getParameter("guestType");
-			String guestArea = request.getParameter("guestArea");
-			String maxphoneNum = request.getParameter("guestMaxphoneNumOfPeople");
-			String guestPrice = request.getParameter("guestPrice");
-			boolean canUpdate = db.GuestUpdate(null, guestName, guestType, guestArea, maxphoneNum, guestPrice, null, null, null,
-					null, "0");
+			String guestPhone = request.getParameter("guestPhone");
+			String docNum = request.getParameter("docNum");
+			String gender = request.getParameter("gender");
+			Guest guest=new Guest(null, guestName, guestPhone, null, docNum, gender, null, null);
+
+			boolean canUpdate = db.GuestUpdate(guest);
 			if (canUpdate) {// 根据登陆情况，跳转页面
 				out.print("<script>alert('修改成功！');window.location='GuestServlet?method=index';</script>");
 			} else {

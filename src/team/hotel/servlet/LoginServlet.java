@@ -33,8 +33,6 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		//HttpSession session = request.getSession();
-		//PrintWriter out = response.getWriter();
 		
 		String method = request.getParameter("method");
 		

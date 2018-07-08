@@ -1,7 +1,5 @@
 package team.hotel.domain;
 
-import java.util.Date;
-
 /**
 * @author Suqiao Lin
 * @version 创建时间：2018年7月5日
@@ -14,7 +12,7 @@ public class Guest implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Short guestId;
+	private String guestId;
 
     private String guestName;
 
@@ -26,15 +24,15 @@ public class Guest implements java.io.Serializable{
 
     private String guestGender;
 
-    private Date gusetLastVisit;
+    private String gusetLastVisit;
 
     private String gusetLastIp;
 
-    public Short getGuestId() {
+    public String getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(Short guestId) {
+    public void setGuestId(String guestId) {
         this.guestId = guestId;
     }
 
@@ -78,11 +76,11 @@ public class Guest implements java.io.Serializable{
         this.guestGender = guestGender == null ? null : guestGender.trim();
     }
 
-    public Date getGusetLastVisit() {
+    public String getGusetLastVisit() {
         return gusetLastVisit;
     }
 
-    public void setGusetLastVisit(Date gusetLastVisit) {
+    public void setGusetLastVisit(String gusetLastVisit) {
         this.gusetLastVisit = gusetLastVisit;
     }
 
@@ -94,8 +92,8 @@ public class Guest implements java.io.Serializable{
         this.gusetLastIp = gusetLastIp == null ? null : gusetLastIp.trim();
     }
 
-	public Guest(Short guestId, String guestName, String guestPhone, String guestPassword, String guestDocumentNum,
-			String guestGender, Date gusetLastVisit, String gusetLastIp) {
+	public Guest(String guestId, String guestName, String guestPhone, String guestPassword, String guestDocumentNum,
+			String guestGender, String gusetLastVisit, String gusetLastIp) {
 		super();
 		this.guestId = guestId;
 		this.guestName = guestName;

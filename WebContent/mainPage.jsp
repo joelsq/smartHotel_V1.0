@@ -3,69 +3,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<<<<<<< HEAD
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Smart Hotel</title>
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/media/css/mainPageStyle.css">
-		
-        <!-- 新 Bootstrap 核心 CSS 文件 -->
-        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-         
-        <!-- 可选的Bootstrap主题文件（一般不使用） -->
-        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-         
-        <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-        <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-         
-        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                	<!-- 导航 -->
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                             <a href="#">首页</a>
-                        </li>
-                        <li>
-                             <a href="#">简介</a>
-                        </li>
-                        <li class="disabled">
-                             <a href="#">信息</a>
-                        </li>
-                        
-                        <ul class="nav navbar-nav navbar-right">
-                          <li> <a id="modal-269755" href="#modal-container-269754" role="button" class="btn" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> 注册</a>
-                          <li><a id="modal-269755" href="#modal-container-269755" role="button" class="btn" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
-                        </ul>
-                    </ul>
-                    
-                    
-                    <!-- 幻灯片 -->
-                    <div class="carousel slide" id="carousel-655212">
-						<ol class="carousel-indicators">
-							<li class="active" data-slide-to="0" data-target="#carousel-655212">
-							</li>
-							<li data-slide-to="1" data-target="#carousel-655212">
-							</li>
-							<li data-slide-to="2" data-target="#carousel-655212">
-							</li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="item active">
-								<img alt="" src="media/image/mainPage/hotel-home-001.jpg" />
-								<div class="carousel-caption">
-									<h4>
-										First Thumbnail label
-									</h4>
-									<p>
-										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-									</p>
-								</div>
-=======
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Smart Hotel</title>
@@ -124,7 +61,6 @@
 								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
 									quam. Donec id elit non mi porta gravida at eget metus. Nullam
 									id dolor id nibh ultricies vehicula ut id elit.</p>
->>>>>>> 550e013a90ee2e8f61052e4deae62c516b48b9a3
 							</div>
 						</div>
 						<div class="item">

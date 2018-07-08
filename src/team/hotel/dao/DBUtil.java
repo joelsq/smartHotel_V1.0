@@ -23,69 +23,68 @@ public class DBUtil {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
- 
-	public void getConnection() {
-		try {
-			Class.forName(DRIVER);
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
- 
-	public int executeUpdate(String sql, Object... obj) {
-		int num = 0;
-		getConnection();
-		try {
-			pstmt = conn.prepareStatement(sql);
-			for (int i = 0; i < obj.length; i++) {
-				pstmt.setObject(i + 1, obj[i]);
-			}
-			num = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll();
-		}
-		return num;
-	}
- 
-	public ResultSet executeQuery(String sql, Object... obj) {
-		getConnection();
-		try {
-			pstmt = conn.prepareStatement(sql);
-			for (int i = 0; i < obj.length; i++) {
-				pstmt.setObject(i + 1, obj[i]);
-			}
-			rs = pstmt.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rs;
-	}
- 
-	public void closeAll() {
-		try {
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+// 
+//	public void getConnection() {
+//		try {
+//			Class.forName(DRIVER);
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+// 
+//	public int executeUpdate(String sql, Object... obj) {
+//		int num = 0;
+//		getConnection();
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			for (int i = 0; i < obj.length; i++) {
+//				pstmt.setObject(i + 1, obj[i]);
+//			}
+//			num = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			closeAll();
+//		}
+//		return num;
+//	}
+// 
+//	public ResultSet executeQuery(String sql, Object... obj) {
+//		getConnection();
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			for (int i = 0; i < obj.length; i++) {
+//				pstmt.setObject(i + 1, obj[i]);
+//			}
+//			rs = pstmt.executeQuery();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return rs;
+//	}
+// 
+//	public void closeAll() {
+//		try {
+//			rs.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			pstmt.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		try {
+//			conn.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 
-/*
 	boolean bInited = false;
 
 	// 加载驱动，连接数据库
@@ -110,5 +109,5 @@ public class DBUtil {
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=false", "root", "root");
 		return conn;
 	}	
-	*/
+	
 }

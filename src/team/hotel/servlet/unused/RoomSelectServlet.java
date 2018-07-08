@@ -1,6 +1,6 @@
 package team.hotel.servlet.unused;
 
-import team.hotel.dao.RoomDao;
+//import team.hotel.dao.RoomDao;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,10 +34,10 @@ public class RoomSelectServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		// 接受表单内容
-		String roomNum = request.getParameter("roomNum");
-		String roomType = request.getParameter("roomType");
-		String maxnum = request.getParameter("roomMaxnumOfPeople");
-		String  isStay = request.getParameter("roomIsStay");
+//		String roomNum = request.getParameter("roomNum");
+//		String roomType = request.getParameter("roomType");
+//		String maxnum = request.getParameter("roomMaxnumOfPeople");
+//		String  isStay = request.getParameter("roomIsStay");
 	
 		/* 向页面传值
 		System.out.println("接受表单内容后，向页面传值: roomNum="+roomNum);
@@ -49,11 +49,11 @@ public class RoomSelectServlet extends HttpServlet {
 				
 		// 业务需要
 		//RoomDao DB = new RoomDao();
-		RoomDao DB=new RoomDao();
+		//RoomDao DB=new RoomDao();
 		// 查询消息列表并传给页面
 		//request.setAttribute("roomList", DB.RoomList(roomNum, roomType, roomMaxnumOfPeople, roomIsStay));
 		
-		request.setAttribute("roomList", DB.RoomList(roomNum, roomType, maxnum, isStay));
+		//request.setAttribute("roomList", DB.RoomList(roomNum, roomType, maxnum, isStay));
 		
 		// 向页面跳转(刷新页面)
 		request.getRequestDispatcher("pages/test/roomSelect.jsp").forward(request, response);

@@ -52,7 +52,7 @@ public class RoomServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		RoomDao db = new RoomDao();
 
-		String method = request.getParameter("method");//请求的操作
+		String method = request.getParameter("method");// 请求的操作
 		if (method == null || method.equals("")) {
 			method = "index";
 		}
@@ -61,7 +61,10 @@ public class RoomServlet extends HttpServlet {
 		if (method.endsWith("index")) {
 			List<Room> roomlist = db.readRoom();
 			session.setAttribute("roomlist", roomlist);
-			response.sendRedirect("pages/test/roomindex.jsp");
+			
+			response.sendRedirect("pages/manager/mamagerHome.jsp");
+			//测试页面
+			//response.sendRedirect("pages/test/roomindex.jsp");
 			return;
 		}
 		/******************* 添加 ******************/
@@ -71,7 +74,10 @@ public class RoomServlet extends HttpServlet {
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String area = request.getParameter("roomArea");
 			String price = request.getParameter("roomPrice");
-			boolean success = db.RoomAdd(null, roomNum, roomType, area, maxnum, price, null, null, null, null, "0");
+			Room room = new Room(null, roomNum, roomType, maxnum, area, price, null, null, null, null, "0");
+			boolean success = db.RoomAdd(room);
+			// boolean success = db.RoomAdd(null, roomNum, roomType, area, maxnum, price,
+			// null, null, null, null, "0");
 			System.out.println("新增房间：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='RoomServlet?method=index';</script>");
@@ -87,20 +93,25 @@ public class RoomServlet extends HttpServlet {
 			String roomType = request.getParameter("roomType");
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String isStay = request.getParameter("roomIsStay");
-
+			Room r = new Room(null, roomNum, roomType, maxnum, null, null, null, null, null, null, isStay);
 			// 查询消息列表并传给页面
-			request.setAttribute("roomlist", db.RoomList(roomNum, roomType, maxnum, isStay));
+			request.setAttribute("roomlist", db.RoomList(r));
 			// 向页面跳转(刷新页面)
-			request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
+			//测试页面
+			//request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
 		}
-		/*******************更新页面跳转和数据传输 ******************/
+		/******************* 更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
 			String num = request.getParameter("num");
 			System.out.println("edit处理中！房间编号为：" + num);
-			List<Room> room = db.RoomList(num, null, null, null);
+			Room r = new Room(null, num, null, null, null, null, null, null, null, null, "0");
+			List<Room> room = db.RoomList(r);
 			System.out.println(room.get(0));
 			session.setAttribute("updateRoom", room.get(0));// 传到页面的实体，用于提取当前的值
-			response.sendRedirect("pages/test/roomUpdate.jsp");
+			request.getRequestDispatcher("pages/manager/roomUpdate.jsp").forward(request, response);
+			//测试页面
+			//response.sendRedirect("pages/test/roomUpdate.jsp");
 			return;
 		}
 		/******************* 更新操作 ******************/
@@ -111,8 +122,8 @@ public class RoomServlet extends HttpServlet {
 			String roomArea = request.getParameter("roomArea");
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String roomPrice = request.getParameter("roomPrice");
-			boolean canUpdate = db.RoomUpdate(null, roomNum, roomType, roomArea, maxnum, roomPrice, null, null, null,
-					null, "0");
+			Room r = new Room(null, roomNum, roomType, roomArea, maxnum, roomPrice, null, null, null, null, null);
+			boolean canUpdate = db.RoomUpdate(r);
 			if (canUpdate) {// 根据登陆情况，跳转页面
 				out.print("<script>alert('修改成功！');window.location='RoomServlet?method=index';</script>");
 			} else {
@@ -120,7 +131,7 @@ public class RoomServlet extends HttpServlet {
 			}
 			return;
 		}
-		/******************* 删除******************/
+		/******************* 删除 ******************/
 		else if (method.endsWith("delete")) {
 			String num = request.getParameter("num");
 			boolean success = db.RoomDelete(num);

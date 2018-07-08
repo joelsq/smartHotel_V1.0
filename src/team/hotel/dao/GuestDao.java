@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import team.hotel.domain.Guest;
@@ -18,7 +17,7 @@ import team.hotel.domain.Guest;
 public class GuestDao extends DBUtil {
 
 	List<Guest> guestList = new ArrayList<Guest>();
-	
+
 	// 读取所有客人信息
 	public List<Guest> GuestRead() {
 		guestList.clear();
@@ -33,13 +32,13 @@ public class GuestDao extends DBUtil {
 			DBPrint.PrintReadSQL("Guest", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Short id = rs.getShort("guest_id");
+				String id = rs.getString("guest_id");
 				String guestName = rs.getString("guest_num");
 				String guestPhone = rs.getString("guest_phone");
 				String guestPassword = rs.getString("guest_password");
 				String guestDocNum = rs.getString("guest_document_num");
 				String guestGender = rs.getString("guest_gender");
-				Date guestLastVisit = rs.getDate("guest_last_visit");
+				String guestLastVisit = rs.getString("guest_last_visit");
 				String guestLastIP = rs.getString("guest_last_ip");
 
 				Guest guest = new Guest(id, guestName, guestPhone, guestPassword, guestDocNum, guestGender,
@@ -77,7 +76,12 @@ public class GuestDao extends DBUtil {
 	}
 
 	// 查询客人——自定义语句
-	public List<Guest> GuestSelect(Short guestId, String Name, String Phone, String docNum, String gender) {
+	public List<Guest> GuestSelect(Guest guest) {
+		//String guestId=guest.getGuestId();
+		String Name=guest.getGuestName();
+		String Phone=guest.getGuestPhone();
+		String docNum=guest.getGuestDocumentNum();
+		String gender=guest.getGuestGender();
 		guestList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -116,18 +120,18 @@ public class GuestDao extends DBUtil {
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				Short id = rs.getShort("guest_id");
+				String id = rs.getString("guest_id");
 				String guestName = rs.getString("guest_Name");
 				String guestPhone = rs.getString("guest_phone");
 				String guestPassword = rs.getString("guest_password");
 				String guestDocNum = rs.getString("guest_document_num");
 				String guestGender = rs.getString("guest_gender");
-				Date guestLastVisit = rs.getDate("guest_last_visit");
+				String guestLastVisit = rs.getString("guest_last_visit");
 				String guestLastIP = rs.getString("guest_last_ip");
 
-				Guest guest = new Guest(id, guestName, guestPhone, guestPassword, guestDocNum, guestGender,
+				Guest g = new Guest(id, guestName, guestPhone, guestPassword, guestDocNum, guestGender,
 						guestLastVisit, guestLastIP);
-				guestList.add(guest);
+				guestList.add(g);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -160,10 +164,18 @@ public class GuestDao extends DBUtil {
 	}
 
 	// 更新客人信息
-	public boolean GuestUpdate(Short guestId, String guestName, String guestPhone, String guestPassword,
-			String guestDocumentNum, String guestGender, Date gusetLastVisit, String gusetLastIp) {
-		String sql = "CALL proc_guestUpdate(," + guestId + ",'" + guestName + "','" + guestPhone + "','" + guestPassword
-				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
+	public boolean GuestUpdate(Guest guest) {
+		String guestName=guest.getGuestName();
+		String guestPhone=guest.getGuestPhone();
+		String guestPassword=guest.getGuestPassword();
+		String guestDocumentNum=guest.getGuestDocumentNum();
+		String guestGender=guest.getGuestGender();
+		String gusetLastVisit=guest.getGusetLastVisit();
+		String gusetLastIp=guest.getGusetLastIp();
+		
+		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword
+				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp
+				+ "',@state)";
 		DBPrint.PrintUpdateSQL("Guest", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -268,12 +280,18 @@ public class GuestDao extends DBUtil {
 		return returnValue;
 	}
 
-
-	//添加客人
-	public boolean GuestAdd(String guestName, String guestPhone, String guestPassword,
-			String guestDocumentNum, String guestGender, Date gusetLastVisit, String gusetLastIp) {
-		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword
-				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
+	// 添加客人
+	public boolean GuestAdd(Guest guest) {
+		String guestName=guest.getGuestName();
+		String guestPhone=guest.getGuestPhone();
+		String guestPassword=guest.getGuestPassword();
+		String guestDocumentNum=guest.getGuestDocumentNum();
+		String guestGender=guest.getGuestGender();
+		String gusetLastVisit=guest.getGusetLastVisit();
+		String gusetLastIp=guest.getGusetLastIp();
+		
+		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword + "','"
+				+ guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
 		DBPrint.PrintUpdateSQL("Guest", sql);
 		boolean returnValue = false;
 		Connection conn = null;
