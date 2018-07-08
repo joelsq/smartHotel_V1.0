@@ -105,10 +105,7 @@
 																value="${password}" />
 														</div>
 														
-														<div class="list-group-item">
-															积分<input name="credits" type="text" class="allInput"
-																value="${credits}" />
-														</div>
+														
 														<div class="list-group-item">
 															权限<input name="authority" type="text"
 																class="allInput" value="${authority}" />
@@ -135,22 +132,16 @@
 														action="<%=request.getContextPath()%>/UserServlet?method=select"
 														id="UserForm" method="post">
 														<!-- 输入栏 -->
-														<div class="list-group-item">
-															用户ID<input name="userId" type="text" class="allInput"
-																value="${userId}" />
-														</div>
+														
 														<div class="list-group-item">
 															用户名<input name="userName" type="text" class="allInput"
 																value="${userName}" />
 														</div>
 														<div class="list-group-item">
-															积分<input name="credits" type="text"
-																class="allInput" value="${credits}" />
-														</div>
-														<div class="list-group-item">
 															权限<input name="authority" type="text" class="allInput"
 																value="${authority}" />
 														</div>
+														
 														<div class="list-group-item">
 															<button type="submit" class="tabSub btn1" value="select">查询</button>
 														</div>
@@ -178,10 +169,7 @@
 															密码<input name="password"
 																value="${updateUser.getPassword() }">
 														</div>
-														<div class="list-group-item">
-															积分<input name="credits"
-																value="${updateUser.getCredits() }">
-														</div>
+														
 														<div class="list-group-item">
 															权限<input name="authority"
 																value="${updateUser.getAuthority() }">
