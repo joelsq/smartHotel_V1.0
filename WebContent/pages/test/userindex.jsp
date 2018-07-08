@@ -204,9 +204,7 @@
 															<td>${data.getPassword()}</td>
 															<td>${data.getCredits()}</td>
 															<td>${data.getAuthority()}</td>
-															<td><a
-																href="#">详细</a>
-																<a
+															<td><a href="#">详细</a> <a
 																href="<%=request.getContextPath()%>/UserServlet?method=updateBefore&num=${data.getUserId()}"
 																class="btn"> 修改</a> <a
 																href="<%=request.getContextPath()%>/UserServlet?method=delete&num=${data.getUserId()}"
