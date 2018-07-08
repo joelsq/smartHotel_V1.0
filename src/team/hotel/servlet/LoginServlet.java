@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 				/********* 测试页面************/
 				else if (loginState.equalsIgnoreCase("test")) {
 					System.out.println("test登录成功！");
-					response.sendRedirect("pages/test/checklistindex.jsp");
+					response.sendRedirect("pages/test/userindex.jsp");
 				}
 				/********* 测试页面************/
 				else if(loginState.equalsIgnoreCase("loginNameError")){

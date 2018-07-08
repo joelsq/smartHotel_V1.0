@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import team.hotel.dao.DBPrint;
 import team.hotel.domain.User;
 
 /**
@@ -43,6 +43,7 @@ public class UserDao extends DBUtil {
 
 				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
 				userList.add(user);
+				System.out.println(user.toString());
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -86,7 +87,8 @@ public class UserDao extends DBUtil {
 		try {
 			conn = getConnection();
 			System.out.println("准备 筛选数据库User表 数据");
-			StringBuilder sql = new StringBuilder(" SELECT * FROM user   where 1=1 ");
+			System.out.println("参数：" + Name + "," + auth);
+			StringBuilder sql = new StringBuilder("SELECT * FROM `user` where 1=1");
 			List<String> paramList = new ArrayList<String>();
 
 			if (Name != null && !"".equals(Name.trim())) {
@@ -103,7 +105,6 @@ public class UserDao extends DBUtil {
 				ptmt.setString(i + 1, paramList.get(i));
 				System.out.println(paramList.get(i));
 			}
-
 			team.hotel.dao.DBPrint.PrintSQL("User", ptmt.toString());
 
 			rs = ptmt.executeQuery();
@@ -118,7 +119,9 @@ public class UserDao extends DBUtil {
 
 				User u = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
 				userList.add(u);
+				//System.out.println(u);
 			}
+			//System.out.println("UserDao测试");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
