@@ -1,14 +1,14 @@
 package team.hotel.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
 import team.hotel.dao.LoginDao;
 
@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
+		//HttpSession session = request.getSession();
+		//PrintWriter out = response.getWriter();
 		
 		String method = request.getParameter("method");
 		

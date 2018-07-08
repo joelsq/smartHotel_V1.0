@@ -12,9 +12,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/media/css/mainPageStyle.css">
+<link
+	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- 可选的Bootstrap主题文件（一般不使用） -->
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script
+	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Good servelt</title>
 <base href="<%=basePath%>">
+<title>房间操作</title>
 </head>
 <body>
 	<h3 class="text-center">Room 增删查改 测试 Good Luck</h3>
@@ -27,6 +45,7 @@
 			<tbody>
 				<tr>
 					<td align="justify">房间编号</td>
+
 					<td><input name="roomNum" type="text" class="allInput"
 						value="${roomNum}" /></td>
 
@@ -109,42 +128,5 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<%-- <table class="table">
-		<thead>
-			<tr>
-				<th>序号</th>
-				<th>房间编号</th>
-				<th>类型</th>
-				<th>可容纳人数</th>
-				<th>是否入住</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<%
-			RoomDao db = new RoomDao();
-			List<Room> list = db.readRoom();
-			int state = 1;
-			for (Room room : list) {
-		%>
-		<tbody>
-			<tr>
-				<td><%=state++%></td>
-				<td><%=room.getRoomNum()%></td>
-				<td><%=room.getRoomType()%></td>
-				<td><%=room.getRoomMaxnumOfPeople()%></td>
-				<td><%=room.getRoomIsStay()%></td>
-				<td><a
-					href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=<%=room.getRoomNum()%>">详细</a>
-					<a
-					href="<%=request.getContextPath()%>/RoomServlet?method=update&num=<%=room.getRoomNum()%>">修改</a>
-					<a
-					href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=<%=room.getRoomNum()%>"
-					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
-			</tr>
-		</tbody>
-		<%
-			}
-		%>
-	</table> --%>
 </body>
 </html>

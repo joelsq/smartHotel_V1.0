@@ -2,19 +2,23 @@ package team.hotel.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.sql.PreparedStatement;
+
+//import com.mysql.jdbc.PreparedStatement;
 
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月5日 数据库连接
  */
 public class DBUtil {
-	/*
+	
 	public static final String DRIVER = "com.mysql.jdbc.Driver";
-	public static final String URL = "jdbc:mysql://localhost:3306/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	public static final String URL = "jdbc:mysql://localhost:3306/mybatis";
 	public static final String USER = "root";
-	public static final String PASSWORD = "root";
+	public static final String PASSWORD = "";
  
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -56,7 +60,6 @@ public class DBUtil {
 				pstmt.setObject(i + 1, obj[i]);
 			}
 			rs = pstmt.executeQuery();
-			DBPrint.PrintSQL(pstmt.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +84,8 @@ public class DBUtil {
 		}
 	}
 
-*/
+
+/*
 	boolean bInited = false;
 
 	// 加载驱动，连接数据库
@@ -106,4 +110,5 @@ public class DBUtil {
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
 		return conn;
 	}	
+	*/
 }
