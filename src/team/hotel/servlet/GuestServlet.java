@@ -78,7 +78,7 @@ public class GuestServlet extends HttpServlet {
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='GuestServlet?method=index';</script>");
 			else
-				out.print("<script>alert('编号重复，新增失败!');window.location='GuestServlet?method=index';</script>");
+				out.print("<script>alert('客人证件号已存在，新增失败!');window.location='GuestServlet?method=index';</script>");
 			return;
 		}
 		/******************* 查询 ******************/
@@ -111,7 +111,7 @@ public class GuestServlet extends HttpServlet {
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
 			String guestName = request.getParameter("guestName");
-			String guestPhone = request.getParameter("guestPhone");
+			String guestPhone = request.getParameter("PhoneNum");
 			String docNum = request.getParameter("docNum");
 			String gender = request.getParameter("gender");
 			Guest guest=new Guest(null, guestName, guestPhone, null, docNum, gender, null, null);
