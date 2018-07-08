@@ -2,6 +2,7 @@ package team.hotel.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import team.hotel.dao.CheckListDao;
 import team.hotel.domain.CheckList;
 
@@ -66,21 +69,40 @@ public class CheckListServlet extends HttpServlet {
 		
 		/******************* 添加客人入住登记信息 ******************/
 		else if (method.endsWith("add")) {
-			//String checklistId = request.getParameter("checklistId");
+			String checkguestid = request.getParameter("checkguestid");
 			String guestName = request.getParameter("guestName");
 			String guestPhone = request.getParameter("guestPhone");
 			String guestGender=request.getParameter("guestGender");
 			String roomNum = request.getParameter("roomNum");
 			String checkInDate = request.getParameter("checkInDate");
+			
+			@SuppressWarnings("unused")
+			java.util.Date checkInDates;
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+			try {
+				checkInDates=sdf.parse(checkInDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDate = request.getParameter("checkOutDate");
+			@SuppressWarnings("unused")
+			java.util.Date checkOutDates;
+			try {
+				checkInDates=sdf.parse(checkOutDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String checkMealType = request.getParameter("checkMealType");
 			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
 			//String checkRoomConsume = request.getParameter("checkRoomConsume");
 			//String checkTotalConsume = request.getParameter("checkTotalConsume");
 			
-			CheckList checklist=new CheckList(null, null, guestName, guestPhone,
-					guestGender, checkOutDate, roomNum, checkInDate, checkDays, 
+			CheckList checklist=new CheckList(null, checkguestid, guestName, guestPhone,
+					guestGender, checkOutDates, roomNum, checkInDates, checkDays, 
 					null, checkMealType, checkNumOfPeople, null, null);
 			
 			boolean success = db.CheckListAdd(checklist);
