@@ -176,7 +176,7 @@
 														<td><a
 															href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
 															<a
-															href="<%=request.getContextPath()%>/RoomServlet?method=update&num=${data.getRoomNum()}">修改</a>
+															href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}">修改</a>
 															<a
 															href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
 															onclick="javascript:return confirm('确认删除吗？');">删除</a></td>

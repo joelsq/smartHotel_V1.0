@@ -62,7 +62,7 @@ public class RoomServlet extends HttpServlet {
 			List<Room> roomlist = db.readRoom();
 			session.setAttribute("roomlist", roomlist);
 			
-			response.sendRedirect("pages/manager/mamagerHome.jsp");
+			response.sendRedirect("pages/manager/managerHome.jsp");
 			//测试页面
 			//response.sendRedirect("pages/test/roomindex.jsp");
 			return;
