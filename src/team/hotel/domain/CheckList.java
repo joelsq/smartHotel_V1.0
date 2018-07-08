@@ -1,6 +1,7 @@
 package team.hotel.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月5日 入住登记信息
@@ -25,11 +26,11 @@ public class CheckList implements Serializable{
 	
 	private String roomNum;
 
-	private String checkInDate;
+	private Date checkInDate;
 
 	private String checkDays;
 
-	private String checkOutDate;
+	private Date checkOutDate;
 
 	private String checkMealType;
 
@@ -87,11 +88,11 @@ public class CheckList implements Serializable{
 		this.roomId = roomId;
 	}
 
-	public String getCheckInDate() {
+	public Date getCheckInDate() {
 		return checkInDate;
 	}
 
-	public void setCheckInDate(String checkInDate) {
+	public void setCheckInDate(Date checkInDate) {
 		this.checkInDate = checkInDate;
 	}
 
@@ -103,11 +104,11 @@ public class CheckList implements Serializable{
 		this.checkDays = checkDays;
 	}
 
-	public String getCheckOutDate() {
+	public Date getCheckOutDate() {
 		return checkOutDate;
 	}
 
-	public void setCheckOutDate(String checkOutDate) {
+	public void setCheckOutDate(Date checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
 
@@ -153,7 +154,7 @@ public class CheckList implements Serializable{
 	}
 
 	public CheckList(String checklistId, String guestId, String guestName, String guestPhone, String guestGender,
-			String roomId, String roomNum, String checkInDate, String checkDays, String checkOutDate,
+			String roomId, String roomNum, Date checkinDate2, String checkDays, Date checkoutDate2,
 			String checkMealType, String checkNumOfPeople, String checkRoomConsume, String checkTotalConsume) {
 		super();
 		this.checklistId = checklistId;
@@ -163,9 +164,9 @@ public class CheckList implements Serializable{
 		this.guestGender = guestGender;
 		this.roomId = roomId;
 		this.roomNum = roomNum;
-		this.checkInDate = checkInDate;
+		this.checkInDate = checkinDate2;
 		this.checkDays = checkDays;
-		this.checkOutDate = checkOutDate;
+		this.checkOutDate = checkoutDate2;
 		this.checkMealType = checkMealType;
 		this.checkNumOfPeople = checkNumOfPeople;
 		this.checkRoomConsume = checkRoomConsume;

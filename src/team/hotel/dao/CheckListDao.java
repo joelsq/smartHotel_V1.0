@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import team.hotel.domain.CheckList;
@@ -203,9 +204,9 @@ public class CheckListDao extends DBUtil {
 	public boolean CheckListUpdate(CheckList check) {
 		String id=check.getGuestId();
 		String Roomid=check.getRoomId();
-		String InDate=check.getCheckInDate();
+		Date InDate=check.getCheckInDate();
 		String days=check.getCheckDays();
-		String outDate=check.getCheckOutDate();
+		Date outDate=check.getCheckOutDate();
 		String mealType=check.getCheckMealType();
 		String numOfPeople=check.getCheckNumOfPeople();
 		String roomConsume=check.getCheckRoomConsume();
@@ -332,9 +333,9 @@ public class CheckListDao extends DBUtil {
 	public boolean CheckListAdd(CheckList check) {
 		String checkguestid=check.getGuestId();
 		String checkRoomid=check.getRoomId();
-		String checkInDate=check.getCheckInDate();
+		Date checkInDate=check.getCheckInDate();
 		String checkDays=check.getCheckDays();
-		String checkOutDate=check.getCheckOutDate();
+		Date checkOutDate=check.getCheckOutDate();
 		String checkMealType=check.getCheckMealType();
 		String checkNumOfPeople=check.getCheckNumOfPeople();
 	
