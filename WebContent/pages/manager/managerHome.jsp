@@ -53,6 +53,9 @@
 	margin-left: 280px;
 	border: none;
 }
+.table{
+	margin-top:30px;
+}
 </style>
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -126,7 +129,7 @@
 														data-toggle="collapse" data-parent="#panel-177841"
 														href="#panel-element-45717">查询客房信息</a>
 												</div>
-												<!-- 新增房间 -->
+												<!-- 查询房间 -->
 												<div id="panel-element-45717"
 													class="panel-collapse collapse">
 													<form
@@ -157,31 +160,35 @@
 												</div>
 											</div>
 
-											<table border="1px">
-												<tr>
-													<th>序号</th>
-													<th>房间编号</th>
-													<th>类型</th>
-													<th>可容纳人数</th>
-													<th>是否入住</th>
-													<th>操作</th>
-												</tr>
-												<c:forEach items="${roomlist}" var="data" varStatus="status">
-													<tr>
-														<td>${status.index+1}</td>
-														<td>${data.getRoomNum()}</td>
-														<td>${data.getRoomType()}</td>
-														<td>${data.getRoomMaxnumOfPeople()}</td>
-														<td>${data.getRoomIsStay()}</td>
-														<td><a
-															href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
-															<a
-															href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}">修改</a>
-															<a
-															href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
-															onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
-													</tr>
-												</c:forEach>
+											<table class="table">
+										        <thead>
+										            <tr class="success">
+										                <th>序号</th>
+										                <th>房间编号</th>
+										                <th>类型</th>
+										                <th>可容纳人数</th>
+										                <th>是否入住</th>
+										                <th>操作</th>
+										            </tr>
+										        </thead>
+										        <tbody>
+													<c:forEach items="${roomlist}" var="data" varStatus="status">
+														<tr>
+															<td>${status.index+1}</td>
+															<td>${data.getRoomNum()}</td>
+															<td>${data.getRoomType()}</td>
+															<td>${data.getRoomMaxnumOfPeople()}</td>
+															<td>${data.getRoomIsStay()}</td>
+															<td><a
+																href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
+																<a
+																href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}">修改</a>
+																<a
+																href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
+																onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
+														</tr>
+													</c:forEach>
+												</tbody>
 											</table>
 										</div>
 									</div>

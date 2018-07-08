@@ -38,7 +38,7 @@
 <body>
 	<!-- 更新客人信息 -->
 	<h3>更新客人信息</h3>
-		<form action="<%=request.getContextPath()%>/GuestServlet?method=update"
+	<form action="<%=request.getContextPath()%>/GuestServlet?method=update"
 		id="RoomForm" method="post">
 		<!-- 更新输入栏 -->
 		<table class="tab2">
@@ -46,19 +46,19 @@
 				<tr>
 					<td align="justify">客人姓名</td>
 					<td><input name="guestName" type="text" class="allInput"
-						value="${guestName}" /></td>
+						value="${updateGuest.getGuestName()}" /></td>
 
 					<td align="justify">手机号</td>
 					<td><input name="phoneNum" type="text" class="allInput"
-						value="${phoneNum}" /></td>
+						value="${updateGuest.getGuestPhone()}" /></td>
 
 					<td align="justify">证件号</td>
 					<td><input name="docNum" type="text" class="allInput"
-						value="${docNum}" /></td>
+						value="${updateGuest.getGuestDocumentNum()}" /></td>
 
 					<td align="justify">性别</td>
 					<td><input name="gender" type="text" class="allInput"
-						value="${gender}" /></td>
+						value="${updateGuest.getGuestGender()}" /></td>
 
 					<td align="justify">
 						<button type="submit" class="tabSub" value="update">更新</button>
@@ -67,4 +67,5 @@
 		</table>
 	</form>
 
-</body></html>
+</body>
+</html>

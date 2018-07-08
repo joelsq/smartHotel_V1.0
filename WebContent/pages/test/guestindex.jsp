@@ -108,6 +108,7 @@
 			<th>手机号</th>
 			<th>证件号</th>
 			<th>性别</th>
+			<th>操作</th>
 		</tr>
 		<c:forEach items="${guestlist}" var="data" varStatus="status">
 			<tr>
