@@ -268,4 +268,60 @@ public class GuestDao extends DBUtil {
 		return returnValue;
 	}
 
+
+	//添加客人
+	public boolean GuestAdd(String guestName, String guestPhone, String guestPassword,
+			String guestDocumentNum, String guestGender, Date gusetLastVisit, String gusetLastIp) {
+		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword
+				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
+		DBPrint.PrintUpdateSQL("Guest", sql);
+		boolean returnValue = false;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				String state = rs.getString(1);
+				if (state.equals("addGuestSuccess")) {
+					returnValue = true;
+					break;
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
+
 }

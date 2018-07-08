@@ -1,4 +1,4 @@
-package team.hotel.servlet.room;
+package team.hotel.servlet.unused;
 
 import java.io.IOException;
 import java.io.PrintWriter;

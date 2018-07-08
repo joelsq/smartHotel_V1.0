@@ -1,4 +1,4 @@
-package team.hotel.servlet.user;
+package team.hotel.servlet.unused;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
