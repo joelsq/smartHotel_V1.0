@@ -135,7 +135,6 @@
 													<form
 														action="<%=request.getContextPath()%>/RoomServlet?method=select"
 														id="RoomForm" method="post">
-														<!-- 查询输入栏 -->
 														<!-- 输入栏 -->
 														<div class="list-group-item">
 															房间编号<input name="roomNum" type="text" class="allInput"
@@ -154,12 +153,52 @@
 																value="${roomIsStay}" />
 														</div>
 														<div class="list-group-item">
-															<button type="submit" class="tabSub" value="select">查询</button>
+															<button type="submit" class="tabSub btn1" value="select">查询</button>
 														</div>
 													</form>
 												</div>
 											</div>
 
+											<!-- 更新功能 -->
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<a class="panel-title list-group-item collapsed active"
+														data-toggle="collapse" data-parent="#panel-177841"
+														href="#panel-element-45718">更新客房信息</a>
+												</div>
+												<!-- 更新房间 -->
+												<div id="panel-element-45718"
+													class="panel-collapse collapse in">
+													<form action="RoomServlet?method=update" method="post">
+														<!-- 输入栏 -->
+														<div class="list-group-item">
+															房间编号<input readonly name="roomNum" value="${updateRoom.getRoomNum()}">
+														</div>
+														<div class="list-group-item">
+															房间类型<input name="roomType" value="${updateRoom.getRoomType() }">
+														</div>
+														<div class="list-group-item">
+															面积<input name="roomArea" value="${updateRoom.getRoomArea() }">
+														</div>
+														<div class="list-group-item">
+															最大容纳人数<input name="roomMaxnumOfPeople" value="${updateRoom.getRoomMaxnumOfPeople() }">
+														</div>
+														<div class="list-group-item">
+															价格<input name="roomPrice" value="${updateRoom.getRoomPrice()}">
+														</div>
+														<div class="list-group-item">
+															空调<input type="checkbox" name="checkbox1" value="${updateRoom.getRoomAircondition()}"> 
+															电视<input type="checkbox" name="checkbox2" value="${updateRoom.getRoomTV()}">
+															Wifi<input type="checkbox" name="checkbox3" value="${updateRoom.getRoomWifi()}">
+															 浴室<input type="checkbox" name="checkbox4" value="${updateRoom.getRoomWashroom()}"> 
+														</div>
+														<div class="list-group-item">
+															<button type="submit" class="tabSub" value="update">更新</button>
+														</div>
+													</form>
+												</div>
+											</div>
+											
 											<table class="table">
 										        <thead>
 										            <tr class="success">
@@ -181,8 +220,8 @@
 															<td>${data.getRoomIsStay()}</td>
 															<td><a
 																href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
-																<a
-																href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}">修改</a>
+															<a 	 href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}" 
+															class="btn">	修改</a>
 																<a
 																href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
 																onclick="javascript:return confirm('确认删除吗？');">删除</a></td>

@@ -109,7 +109,8 @@ public class RoomServlet extends HttpServlet {
 			List<Room> room = db.RoomList(r);
 			System.out.println(room.get(0));
 			session.setAttribute("updateRoom", room.get(0));// 传到页面的实体，用于提取当前的值
-			request.getRequestDispatcher("pages/manager/roomUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
+			//request.getRequestDispatcher("pages/manager/roomUpdate.jsp").forward(request, response);
 			//测试页面
 			//response.sendRedirect("pages/test/roomUpdate.jsp");
 			return;
