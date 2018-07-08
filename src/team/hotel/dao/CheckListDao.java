@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +21,8 @@ public class CheckListDao extends DBUtil {
 
 	List<CheckList> checklistList = new ArrayList<CheckList>();
 	DBPrint DBPrint = new DBPrint();
-
+	SimpleDateFormat convert=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+	
 	// 读取所有入住表信息
 	public List<CheckList> CheckListRead() {
 		checklistList.clear();
@@ -37,16 +40,30 @@ public class CheckListDao extends DBUtil {
 				String id = rs.getString(1);
 				String checkid = rs.getString(2);
 				String roomid = rs.getString(3);
-				String checkinDate = rs.getString(4);
+				String checkInDates = rs.getString(4);
+				java.util.Date checkInDate = null;
+				try {
+					checkInDate=convert.parse(checkInDates);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String checkDays = rs.getString(5);
-				String checkoutDate = rs.getString(6);
+				String checkOutDates = rs.getString(6);
+				java.util.Date checkOutDate = null;
+				try {
+					checkOutDate=convert.parse(checkOutDates);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String checkMealType = rs.getString(7);
 				String checkNumofPeople = rs.getString(8);
 				String checkRoomConsume = rs.getString(9);
 				String checkTotalConsume = rs.getString(10);
 
-				CheckList checklist = new CheckList(id, checkid, null,null,null,roomid, null,checkinDate, checkDays,
-						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
+				CheckList checklist = new CheckList(id, checkid, null,null,null,roomid, null,checkInDate, checkDays,
+						checkOutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
@@ -117,13 +134,13 @@ public class CheckListDao extends DBUtil {
 				sql.append(" and room_num=? ");
 				paramList.add(list.getRoomNum());
 			}
-			if (list.getCheckInDate() != null && !"".equals(list.getCheckInDate().trim())) {
+			if (list.getCheckInDate() != null && !"".equals(list.getCheckInDate().toString().trim())) {
 				sql.append(" and check_in_date=? ");
-				paramList.add(list.getCheckInDate());
+				paramList.add(list.getCheckInDate().toString());
 			}
-			if (list.getCheckOutDate() != null && !"".equals(list.getCheckOutDate().trim())) {
+			if (list.getCheckOutDate() != null && !"".equals(list.getCheckOutDate().toString().trim())) {
 				sql.append(" and check_out_date=? ");
-				paramList.add(list.getCheckOutDate());
+				paramList.add(list.getCheckOutDate().toString());
 			}	
 			if (list.getCheckDays() != null && !"".equals(list.getCheckDays().trim())) {
 				sql.append(" and check_days=? ");
@@ -151,17 +168,31 @@ public class CheckListDao extends DBUtil {
 				String guestGender=rs.getString(5);
 				String roomid = rs.getString(6);
 				String roomNum2=rs.getString(7);
-				String checkinDate = rs.getString(8);
+				String checkInDates = rs.getString(8);
+				java.util.Date checkInDate = null;
+				try {
+					checkInDate=convert.parse(checkInDates);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String checkDays = rs.getString(9);
-				String checkoutDate = rs.getString(10);
+				String checkOutDates= rs.getString(10);
+				java.util.Date checkOutDate = null;
+				try {
+					checkOutDate=convert.parse(checkOutDates);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String checkMealType = rs.getString(11);
 				String checkNumOfPeople = rs.getString(12);
 				String checkRoomConsume = rs.getString(13);
 				String checkTotalConsume = rs.getString(14);
 
 				CheckList checklist = new CheckList(id, checkid, guestName, phone, 
-						guestGender, roomid, roomNum2, checkinDate,checkDays, 
-						checkoutDate, checkMealType, checkNumOfPeople, 
+						guestGender, roomid, roomNum2, checkInDate,checkDays, 
+						checkOutDate, checkMealType, checkNumOfPeople, 
 						checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}

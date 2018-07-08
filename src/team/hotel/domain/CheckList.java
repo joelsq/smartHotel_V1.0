@@ -144,7 +144,6 @@ public class CheckList implements Serializable{
 		this.checkTotalConsume = checkTotalConsume;
 	}
 
-
 	public String getGuestName() {
 		return guestName;
 	}
@@ -153,9 +152,11 @@ public class CheckList implements Serializable{
 		this.guestName = guestName;
 	}
 
+
+	
 	public CheckList(String checklistId, String guestId, String guestName, String guestPhone, String guestGender,
-			String roomId, String roomNum, Date checkinDate2, String checkDays, Date checkoutDate2,
-			String checkMealType, String checkNumOfPeople, String checkRoomConsume, String checkTotalConsume) {
+			String roomId, String roomNum, Date checkInDate, String checkDays, Date checkOutDate, String checkMealType,
+			String checkNumOfPeople, String checkRoomConsume, String checkTotalConsume) {
 		super();
 		this.checklistId = checklistId;
 		this.guestId = guestId;
@@ -164,9 +165,9 @@ public class CheckList implements Serializable{
 		this.guestGender = guestGender;
 		this.roomId = roomId;
 		this.roomNum = roomNum;
-		this.checkInDate = checkinDate2;
+		this.checkInDate = checkInDate;
 		this.checkDays = checkDays;
-		this.checkOutDate = checkoutDate2;
+		this.checkOutDate = checkOutDate;
 		this.checkMealType = checkMealType;
 		this.checkNumOfPeople = checkNumOfPeople;
 		this.checkRoomConsume = checkRoomConsume;
@@ -181,5 +182,7 @@ public class CheckList implements Serializable{
 				+ checkOutDate + ", checkMealType=" + checkMealType + ", checkNumOfPeople=" + checkNumOfPeople
 				+ ", checkRoomConsume=" + checkRoomConsume + ", checkTotalConsume=" + checkTotalConsume + "]";
 	}
+
+
 	
 }

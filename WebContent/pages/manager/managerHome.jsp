@@ -334,7 +334,7 @@
 																value="${authority}" />
 														</div>
 														<div class="list-group-item">
-															<button type="submit" class="tabSub btn1" value="select">查询</button>
+															<button type="submit" class="tabSub btn41" value="select">查询</button>
 														</div>
 													</form>
 												</div>
@@ -421,4 +421,11 @@
 		</div>
 	</div>
 </body>
+<script>
+$(document).ready(function(){
+	$(.btn41).click(function(){
+		
+	})
+});
+</script>
 </html>
