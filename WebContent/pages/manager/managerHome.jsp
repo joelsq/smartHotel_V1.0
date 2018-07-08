@@ -256,155 +256,156 @@
 
 
 						</div>
-						
-							<!-- 用戶信息面板 -->
+
+						<!-- 用戶信息面板 -->
 						<div class="tab-pane" id="panel-user">
 							<div class="tab-pane active" id="panel-User1">
-							<div class="row clearfix">
-								<div class="col-md-12 column">
-									<div class="list-group">
-										<div class="panel-group" id="panel-1">
+								<div class="row clearfix">
+									<div class="col-md-12 column">
+										<div class="list-group">
+											<div class="panel-group" id="panel-1">
 
-											<!-- 增加功能 -->
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<a class="panel-title list-group-item collapsed active"
-														data-toggle="collapse" data-parent="#panel-177841"
-														href="#panel-element-useradd">增加用戶信息</a>
-												</div>
-												<!-- 新增用戶 -->
-												<div id="panel-element-useradd"
-													class="panel-collapse collapse">
-													<form
-														action="<%=request.getContextPath()%>/UserServlet?method=add"
-														id="UserForm" method="post">
-														<!-- 输入栏 -->
-														<div class="list-group-item">
-															用戶名<input name="userName" type="text" class="allInput"
-																value="${userName}" />
-														</div>
-														<div class="list-group-item">
-															密码<input name="password" type="text" class="allInput"
-																value="${password}" />
-														</div>
-														
-														<div class="list-group-item">
-															权限<input name="authority" type="text"
-																class="allInput" value="${authority}" />
-														</div>
-														
-														<div class="list-group-item">
-															<button type="submit" class="tabSub" value="add">新增</button>
-														</div>
-													</form>
-												</div>
-											</div>
+												<!-- 增加功能 -->
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a class="panel-title list-group-item collapsed active"
+															data-toggle="collapse" data-parent="#panel-177841"
+															href="#panel-element-useradd">增加用戶信息</a>
+													</div>
+													<!-- 新增用戶 -->
+													<div id="panel-element-useradd"
+														class="panel-collapse collapse">
+														<form
+															action="<%=request.getContextPath()%>/UserServlet?method=add"
+															id="UserForm" method="post">
+															<!-- 输入栏 -->
+															<div class="list-group-item">
+																用戶名<input name="userName" type="text" class="allInput"
+																	value="${userName}" />
+															</div>
+															<div class="list-group-item">
+																密码<input name="password" type="text" class="allInput"
+																	value="${password}" />
+															</div>
 
-											<!-- 查询功能 -->
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<a class="panel-title list-group-item collapsed active"
-														data-toggle="collapse" data-parent="#panel-177841"
-														href="#panel-element-userselect">查询用户信息</a>
-												</div>
-												<!-- 查询用户 -->
-												<div id="panel-element-userselect"
-													class="panel-collapse collapse">
-													<form
-														action="<%=request.getContextPath()%>/UserServlet?method=select"
-														id="UserForm" method="post">
-														<!-- 输入栏 -->
-														
-														<div class="list-group-item">
-															用户名<input name="userName" type="text" class="allInput"
-																value="${userName}" />
-														</div>
-														
-														<div class="list-group-item">
-															权限<input name="authority" type="text" class="allInput"
-																value="${authority}" />
-														</div>
-														<div class="list-group-item">
-															<button type="submit" class="tabSub btn41" value="select">查询</button>
-														</div>
-													</form>
-												</div>
-											</div>
+															<div class="list-group-item">
+																权限<input name="authority" type="text" class="allInput"
+																	value="${authority}" />
+															</div>
 
-											<!-- 更新功能 -->
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<a class="panel-title list-group-item collapsed active"
-														data-toggle="collapse" data-parent="#panel-177841"
-														href="#panel-element-8">更新用户信息</a>
+															<div class="list-group-item">
+																<button type="submit" class="tabSub" value="add">新增</button>
+															</div>
+														</form>
+													</div>
 												</div>
-												<!-- 更新用户-->
-												<div id="panel-element-8"
-													class="panel-collapse collapse in">
-													<form action="UserServlet?method=update" method="post">
-														<!-- 输入栏 -->
-														<div class="list-group-item">
-															用户名<input readonly name="userName"
-																value="${updateUser.getUserName()}">
-														</div>
-														<div class="list-group-item">
-															密码<input name="password"
-																value="${updateUser.getPassword() }">
-														</div>
-														<div class="list-group-item">
-															积分<input name="credits"
-																value="${updateUser.getCredits() }">
-														</div>
-														<div class="list-group-item">
-															权限<input name="authority"
-																value="${updateUser.getAuthority() }">
-														</div>
-														
-														<div class="list-group-item">
-															<button type="submit" class="tabSub" value="update">更新</button>
-														</div>
-													</form>
+
+												<!-- 查询功能 -->
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a class="panel-title list-group-item collapsed active"
+															data-toggle="collapse" data-parent="#panel-177841"
+															href="#panel-element-userselect">查询用户信息</a>
+													</div>
+													<!-- 查询用户 -->
+													<div id="panel-element-userselect"
+														class="panel-collapse collapse">
+														<form
+															action="<%=request.getContextPath()%>/UserServlet?method=select"
+															id="UserForm" method="post">
+															<!-- 输入栏 -->
+
+															<div class="list-group-item">
+																用户名<input name="userName" type="text" class="allInput"
+																	value="${userName}" />
+															</div>
+
+															<div class="list-group-item">
+																权限<input name="authority" type="text" class="allInput"
+																	value="${authority}" />
+															</div>
+															<div class="list-group-item">
+																<button type="submit" class="tabSub btn41"
+																	value="select">查询</button>
+															</div>
+														</form>
+													</div>
 												</div>
-											</div>
-											<!-- 下方的表格 -->
-											<table class="table">
-												<thead>
-													<tr class="success">
-														<th>序号</th>
-														<th>用户ID</th>
-														<th>用户名</th>
-														<th>密码</th>
-														<th>积分</th>
-														<th>权限</th>
-														
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${userlist}" var="data"
-														varStatus="status">
-														<tr>
-															<td>${status.index+1}</td>
-															<td>${data.getUserId()}</td>
-															<td>${data.getUserName()}</td>
-															<td>${data.getPassword()}</td>
-															<td>${data.getCredits()}</td>
-															<td>${data.getAuthority()}</td>
-															<td><a
-																href="<%=request.getContextPath()%>/UserServlet?method=detail&num=${data.getUserName()}">详细</a>
-																<a
-																href="<%=request.getContextPath()%>/UserServlet?method=updateBefore&num=${data.getUserName()}"
-																class="btn"> 修改</a> <a
-																href="<%=request.getContextPath()%>/UserServlet?method=delete&num=${data.getUserName()}"
-																onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
+
+												<!-- 更新功能 -->
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a class="panel-title list-group-item collapsed active"
+															data-toggle="collapse" data-parent="#panel-177841"
+															href="#panel-element-8">更新用户信息</a>
+													</div>
+													<!-- 更新用户-->
+													<div id="panel-element-8"
+														class="panel-collapse collapse in">
+														<form action="UserServlet?method=update" method="post">
+															<!-- 输入栏 -->
+															<div class="list-group-item">
+																用户名<input readonly name="userName"
+																	value="${updateUser.getUserName()}">
+															</div>
+															<div class="list-group-item">
+																密码<input name="password"
+																	value="${updateUser.getPassword() }">
+															</div>
+															<div class="list-group-item">
+																积分<input name="credits"
+																	value="${updateUser.getCredits() }">
+															</div>
+															<div class="list-group-item">
+																权限<input name="authority"
+																	value="${updateUser.getAuthority() }">
+															</div>
+
+															<div class="list-group-item">
+																<button type="submit" class="tabSub" value="update">更新</button>
+															</div>
+														</form>
+													</div>
+												</div>
+												<!-- 下方的表格 -->
+												<table class="table">
+													<thead>
+														<tr class="success">
+															<th>序号</th>
+															<th>用户ID</th>
+															<th>用户名</th>
+															<th>密码</th>
+															<th>积分</th>
+															<th>权限</th>
+
 														</tr>
-													</c:forEach>
-												</tbody>
-											</table>
+													</thead>
+													<tbody>
+														<c:forEach items="${userlist}" var="data"
+															varStatus="status">
+															<tr>
+																<td>${status.index+1}</td>
+																<td>${data.getUserId()}</td>
+																<td>${data.getUserName()}</td>
+																<td>${data.getPassword()}</td>
+																<td>${data.getCredits()}</td>
+																<td>${data.getAuthority()}</td>
+																<td><a
+																	href="<%=request.getContextPath()%>/UserServlet?method=detail&num=${data.getUserName()}">详细</a>
+																	<a
+																	href="<%=request.getContextPath()%>/UserServlet?method=updateBefore&num=${data.getUserName()}"
+																	class="btn"> 修改</a> <a
+																	href="<%=request.getContextPath()%>/UserServlet?method=delete&num=${data.getUserName()}"
+																	onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>

@@ -38,51 +38,55 @@
 <body>
 
 	<h3>更新入住表信息</h3>
-	<form action="<%=request.getContextPath()%>/CheckListServlet?method=update"
+	<form
+		action="<%=request.getContextPath()%>/CheckListServlet?method=update"
 		id="CheckListForm" method="post">
 		<!-- 更新输入栏 -->
 		<table class="tab2">
 			<tbody>
 				<tr>
+					<td align="justify">入住表编号</td>
+					<td><input readonly name="checklistId" type="text"
+						class="allInput" value="${updateCheckList.getChecklistId()}" /></td>
+
 					<td align="justify">客人编号</td>
-					<td><input readonly name="id" type="text" class="allInput"
+					<td><input name="guestId" type="text" class="allInput"
 						value="${updateCheckList.getGuestId()}" /></td>
 
 					<td align="justify">房间号</td>
 					<td><input name="Roomid" type="text" class="allInput"
-						value="${updateCheckList.getGuestPhone()}" /></td>
-				</tr>
+						value="${updateCheckList.getRoomId()}" /></td>
+
 					<td align="justify">入住时间</td>
-					<td><input name="InDate" type="text" class="allInput"
+					<td><input name="InDate" type="date" class="allInput"
 						value="${updateCheckList.getCheckInDate()}" /></td>
 
 					<td align="justify">入住天数</td>
 					<td><input name="days" type="text" class="allInput"
 						value="${updateCheckList.getCheckDays()}" /></td>
-						
+
 					<td align="justify">退房时间</td>
-					<td><input name="outDate" type="text" class="allInput"
+					<td><input name="outDate" type="date" class="allInput"
 						value="${updateCheckList.getCheckOutDate()}" /></td>
-				<tr>	
+
 					<td align="justify">餐饮类型</td>
 					<td><input name="mealType" type="text" class="allInput"
 						value="${updateCheckList.getCheckMealType()}" /></td>
-						
+
 					<td align="justify">入住人数</td>
 					<td><input name="numOfPeople" type="text" class="allInput"
 						value="${updateCheckList.getCheckNumOfPeople()}" /></td>
-					
+
 					<td align="justify">房间消费</td>
 					<td><input name="roomConsume" type="text" class="allInput"
 						value="${updateCheckList.getCheckRoomConsume()}" /></td>
-					</tr>
+
 					<td align="justify">总消费</td>
 					<td><input name="totalConsume" type="text" class="allInput"
 						value="${updateCheckList.getCheckTotalConsume()}" /></td>
 
 					<td align="justify">
 						<button type="submit" class="tabSub" value="update">更新</button>
-				</tr>
 			</tbody>
 		</table>
 	</form>

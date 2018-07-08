@@ -79,7 +79,7 @@ public class UserDao extends DBUtil {
 	public List<User> UserSelect(User user) {
 		String Name=user.getUserName();
 		String auth=user.getAuthority();
-		
+		String userid=user.getUserId();
 		userList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -91,6 +91,10 @@ public class UserDao extends DBUtil {
 			StringBuilder sql = new StringBuilder("SELECT * FROM `user` where 1=1");
 			List<String> paramList = new ArrayList<String>();
 
+			if (userid != null && !"".equals(userid.trim())) {
+				sql.append(" and user_id= ? ");
+				paramList.add(userid);
+			}
 			if (Name != null && !"".equals(Name.trim())) {
 				sql.append(" and user_name like '%' ? '%' ");
 				paramList.add(Name);
@@ -214,7 +218,7 @@ public class UserDao extends DBUtil {
 
 	// 删除用户——根据用户编号
 	public boolean UserDelete(String userId) {
-		String sql = "CALL proc_userDel( '" + userId + "',@state)";
+		String sql = "CALL proc_userDel(" + userId + ",@state)";
 		team.hotel.dao.DBPrint.PrintDelSQL("User", sql);
 		boolean returnValue = false;
 		Connection conn = null;

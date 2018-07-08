@@ -1,7 +1,7 @@
 package team.hotel.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.util.String;
 /**
  * @author Suqiao Lin
  * @version 创建时间：2018年7月5日 入住登记信息
@@ -26,11 +26,11 @@ public class CheckList implements Serializable{
 	
 	private String roomNum;
 
-	private Date checkInDate;
+	private String checkInDate;
 
 	private String checkDays;
 
-	private Date checkOutDate;
+	private String checkOutDate;
 
 	private String checkMealType;
 
@@ -88,11 +88,11 @@ public class CheckList implements Serializable{
 		this.roomId = roomId;
 	}
 
-	public Date getCheckInDate() {
+	public String getCheckInDate() {
 		return checkInDate;
 	}
 
-	public void setCheckInDate(Date checkInDate) {
+	public void setCheckInDate(String checkInDate) {
 		this.checkInDate = checkInDate;
 	}
 
@@ -104,11 +104,11 @@ public class CheckList implements Serializable{
 		this.checkDays = checkDays;
 	}
 
-	public Date getCheckOutDate() {
+	public String getCheckOutDate() {
 		return checkOutDate;
 	}
 
-	public void setCheckOutDate(Date checkOutDate) {
+	public void setCheckOutDate(String checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
 
@@ -155,7 +155,7 @@ public class CheckList implements Serializable{
 
 	
 	public CheckList(String checklistId, String guestId, String guestName, String guestPhone, String guestGender,
-			String roomId, String roomNum, Date checkInDate, String checkDays, Date checkOutDate, String checkMealType,
+			String roomId, String roomNum, String checkInDate, String checkDays, String checkOutDate, String checkMealType,
 			String checkNumOfPeople, String checkRoomConsume, String checkTotalConsume) {
 		super();
 		this.checklistId = checklistId;

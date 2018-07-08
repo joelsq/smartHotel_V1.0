@@ -61,8 +61,8 @@ public class UserServlet extends HttpServlet {
 		if (method.endsWith("index")||method == null || method.equals("")) {
 			List<User> userlist = db.UserRead();
 			session.setAttribute("userlist", userlist);
-			response.sendRedirect("pages/manager/managerHome.jsp/");
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			//response.sendRedirect("pages/manager/managerHome.jsp/");
+			request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 			return;
 		}
 		
@@ -96,30 +96,30 @@ public class UserServlet extends HttpServlet {
 			// 查询消息列表并传给页面
 			request.setAttribute("userlist", db.UserSelect(user));
 			// 向页面跳转(刷新页面)
-			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			//request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 		}
 		/*******************更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
-			String userId = request.getParameter("userId");
+			String userId = request.getParameter("num");
 			System.out.println("edit处理中！用户编号为：" + userId);
 			User user=new User(userId, null, null,null,null,null, null);
 			List<User> userlist = db.UserSelect(user);
 			System.out.println(userlist.get(0));
 			session.setAttribute("updateUser", userlist.get(0));// 传到页面的实体，用于提取当前的值
-			response.sendRedirect("pages/manager/managerHome.jsp");
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			//response.sendRedirect("pages/manager/managerHome.jsp");
+			request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 			return;
 		}
 		/******************* 更新操作 ******************/
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
-			String userId = request.getParameter("userId");
+			//String userId = request.getParameter("userName");
 			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
 			String credits = request.getParameter("credits");
 			String authority = request.getParameter("authority");
-			User user=new User(userId, userName,password, credits, authority, null, null);
+			User user=new User(null, userName,password, credits, authority, null, null);
 
 			boolean canUpdate = db.UserUpdate(user);
 			if (canUpdate) {// 根据情况，返回结果
@@ -131,7 +131,7 @@ public class UserServlet extends HttpServlet {
 		}
 		/******************* 删除******************/
 		else if (method.endsWith("delete")) {
-			String userId = request.getParameter("userId");
+			String userId = request.getParameter("num");
 			boolean success = db.UserDelete(userId);
 			if (success)
 				out.print("<script>alert('删除成功!');window.location='UserServlet?method=index'</script>");

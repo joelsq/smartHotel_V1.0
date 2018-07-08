@@ -53,8 +53,9 @@
 	margin-left: 280px;
 	border: none;
 }
-.table{
-	margin-top:30px;
+
+.table {
+	margin-top: 30px;
 }
 </style>
 <link rel="stylesheet"
@@ -107,8 +108,8 @@
 																class="allInput" value="${roomMaxnumOfPeople}" />
 														</div>
 														<div class="list-group-item">
-															所选的餐饮标准<input name="roomArea" type="text" class="allInput"
-																value="${roomArea}" />
+															所选的餐饮标准<input name="roomArea" type="text"
+																class="allInput" value="${roomArea}" />
 														</div>
 														<div class="list-group-item">
 															入住时间<input name="roomPrice" type="date" class="allInput"
@@ -175,20 +176,24 @@
 													<form action="RoomServlet?method=update" method="post">
 														<!-- 输入栏 -->
 														<div class="list-group-item">
-															客人姓名<input readonly name="roomNum" value="${updateRoom.getRoomNum()}">
+															客人姓名<input readonly name="roomNum"
+																value="${updateRoom.getRoomNum()}">
 														</div>
 														<div class="list-group-item">
-															证件号<input name="roomType" value="${updateRoom.getRoomType() }">
+															证件号<input name="roomType"
+																value="${updateRoom.getRoomType() }">
 														</div>
 														<div class="list-group-item">
-															房间编号<input name="roomArea" value="${updateRoom.getRoomArea() }">
+															房间编号<input name="roomArea"
+																value="${updateRoom.getRoomArea() }">
 														</div>
 														<div class="list-group-item">
 															所选的餐饮标准<input name="roomMaxnumOfPeople" type="text"
 																class="allInput" value="${roomMaxnumOfPeople}" />
 														</div>
 														<div class="list-group-item">
-															入住时间<input name="roomArea" value="${updateRoom.getRoomArea() }">
+															入住时间<input name="roomArea"
+																value="${updateRoom.getRoomArea() }">
 														</div>
 														<div class="list-group-item">
 															<button type="submit" class="tabSub" value="update">更新</button>
@@ -196,21 +201,22 @@
 													</form>
 												</div>
 											</div>
-											
+
 											<table class="table">
-										        <thead>
-										            <tr class="success">
-										                <th>客人姓名</th>
-										                <th>证件号</th>
-										                <th>房间编号</th>
-										                <th>所选的餐饮标准</th>
-										                <th>入住时间</th>
-										                <th>是否入住</th>
-										                <th>操作</th>
-										            </tr>
-										        </thead>
-										        <tbody>
-													<c:forEach items="${roomlist}" var="data" varStatus="status">
+												<thead>
+													<tr class="success">
+														<th>客人姓名</th>
+														<th>证件号</th>
+														<th>房间编号</th>
+														<th>所选的餐饮标准</th>
+														<th>入住时间</th>
+														<th>是否入住</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${roomlist}" var="data"
+														varStatus="status">
 														<tr>
 															<td>${status.index+1}</td>
 															<td>${data.getRoomNum()}</td>
@@ -219,9 +225,9 @@
 															<td>${data.getRoomIsStay()}</td>
 															<td><a
 																href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
-															<a 	 href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}" 
-															class="btn">	修改</a>
 																<a
+																href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}"
+																class="btn"> 修改</a> <a
 																href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
 																onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
 														</tr>
@@ -241,32 +247,39 @@
 											<div class="panel panel-default">
 												<div class="panel-heading">
 													<a class="panel-title list-group-item collapsed active"
-																	data-toggle="collapse" data-parent="#panel-177842"
-																	href="#panel-element-45719">结算信息管理</a>
+														data-toggle="collapse" data-parent="#panel-177842"
+														href="#panel-element-45719">结算信息管理</a>
 												</div>
 												<div id="panel-element-45719"
 													class="panel-collapse collapse">
 													<form action="RoomServlet?method=update" method="post">
 														<div class="list-group-item">
-															客房定价<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															客房定价<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															餐饮消费<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															餐饮消费<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															客房消费<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															客房消费<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															客房类型<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															客房类型<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															结算时间<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															结算时间<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															入住天数<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															入住天数<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 														<div class="list-group-item">
-															消费总额<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+															消费总额<input name="roomNum" type="text" class="allInput"
+																value="${roomNum}" />
 														</div>
 													</form>
 												</div>
