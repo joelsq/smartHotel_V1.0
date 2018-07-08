@@ -96,7 +96,7 @@ public class UserDao extends DBUtil {
 				paramList.add(Name);
 			}
 			if (auth != null && !"".equals(auth.trim())) {
-				sql.append(" and user_authority=? ");
+				sql.append(" and user_authority='?' ");
 				paramList.add(auth);
 			}
 			
@@ -160,6 +160,7 @@ public class UserDao extends DBUtil {
 		
 		String sql = "CALL proc_userUpdate('" + userName + "','" + 
 			userPassword + "'," + null + ",'"+ auth+"'," +null + "," +null+ ",@state)";
+		
 		team.hotel.dao.DBPrint.PrintUpdateSQL("User", sql);
 		boolean returnValue = false;
 		Connection conn = null;
