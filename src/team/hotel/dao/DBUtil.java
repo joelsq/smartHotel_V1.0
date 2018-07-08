@@ -103,7 +103,7 @@ public class DBUtil {
 		}
 		// 连接URL为 jdbc:mysql//服务器地址/数据库名
 		// 后面的2个参数分别是登陆用户名和密码
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "root", "root");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=false", "root", "root");
 		return conn;
 	}	
 }

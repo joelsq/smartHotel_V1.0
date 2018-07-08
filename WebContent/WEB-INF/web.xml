@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>smartHotel</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>smartHotel</display-name>
+
+	<!-- 登录 -->
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>team.hotel.servlet.Login</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/smartHotel/Login</url-pattern>
+	</servlet-mapping>
+
+	<!-- 房间 -->
+	<servlet>
+		<servlet-name>RoomServlet</servlet-name>
+		<servlet-class>team.hotel.servlet.RoomServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoomServlet</servlet-name>
+		<url-pattern>/RoomServlet</url-pattern>
+	</servlet-mapping>
 
 
-  <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>team.hotel.servlet.Login</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/smartHotel/Login</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>RoomServlet</servlet-name>
-    <servlet-class>team.hotel.servlet.RoomServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>RoomServlet</servlet-name>
-    <url-pattern>/RoomServlet</url-pattern>
-  </servlet-mapping>
- 
- 
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
 </web-app>

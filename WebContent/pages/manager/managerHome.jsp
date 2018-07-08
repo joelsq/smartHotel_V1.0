@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 <%@page
 	import="team.hotel.dao.RoomDao,	team.hotel.domain.Room,	java.util.List"%>
@@ -8,6 +9,9 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+=======
+	pageEncoding="UTF-8"%>
+>>>>>>> 550e013a90ee2e8f61052e4deae62c516b48b9a3
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,6 +42,7 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
 
     <div class="container">
         <div class="row clearfix">
@@ -206,5 +211,8 @@
             </div>
         </div>
     </div>
+=======
+	<h3>经理管理页面</h3>
+>>>>>>> 550e013a90ee2e8f61052e4deae62c516b48b9a3
 </body>
 </html>

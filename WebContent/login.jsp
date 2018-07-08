@@ -8,7 +8,6 @@
 <!-- 注意事项 -->
 <!-- 请勿更改action、method、id、name等有关数据和控制的命名 -->
 <!-- 注意事项 -->
-
 <body>
 	<div class="container" style="text-align: center">
 		<div class="row clearfix">
