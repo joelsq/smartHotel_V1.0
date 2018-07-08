@@ -14,8 +14,16 @@ public class CheckList implements Serializable{
 	private String checklistId;
 
 	private String guestId;
+	
+	private String guestName;
+	
+	private String guestPhone;
+	
+	private String guestGender;
 
 	private String roomId;
+	
+	private String roomNum;
 
 	private String checkInDate;
 
@@ -46,14 +54,30 @@ public class CheckList implements Serializable{
 	public void setGuestId(String guestId) {
 		this.guestId = guestId;
 	}
-//
-//	public String getGuestPhone() {
-//		return guestPhone;
-//	}
-//
-//	public void setGuestPhone(String guestPhone) {
-//		this.guestPhone = guestPhone == null ? null : guestPhone.trim();
-//	}
+	
+	public String getGuestPhone() {
+		return guestPhone;
+	}
+
+	public void setGuestPhone(String guestPhone) {
+		this.guestPhone = guestPhone;
+	}
+
+	public String getGuestGender() {
+		return guestGender;
+	}
+
+	public void setGuestGender(String guestGender) {
+		this.guestGender = guestGender;
+	}
+
+	public String getRoomNum() {
+		return roomNum;
+	}
+
+	public void setRoomNum(String roomNum) {
+		this.roomNum = roomNum;
+	}
 
 	public String getRoomId() {
 		return roomId;
@@ -119,13 +143,26 @@ public class CheckList implements Serializable{
 		this.checkTotalConsume = checkTotalConsume;
 	}
 
-	public CheckList(String checklistId, String guestId, String roomId, String checkInDate,
-			String checkDays, String checkOutDate, String checkMealType, String checkNumOfPeople, String checkRoomConsume,
-			String checkTotalConsume) {
+
+	public String getGuestName() {
+		return guestName;
+	}
+
+	public void setGuestName(String guestName) {
+		this.guestName = guestName;
+	}
+
+	public CheckList(String checklistId, String guestId, String guestName, String guestPhone, String guestGender,
+			String roomId, String roomNum, String checkInDate, String checkDays, String checkOutDate,
+			String checkMealType, String checkNumOfPeople, String checkRoomConsume, String checkTotalConsume) {
 		super();
 		this.checklistId = checklistId;
 		this.guestId = guestId;
+		this.guestName = guestName;
+		this.guestPhone = guestPhone;
+		this.guestGender = guestGender;
 		this.roomId = roomId;
+		this.roomNum = roomNum;
 		this.checkInDate = checkInDate;
 		this.checkDays = checkDays;
 		this.checkOutDate = checkOutDate;
@@ -137,7 +174,9 @@ public class CheckList implements Serializable{
 
 	@Override
 	public String toString() {
-		return "CheckList [checklistId=" + checklistId + ", guestId=" + guestId + ", roomId=" + roomId + ", checkInDate=" + checkInDate + ", checkDays=" + checkDays + ", checkOutDate="
+		return "CheckList [checklistId=" + checklistId + ", guestId=" + guestId + ", guestName=" + guestName
+				+ ", guestPhone=" + guestPhone + ", guestGender=" + guestGender + ", roomId=" + roomId + ", roomNum="
+				+ roomNum + ", checkInDate=" + checkInDate + ", checkDays=" + checkDays + ", checkOutDate="
 				+ checkOutDate + ", checkMealType=" + checkMealType + ", checkNumOfPeople=" + checkNumOfPeople
 				+ ", checkRoomConsume=" + checkRoomConsume + ", checkTotalConsume=" + checkTotalConsume + "]";
 	}

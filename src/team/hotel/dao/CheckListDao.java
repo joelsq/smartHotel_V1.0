@@ -44,7 +44,7 @@ public class CheckListDao extends DBUtil {
 				String checkRoomConsume = rs.getString(9);
 				String checkTotalConsume = rs.getString(10);
 
-				CheckList checklist = new CheckList(id, checkid, roomid, checkinDate, checkDays,
+				CheckList checklist = new CheckList(id, checkid, null,null,null,roomid, null,checkinDate, checkDays,
 						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}
@@ -83,11 +83,11 @@ public class CheckListDao extends DBUtil {
 	 * 
 	 * @param checkId 客户id
 	 * @param Phone 客户手机
-	 * @param docNum	客户证件号
+	 * @param roomNum 房间编号	
 	 * @param gender 客户性别
 	 * @return
 	 */
-	public List<CheckList> CheckListSelect(String checkId, String Phone, String docNum, String gender) {
+	public List<CheckList> CheckListSelect(CheckList list) {
 		checklistList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -98,26 +98,39 @@ public class CheckListDao extends DBUtil {
 
 			System.out.println("准备 筛选数据库CheckList表 数据");
 			StringBuilder sql = new StringBuilder(
-					"SELECT checklist_id, check_id, check_phone,check_name,check_gender,room_id,room_num,check_in_date,"
-							+ "check_in_date,check_days,check_out_date,check_meal_type,check_num_of_people,check_room_consume,check_total_consume"
-							+ "FROM checklist LEFT JOIN `check` ON `check_check_id`=`check_id`"
-							+ "LEFT JOIN room ON `check_room_id`=`room_id` WHERE 1=1;");
+					"SELECT checklist_id, check_guest_id, guest_name,guest_phone,guest_gender,"
+					+ "room_id, room_num,check_in_date, check_days,check_out_date,check_meal_type,"
+					+ "check_num_of_people,check_room_consume,check_total_consume"
+					+ "FROM checklist LEFT JOIN `guest` ON `check_guest_id`=`guest_id`"
+					+ "LEFT JOIN room ON `check_room_id`=`room_id` WHERE 1=1;");
 			List<String> paramList = new ArrayList<String>();
-			if (checkId != null && !"".equals(checkId.trim())) {
-				sql.append(" and check_check_id like '%' ? '%' ");
-				paramList.add(checkId);
+			if (list.getGuestName() != null && !"".equals(list.getGuestName().trim())) {
+				sql.append(" and guest_name = ? ");
+				paramList.add(list.getGuestName());
 			}
-			if (Phone != null && !"".equals(Phone.trim())) {
-				sql.append(" and check_phone=? ");
-				paramList.add(Phone);
+			if (list.getGuestPhone() != null && !"".equals(list.getGuestPhone().trim())) {
+				sql.append(" and guest_phone=? ");
+				paramList.add(list.getGuestPhone());
 			}
-			if (docNum != null && !"".equals(docNum.trim())) {
-				sql.append(" and check_document_num=? ");
-				paramList.add(docNum);
+			if (list.getRoomNum()!= null && !"".equals(list.getRoomNum().trim())) {
+				sql.append(" and room_num=? ");
+				paramList.add(list.getRoomNum());
 			}
-			if (gender != null && !"".equals(gender.trim())) {
-				sql.append(" and check_gender=? ");
-				paramList.add(gender);
+			if (list.getCheckInDate() != null && !"".equals(list.getCheckInDate().trim())) {
+				sql.append(" and check_in_date=? ");
+				paramList.add(list.getCheckInDate());
+			}
+			if (list.getCheckOutDate() != null && !"".equals(list.getCheckOutDate().trim())) {
+				sql.append(" and check_out_date=? ");
+				paramList.add(list.getCheckOutDate());
+			}	
+			if (list.getCheckDays() != null && !"".equals(list.getCheckDays().trim())) {
+				sql.append(" and check_days=? ");
+				paramList.add(list.getCheckDays());
+			}
+			if (list.getCheckMealType() != null && !"".equals(list.getCheckMealType().trim())) {
+				sql.append(" and check_meal_type=? ");
+				paramList.add(list.getCheckMealType());
 			}
 
 			ptmt = conn.prepareStatement(sql.toString());
@@ -132,17 +145,23 @@ public class CheckListDao extends DBUtil {
 			while (rs.next()) {
 				String id = rs.getString(1);
 				String checkid = rs.getString(2);
-				String roomid = rs.getString(3);
-				String checkinDate = rs.getString(4);
-				String checkDays = rs.getString(5);
-				String checkoutDate = rs.getString(6);
-				String checkMealType = rs.getString(7);
-				String checkNumofPeople = rs.getString(8);
-				String checkRoomConsume = rs.getString(9);
-				String checkTotalConsume = rs.getString(10);
+				String guestName=rs.getString(3);
+				String phone=rs.getString(4);
+				String guestGender=rs.getString(5);
+				String roomid = rs.getString(6);
+				String roomNum2=rs.getString(7);
+				String checkinDate = rs.getString(8);
+				String checkDays = rs.getString(9);
+				String checkoutDate = rs.getString(10);
+				String checkMealType = rs.getString(11);
+				String checkNumOfPeople = rs.getString(12);
+				String checkRoomConsume = rs.getString(13);
+				String checkTotalConsume = rs.getString(14);
 
-				CheckList checklist = new CheckList(id, checkid, roomid, checkinDate, checkDays,
-						checkoutDate, checkMealType, checkNumofPeople, checkRoomConsume, checkTotalConsume);
+				CheckList checklist = new CheckList(id, checkid, guestName, phone, 
+						guestGender, roomid, roomNum2, checkinDate,checkDays, 
+						checkoutDate, checkMealType, checkNumOfPeople, 
+						checkRoomConsume, checkTotalConsume);
 				checklistList.add(checklist);
 			}
 		} catch (ClassNotFoundException e) {
@@ -176,6 +195,11 @@ public class CheckListDao extends DBUtil {
 	}
 
 	// 更新入住表信息
+	/**
+	 * 
+	 * @param check 
+	 * @return
+	 */
 	public boolean CheckListUpdate(CheckList check) {
 		String id=check.getGuestId();
 		String Roomid=check.getRoomId();
@@ -187,8 +211,9 @@ public class CheckListDao extends DBUtil {
 		String roomConsume=check.getCheckRoomConsume();
 		String totalConsume=check.getCheckTotalConsume();
 		
-		String sql = "CALL proc_checklistUpdate(" + id + "," +Roomid + ",'" + InDate + "','" + days	+ 
-				",'" + outDate + "','" + mealType + "','" + "'," + numOfPeople + "," + roomConsume + ","	+ totalConsume + ",@state)";
+		String sql = "CALL proc_checklistUpdate(" + id + "," +Roomid + ",'" + InDate + "'," + days	+ 
+				",'" + outDate + "','" + mealType + "'," + numOfPeople + "," + roomConsume +
+				","  + totalConsume + ",@state)";
 		team.hotel.dao.DBPrint.PrintUpdateSQL("CheckList", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -240,8 +265,12 @@ public class CheckListDao extends DBUtil {
 		return returnValue;
 	}
 
-	//根据id删除入住表
 	// 删除入住表——根据入住表编号
+	/**
+	 * 
+	 * @param checklistid
+	 * @return
+	 */
 	public boolean CheckListDelete(String checklistid) {
 		String sql = "CALL proc_checklistDel( '" + checklistid + "',@state)";
 		team.hotel.dao.DBPrint.PrintDelSQL("CheckList", sql);
@@ -295,6 +324,11 @@ public class CheckListDao extends DBUtil {
 	}
 
 	//添加入住表
+	/**
+	 * 
+	 * @param check
+	 * @return
+	 */
 	public boolean CheckListAdd(CheckList check) {
 		String checkguestid=check.getGuestId();
 		String checkRoomid=check.getRoomId();
@@ -303,9 +337,7 @@ public class CheckListDao extends DBUtil {
 		String checkOutDate=check.getCheckOutDate();
 		String checkMealType=check.getCheckMealType();
 		String checkNumOfPeople=check.getCheckNumOfPeople();
-		//String checkRoomConsume=check.getCheckRoomConsume();
-		//String checkTotalConsume=check.getCheckTotalConsume();
-		
+	
 		String sql = "CALL proc_checkAdd(" + checkguestid+","+checkRoomid + ",'" +checkInDate + "',"
 				+ checkDays + ",'" + checkOutDate + "','" + checkMealType + "'," + checkNumOfPeople +","
 				+0+","+0+",@state)";

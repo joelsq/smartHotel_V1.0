@@ -66,45 +66,49 @@ public class CheckListServlet extends HttpServlet {
 		
 		/******************* 添加客人入住登记信息 ******************/
 		else if (method.endsWith("add")) {
-			String checklistId = request.getParameter("checklistId");
-			String guestId = request.getParameter("guestId");
-			String roomId = request.getParameter("roomId");
+			//String checklistId = request.getParameter("checklistId");
+			String guestName = request.getParameter("guestName");
+			String guestPhone = request.getParameter("guestPhone");
+			String guestGender=request.getParameter("guestGender");
+			String roomNum = request.getParameter("roomNum");
 			String checkInDate = request.getParameter("checkInDate");
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDate = request.getParameter("checkOutDate");
 			String checkMealType = request.getParameter("checkMealType");
 			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
-			String checkRoomConsume = request.getParameter("checkRoomConsume");
-			String checkTotalConsume = request.getParameter("checkTotalConsume");
+			//String checkRoomConsume = request.getParameter("checkRoomConsume");
+			//String checkTotalConsume = request.getParameter("checkTotalConsume");
 			
-			CheckList checklist=new CheckList(checklistId, guestId, roomId, checkInDate, checkDays, checkOutDate, 
-					                          checkMealType, checkNumOfPeople,checkRoomConsume,checkTotalConsume);
+			CheckList checklist=new CheckList(null, null, guestName, guestPhone,
+					guestGender, checkOutDate, roomNum, checkInDate, checkDays, 
+					null, checkMealType, checkNumOfPeople, null, null);
 			
 			boolean success = db.CheckListAdd(checklist);
 			System.out.println("新增客人入住登记信息：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='CheckListServlet?method=index';</script>");
 			else
-				out.print("<script>alert('编号重复，新增失败!');window.location='CheckListServlet?method=index';</script>");
+				out.print("<script>alert('新增失败!');window.location='CheckListServlet?method=index';</script>");
 			return;
 		}
-		/******************* 查询客人入住登记信息 ******************/
+		/******************* 查询入住登记信息 ******************/
 		else if (method.endsWith("select")) {
 			System.out.println("进入CheckListSelect");
 			// 接受表单内容
-			String checklistId = request.getParameter("checklistId");
-			String guestId = request.getParameter("guestId");
-			String roomId = request.getParameter("roomId");
+			String guestName = request.getParameter("guestName");
+			String guestPhone = request.getParameter("guestPhone");
+			String roomNum = request.getParameter("roomNum");
 			String checkInDate = request.getParameter("checkInDate");
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDate = request.getParameter("checkOutDate");
 			String checkMealType = request.getParameter("checkMealType");
-			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
-			String checkRoomConsume = request.getParameter("checkRoomConsume");
-			String checkTotalConsume = request.getParameter("checkTotalConsume");
+			//String checkNumOfPeople = request.getParameter("checkNumOfPeople");
+			//String checkRoomConsume = request.getParameter("checkRoomConsume");
+			//String checkTotalConsume = request.getParameter("checkTotalConsume");
 			
-			CheckList checklist=new CheckList(checklistId, guestId, roomId, checkInDate, checkDays, checkOutDate, 
-					                          checkMealType, checkNumOfPeople,checkRoomConsume,checkTotalConsume);
+			CheckList checklist = new CheckList(null, null, guestName, guestPhone, 
+					null, null, roomNum, checkInDate, checkDays, checkOutDate,
+					checkMealType, null, null, null);
 			
 			// 查询消息列表并传给页面
 			request.setAttribute("checklist", db.CheckListSelect(checklist));
@@ -115,19 +119,21 @@ public class CheckListServlet extends HttpServlet {
 		else if (method.endsWith("updateBefore")) {
 			String checklistId= request.getParameter("num");
 			System.out.println("edit处理中！客人入住登记信息编号为：" + checklistId);
-			CheckList checklist=new CheckList(checklistId, null,null, null,null,null,null, null,null, null);
-			List<CheckList> checklist = db.CheckListSelect(checklist);
-			System.out.println(checklist.get(0));
-			session.setAttribute("updateCheckList", checklist.get(0));// 传到页面的实体，用于提取当前的值
+			CheckList checklist=new CheckList(checklistId, null,null,null,null,null,null, null,null,null,null, null,null, null);
+			List<CheckList> list = db.CheckListSelect(checklist);
+			System.out.println(list.get(0));
+			session.setAttribute("updateCheckList", list.get(0));// 传到页面的实体，用于提取当前的值
 			response.sendRedirect("pages/test/checklistUpdate.jsp");
 			return;
 		}
 		/******************* 入住登记信息更新操作 ******************/
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
-			String checklistId = request.getParameter("checklistId");
-			String guestId = request.getParameter("guestId");
-			String roomId = request.getParameter("roomId");
+			//String checklistId = request.getParameter("checklistId");
+			String guestName = request.getParameter("guestName");
+			String guestPhone = request.getParameter("guestPhone");
+			String guestGender=request.getParameter("guestGender");
+			String roomNum = request.getParameter("roomNum");
 			String checkInDate = request.getParameter("checkInDate");
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDate = request.getParameter("checkOutDate");
@@ -136,9 +142,10 @@ public class CheckListServlet extends HttpServlet {
 			String checkRoomConsume = request.getParameter("checkRoomConsume");
 			String checkTotalConsume = request.getParameter("checkTotalConsume");
 			
-			CheckList checklist=new CheckList(checklistId, guestId, roomId, checkInDate, checkDays, checkOutDate, 
-					                          checkMealType, checkNumOfPeople,checkRoomConsume,checkTotalConsume);
-
+			CheckList checklist=new CheckList(null, null, guestName, guestPhone,guestGender, 
+					null, roomNum, checkInDate, checkDays, checkOutDate,checkMealType,
+					checkNumOfPeople, checkRoomConsume, checkTotalConsume);
+			
 			boolean canUpdate = db.CheckListUpdate(checklist);
 			if (canUpdate) {// 根据登陆情况，跳转页面
 				out.print("<script>alert('修改成功！');window.location='CheckListServlet?method=index';</script>");

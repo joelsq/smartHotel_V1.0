@@ -69,7 +69,7 @@ public class FinancialReportDao extends DBUtil {
 	}
 
 	// 查询财务报表——日期
-	public List<FinancialReport> FinancialReportList(String date) {
+	public List<FinancialReport> FinancialReportSelect(String date) {
 		financialReportList.clear();
 		Connection conn = null;
 		Statement stmt = null;
@@ -122,7 +122,12 @@ public class FinancialReportDao extends DBUtil {
 	}
 
 	// 更新财务报表信息
-	public boolean FinancialReportUpdate(String id, String income, String expend, String date) {
+	public boolean FinancialReportUpdate(FinancialReport report) {
+		String id = report.getFinId();
+		String income = report.getFinTodayIncome();
+		String expend = report.getFinTodayExpend();
+		String date = report.getFinDate();
+
 		String sql = "CALL proc_financialReportUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
 		DBPrint.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
@@ -192,6 +197,65 @@ public class FinancialReportDao extends DBUtil {
 			while (rs.next()) {
 				String state = rs.getString(1);
 				if (state.equals("delFinancialReportSuccess")) {
+					returnValue = true;
+					break;
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
+
+	// 新增财务报表信息
+	public boolean FinancialReportAdd(FinancialReport report) {
+		String id = report.getFinId();
+		String income = report.getFinTodayIncome();
+		String expend = report.getFinTodayExpend();
+		String date = report.getFinDate();
+
+		String sql = "CALL proc_financialReportUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
+		DBPrint.PrintUpdateSQL("FinancialReport", sql);
+		boolean returnValue = false;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				String state = rs.getString(1);
+				if (state.equals("updateFinancialReportSuccess")) {
 					returnValue = true;
 					break;
 				}
