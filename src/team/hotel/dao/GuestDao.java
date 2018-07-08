@@ -77,7 +77,7 @@ public class GuestDao extends DBUtil {
 
 	// 查询客人——自定义语句
 	public List<Guest> GuestSelect(Guest guest) {
-		//String guestId=guest.getGuestId();
+		String Id=guest.getGuestId();
 		String Name=guest.getGuestName();
 		String Phone=guest.getGuestPhone();
 		String docNum=guest.getGuestDocumentNum();
@@ -93,6 +93,10 @@ public class GuestDao extends DBUtil {
 			System.out.println("准备 筛选数据库Guest表 数据");
 			StringBuilder sql = new StringBuilder(" SELECT * FROM guest   where 1=1 ");
 			List<String> paramList = new ArrayList<String>();
+			if (Id != null && !"".equals(Id.trim())) {
+				sql.append(" and guest_id =? ");
+				paramList.add(Id);
+			}
 			if (Name != null && !"".equals(Name.trim())) {
 				sql.append(" and guest_name like '%' ? '%' ");
 				paramList.add(Name);
@@ -228,8 +232,8 @@ public class GuestDao extends DBUtil {
 	}
 
 	// 删除客人——根据客人编号
-	public boolean GuestDelete(String guestName) {
-		String sql = "CALL proc_guestDel( '" + guestName + "',@state)";
+	public boolean GuestDelete(String id) {
+		String sql = "CALL proc_guestDel( " +id + "',@state)";
 		DBPrint.PrintDelSQL("Guest", sql);
 		boolean returnValue = false;
 		Connection conn = null;

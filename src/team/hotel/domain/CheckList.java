@@ -119,13 +119,12 @@ public class CheckList implements Serializable{
 		this.checkTotalConsume = checkTotalConsume;
 	}
 
-	public CheckList(String checklistId, String guestId, String guestPhone, String roomId, String checkInDate,
+	public CheckList(String checklistId, String guestId, String roomId, String checkInDate,
 			String checkDays, String checkOutDate, String checkMealType, String checkNumOfPeople, String checkRoomConsume,
 			String checkTotalConsume) {
 		super();
 		this.checklistId = checklistId;
 		this.guestId = guestId;
-		//this.guestPhone = guestPhone;
 		this.roomId = roomId;
 		this.checkInDate = checkInDate;
 		this.checkDays = checkDays;

@@ -13,13 +13,13 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int userId;
+	private String userId;
 
 	private String userName;
 
 	private String password;
 
-	private int credits;
+	private String credits;
 
 	private String authority;
 
@@ -43,11 +43,11 @@ public class User implements Serializable {
 		this.lastVisit = lastVisit;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -67,11 +67,11 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public int getCredits() {
+	public String getCredits() {
 		return credits;
 	}
 
-	public void setCredits(int credits) {
+	public void setCredits(String credits) {
 		this.credits = credits;
 	}
 
@@ -83,7 +83,7 @@ public class User implements Serializable {
 		this.authority = authority;
 	}
 
-	public User(int userId, String userName, String password, int credits, String authority, String lastVisit,
+	public User(String userId, String userName, String password, String credits, String authority, String lastVisit,
 			String lastIp) {
 		super();
 		this.userId = userId;

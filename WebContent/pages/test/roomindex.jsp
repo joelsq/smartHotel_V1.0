@@ -36,7 +36,6 @@
 </head>
 <body>
 	<h3 class="text-center">Room 增删查改 测试 Good Luck</h3>
-
 	<!-- 新增房间 -->
 	<form action="<%=request.getContextPath()%>/RoomServlet?method=add"
 		id="RoomForm" method="post">

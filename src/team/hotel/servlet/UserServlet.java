@@ -57,7 +57,7 @@ public class UserServlet extends HttpServlet {
 			method = "index";
 		}
 
-		/******************* 管理员查看所有客人信息 ******************/
+		/******************* 管理员查看所有用户信息 ******************/
 		if (method.endsWith("index")) {
 			List<User> userlist = db.UserRead();
 			session.setAttribute("userlist", userlist);
@@ -65,7 +65,7 @@ public class UserServlet extends HttpServlet {
 			return;
 		}
 		
-		/******************* 添加客人 ******************/
+		/******************* 添加用户 ******************/
 		else if (method.endsWith("add")) {
 			String userId = request.getParameter("userId");
 			String userName = request.getParameter("userName");
@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
 			String authority = request.getParameter("authority");
 			User user=new User(userId, userName, password, credits, authority, null, null);
 			boolean success = db.UserAdd(user);
-			System.out.println("新增客人：" + success);
+			System.out.println("新增用户：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='UserServlet?method=index';</script>");
 			else
@@ -100,7 +100,7 @@ public class UserServlet extends HttpServlet {
 		/*******************更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
 			String userId = request.getParameter("userId");
-			System.out.println("edit处理中！客人编号为：" + userId);
+			System.out.println("edit处理中！用户编号为：" + userId);
 			User user=new User(userId, null, null,null,null,null, null);
 			List<User> userlist = db.UserSelect(user);
 			System.out.println(userlist.get(0));

@@ -86,8 +86,8 @@ public class GuestServlet extends HttpServlet {
 			System.out.println("进入GuestSelect");
 			// 接受表单内容
 			String guestName = request.getParameter("guestName");
-			String phoneNum = request.getParameter("guestphoneNum");
-			String docNum = request.getParameter("guestDocNum");
+			String phoneNum = request.getParameter("phoneNum");
+			String docNum = request.getParameter("docNum");
 			String gender=request.getParameter("gender");
 			Guest guest=new Guest(null, guestName,phoneNum, "123456", docNum,gender,null, null);
 			
@@ -98,9 +98,9 @@ public class GuestServlet extends HttpServlet {
 		}
 		/*******************更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
-			String phoneNum = request.getParameter("phoneNum");
-			System.out.println("edit处理中！客人编号为：" + phoneNum);
-			Guest guest=new Guest(null, null,phoneNum, null,null,null,null, null);
+			String guestId= request.getParameter("num");
+			System.out.println("edit处理中！客人编号为：" + guestId);
+			Guest guest=new Guest(guestId, null,null, null,null,null,null, null);
 			List<Guest> guestlist = db.GuestSelect(guest);
 			System.out.println(guestlist.get(0));
 			session.setAttribute("updateGuest", guestlist.get(0));// 传到页面的实体，用于提取当前的值
@@ -126,8 +126,8 @@ public class GuestServlet extends HttpServlet {
 		}
 		/******************* 删除******************/
 		else if (method.endsWith("delete")) {
-			String phoneNum = request.getParameter("phoneNum");
-			boolean success = db.GuestDelete(phoneNum);
+			String id = request.getParameter("num");
+			boolean success = db.GuestDelete(id);
 			if (success)
 				out.print("<script>alert('删除成功!');window.location='GuestServlet?method=index'</script>");
 			else

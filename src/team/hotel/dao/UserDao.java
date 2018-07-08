@@ -33,10 +33,10 @@ public class UserDao extends DBUtil {
 			team.hotel.dao.DBPrint.PrintReadSQL("User", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				int id = rs.getInt(1);
+				String id = rs.getString(1);
 				String userName = rs.getString(2);
 				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
+				String userCredit = rs.getString(4);
 				String userAu = rs.getString(5);
 				String userLastVisit = rs.getString(6);
 				String userLastIP = rs.getString(7);
@@ -108,10 +108,10 @@ public class UserDao extends DBUtil {
 
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt(1);
+				String id = rs.getString(1);
 				String userName = rs.getString(2);
 				String userPassword = rs.getString(3);
-				int userCredit = rs.getInt(4);
+				String userCredit = rs.getString(4);
 				String userAu = rs.getString(5);
 				String userLastVisit = rs.getString(6);
 				String userLastIP = rs.getString(7);
