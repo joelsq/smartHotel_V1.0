@@ -1,6 +1,5 @@
 package team.hotel.domain;
 
-import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -26,7 +25,7 @@ public class User implements Serializable {
 
 	private String lastIp;
 
-	private Date lastVisit;
+	private String lastVisit;
 
 	public String getLastIp() {
 		return lastIp;
@@ -36,11 +35,11 @@ public class User implements Serializable {
 		this.lastIp = lastIp;
 	}
 
-	public Date getLastVisit() {
+	public String getLastVisit() {
 		return lastVisit;
 	}
 
-	public void setLastVisit(Date lastVisit) {
+	public void setLastVisit(String lastVisit) {
 		this.lastVisit = lastVisit;
 	}
 
@@ -84,7 +83,7 @@ public class User implements Serializable {
 		this.authority = authority;
 	}
 
-	public User(int userId, String userName, String password, int credits, String authority, Date lastVisit,
+	public User(int userId, String userName, String password, int credits, String authority, String lastVisit,
 			String lastIp) {
 		super();
 		this.userId = userId;

@@ -5,7 +5,6 @@ package team.hotel.domain;
 * 系统登录日志
 */
 import java.io.Serializable;
-import java.util.Date;
 
 public class LoginLog implements Serializable{
 	/**
@@ -19,7 +18,7 @@ public class LoginLog implements Serializable{
 
 	private String ip;
 
-	private Date loginDate;
+	private String loginDate;
 
 	public String getIp() {
 		return ip;
@@ -29,11 +28,11 @@ public class LoginLog implements Serializable{
 		this.ip = ip;
 	}
 
-	public Date getLoginDate() {
+	public String getLoginDate() {
 		return loginDate;
 	}
 
-	public void setLoginDate(Date loginDate) {
+	public void setLoginDate(String loginDate) {
 		this.loginDate = loginDate;
 	}
 

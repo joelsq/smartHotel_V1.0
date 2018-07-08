@@ -58,7 +58,7 @@ public class RoomServlet extends HttpServlet {
 		}
 
 		/******************* 主页index ******************/
-		if (method.endsWith("index")) {
+		if (method.endsWith("index")||method==null||method=="") {
 			List<Room> roomlist = db.readRoom();
 			session.setAttribute("roomlist", roomlist);
 			

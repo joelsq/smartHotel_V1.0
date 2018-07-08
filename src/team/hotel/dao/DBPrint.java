@@ -5,6 +5,9 @@ package team.hotel.dao;
 * 用于测试
 */
 public  class DBPrint {
+	static public  void PrintAddSQL(String table,String sql) {
+		System.out.println("table="+table+",执行插入数据库语句："+sql);
+	}
 	static public  void PrintReadSQL(String table,String sql) {
 		System.out.println("table="+table+",执行读取数据库语句："+sql);
 	}

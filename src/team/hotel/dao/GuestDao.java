@@ -170,11 +170,11 @@ public class GuestDao extends DBUtil {
 		String guestPassword=guest.getGuestPassword();
 		String guestDocumentNum=guest.getGuestDocumentNum();
 		String guestGender=guest.getGuestGender();
-		String gusetLastVisit=guest.getGusetLastVisit();
-		String gusetLastIp=guest.getGusetLastIp();
+		String guestLastVisit=guest.getGuestLastVisit();
+		String guestLastIp=guest.getGuestLastIp();
 		
 		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword
-				+ "','" + guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp
+				+ "','" + guestDocumentNum + "','" + guestGender + "','" + guestLastVisit + "','" + guestLastIp
 				+ "',@state)";
 		DBPrint.PrintUpdateSQL("Guest", sql);
 		boolean returnValue = false;
@@ -287,11 +287,11 @@ public class GuestDao extends DBUtil {
 		String guestPassword=guest.getGuestPassword();
 		String guestDocumentNum=guest.getGuestDocumentNum();
 		String guestGender=guest.getGuestGender();
-		String gusetLastVisit=guest.getGusetLastVisit();
-		String gusetLastIp=guest.getGusetLastIp();
+		String guestLastVisit=guest.getGuestLastVisit();
+		String guestLastIp=guest.getGuestLastIp();
 		
 		String sql = "CALL proc_guestUpdate('" + guestName + "','" + guestPhone + "','" + guestPassword + "','"
-				+ guestDocumentNum + "','" + guestGender + "','" + gusetLastVisit + "','" + gusetLastIp + "',@state)";
+				+ guestDocumentNum + "','" + guestGender + "','" + guestLastVisit + "','" + guestLastIp + "',@state)";
 		DBPrint.PrintUpdateSQL("Guest", sql);
 		boolean returnValue = false;
 		Connection conn = null;

@@ -13,40 +13,40 @@ public class RoomReview implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Short reviewId;
+	private String reviewId;
 
     private String reviewRoomNum;
 
-    private Short reviewGuestId;
+    private String reviewGuestId;
 
-    private Byte reviewScore;
+    private String reviewScore;
 
     private String reviewComment;
     
     private String reviewPhoto;
 
 
-    public Short getReviewId() {
+    public String getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(Short reviewId) {
+    public void setReviewId(String reviewId) {
         this.reviewId = reviewId;
     }
 
-    public Short getReviewGuestId() {
+    public String getReviewGuestId() {
         return reviewGuestId;
     }
 
-    public void setReviewGuestId(Short reviewGuestId) {
+    public void setReviewGuestId(String reviewGuestId) {
         this.reviewGuestId = reviewGuestId;
     }
 
-    public Byte getReviewScore() {
+    public String getReviewScore() {
         return reviewScore;
     }
 
-    public void setReviewScore(Byte reviewScore) {
+    public void setReviewScore(String reviewScore) {
         this.reviewScore = reviewScore;
     }
 
@@ -81,7 +81,7 @@ public class RoomReview implements Serializable{
 				+ reviewPhoto + "]";
 	}
 
-	public RoomReview(Short reviewId, String reviewRoomNum, Short reviewGuestId, Byte reviewScore, String reviewComment,
+	public RoomReview(String reviewId, String reviewRoomNum, String reviewGuestId, String reviewScore, String reviewComment,
 			String reviewPhoto) {
 		super();
 		this.reviewId = reviewId;

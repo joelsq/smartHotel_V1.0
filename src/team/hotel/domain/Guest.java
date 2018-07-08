@@ -24,9 +24,9 @@ public class Guest implements java.io.Serializable{
 
     private String guestGender;
 
-    private String gusetLastVisit;
+    private String guestLastVisit;
 
-    private String gusetLastIp;
+    private String guestLastIp;
 
     public String getGuestId() {
         return guestId;
@@ -76,24 +76,24 @@ public class Guest implements java.io.Serializable{
         this.guestGender = guestGender == null ? null : guestGender.trim();
     }
 
-    public String getGusetLastVisit() {
-        return gusetLastVisit;
+    public String getGuestLastVisit() {
+        return guestLastVisit;
     }
 
-    public void setGusetLastVisit(String gusetLastVisit) {
-        this.gusetLastVisit = gusetLastVisit;
+    public void setGuestLastVisit(String guestLastVisit) {
+        this.guestLastVisit = guestLastVisit;
     }
 
-    public String getGusetLastIp() {
-        return gusetLastIp;
+    public String getGuestLastIp() {
+        return guestLastIp;
     }
 
-    public void setGusetLastIp(String gusetLastIp) {
-        this.gusetLastIp = gusetLastIp == null ? null : gusetLastIp.trim();
+    public void setGuestLastIp(String guestLastIp) {
+        this.guestLastIp = guestLastIp == null ? null : guestLastIp.trim();
     }
 
 	public Guest(String guestId, String guestName, String guestPhone, String guestPassword, String guestDocumentNum,
-			String guestGender, String gusetLastVisit, String gusetLastIp) {
+			String guestGender, String guestLastVisit, String guestLastIp) {
 		super();
 		this.guestId = guestId;
 		this.guestName = guestName;
@@ -101,15 +101,15 @@ public class Guest implements java.io.Serializable{
 		this.guestPassword = guestPassword;
 		this.guestDocumentNum = guestDocumentNum;
 		this.guestGender = guestGender;
-		this.gusetLastVisit = gusetLastVisit;
-		this.gusetLastIp = gusetLastIp;
+		this.guestLastVisit = guestLastVisit;
+		this.guestLastIp = guestLastIp;
 	}
 
 	@Override
 	public String toString() {
 		return "Guest [guestId=" + guestId + ", guestName=" + guestName + ", guestPhone=" + guestPhone
 				+ ", guestPassword=" + guestPassword + ", guestDocumentNum=" + guestDocumentNum + ", guestGender="
-				+ guestGender + ", gusetLastVisit=" + gusetLastVisit + ", gusetLastIp=" + gusetLastIp + "]";
+				+ guestGender + ", guestLastVisit=" + guestLastVisit + ", guestLastIp=" + guestLastIp + "]";
 	}
     
     

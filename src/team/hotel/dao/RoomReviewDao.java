@@ -30,10 +30,10 @@ public class RoomReviewDao extends DBUtil {
 			DBPrint.PrintReadSQL("RoomReview", sql);// DBPrint输出
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Short id = rs.getShort(1);
+				String id = rs.getString(1);
 				String roomNum= rs.getString(2);
-				Short guestid = rs.getShort(3);
-				Byte score = rs.getByte(4);
+				String guestid = rs.getString(3);
+				String score = rs.getString(4);
 				String comment=rs.getString(5);
 				String photo=rs.getString(6);
 			
@@ -85,10 +85,10 @@ public class RoomReviewDao extends DBUtil {
 
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Short id = rs.getShort(1);
+				String id = rs.getString(1);
 				String roomNum= rs.getString(2);
-				Short guestid = rs.getShort(3);
-				Byte score = rs.getByte(4);
+				String guestid = rs.getString(3);
+				String score = rs.getString(4);
 				String comment=rs.getString(5);
 				String photo=rs.getString(6);
 			
@@ -200,7 +200,6 @@ public class RoomReviewDao extends DBUtil {
 					break;
 				}
 			}
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

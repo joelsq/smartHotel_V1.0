@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import team.hotel.domain.User;
@@ -39,7 +38,7 @@ public class UserDao extends DBUtil {
 				String userPassword = rs.getString(3);
 				int userCredit = rs.getInt(4);
 				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
+				String userLastVisit = rs.getString(6);
 				String userLastIP = rs.getString(7);
 
 				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
@@ -76,7 +75,10 @@ public class UserDao extends DBUtil {
 	}
 
 	// 查询用户——自定义语句
-	public List<User> UserSelect(String Name,String auth) {
+	public List<User> UserSelect(User user) {
+		String Name=user.getUserName();
+		String auth=user.getAuthority();
+		
 		userList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -111,11 +113,11 @@ public class UserDao extends DBUtil {
 				String userPassword = rs.getString(3);
 				int userCredit = rs.getInt(4);
 				String userAu = rs.getString(5);
-				Date userLastVisit = rs.getDate(6);
+				String userLastVisit = rs.getString(6);
 				String userLastIP = rs.getString(7);
 
-				User user = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				userList.add(user);
+				User u = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
+				userList.add(u);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -148,10 +150,13 @@ public class UserDao extends DBUtil {
 	}
 
 	// 更新用户信息
-	public boolean UserUpdate(Short userId, String userName, String userPassword,
-			int credit, String auth, Date LastVisit, String LastIp) {
-		String sql = "CALL proc_userUpdate(," + userId + ",'" + userName + "','" + 
-			userPassword + "'," + credit + ",'"+ auth+"','" +LastVisit + "','" + LastIp+ "',@state)";
+	public boolean UserUpdate(User user) {
+		String userName=user.getUserName();
+		String userPassword=user.getPassword();
+		String auth=user.getAuthority();
+		
+		String sql = "CALL proc_userUpdate('" + userName + "','" + 
+			userPassword + "'," + null + ",'"+ auth+"'," +null + "," +null+ ",@state)";
 		team.hotel.dao.DBPrint.PrintUpdateSQL("User", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -256,4 +261,62 @@ public class UserDao extends DBUtil {
 		return returnValue;
 	}
 
+	//新增用户（客服或者管理员）
+	public boolean UserAdd(User user) {
+		String userName=user.getUserName();
+		String userPassword=user.getPassword();
+		String auth=user.getAuthority();
+		
+		String sql = "CALL proc_userAdd('" + userName + "','" + 
+			userPassword + "'," + null + ",'"+ auth+"'," +null + "," +null+ ",@state)";
+		team.hotel.dao.DBPrint.PrintAddSQL("User", sql);
+		boolean returnValue = false;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+
+			stmt.executeQuery(sql);
+			rs = stmt.executeQuery("SELECT @state");
+			while (rs.next()) {
+				String state = rs.getString(1);
+				if (state.equals("addUserSuccess")) {
+					returnValue = true;
+					break;
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return returnValue;
+	}
 }
