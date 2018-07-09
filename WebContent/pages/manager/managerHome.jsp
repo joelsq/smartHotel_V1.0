@@ -138,7 +138,7 @@
 											value="${roomIsStay}" />
 									</div>
 									<div class="list-group-item">
-									*空查询为所有信息
+										*空查询为所有信息
 										<button type="reset" class="tabSub" value="reset"
 											style="margin-left: 60px;">重置</button>
 										<button type="submit" class="tabSub btn1" value="select">查询</button>

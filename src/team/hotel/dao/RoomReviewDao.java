@@ -15,8 +15,12 @@ import team.hotel.domain.RoomReview;
  */
 public class RoomReviewDao extends DBUtil {
 	List<RoomReview> RoomReviewList = new ArrayList<RoomReview>();
-	
-	// 读取所有客户评价信息
+
+	/**
+	 * 读取客户评价列表
+	 * 
+	 * @return 客户评价列表
+	 */
 	public List<RoomReview> RoomReviewRead() {
 		RoomReviewList.clear();
 
@@ -31,13 +35,13 @@ public class RoomReviewDao extends DBUtil {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String id = rs.getString(1);
-				String roomNum= rs.getString(2);
+				String roomNum = rs.getString(2);
 				String guestid = rs.getString(3);
 				String score = rs.getString(4);
-				String comment=rs.getString(5);
-				String photo=rs.getString(6);
-			
-				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				String comment = rs.getString(5);
+				String photo = rs.getString(6);
+
+				RoomReview RoomReview = new RoomReview(id, roomNum, guestid, score, comment, photo);
 				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
@@ -70,7 +74,13 @@ public class RoomReviewDao extends DBUtil {
 		return RoomReviewList;
 	}
 
-	// 查询客户评价——房间
+	/**
+	 * 根据房间编号查询房间评价
+	 * 
+	 * @param roomnum
+	 *            房间编号
+	 * @return 评价列表
+	 */
 	public List<RoomReview> RoomReviewList(String roomnum) {
 		RoomReviewList.clear();
 		Connection conn = null;
@@ -86,13 +96,13 @@ public class RoomReviewDao extends DBUtil {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String id = rs.getString(1);
-				String roomNum= rs.getString(2);
+				String roomNum = rs.getString(2);
 				String guestid = rs.getString(3);
 				String score = rs.getString(4);
-				String comment=rs.getString(5);
-				String photo=rs.getString(6);
-			
-				RoomReview RoomReview = new RoomReview(id,roomNum,guestid,score,comment,photo);
+				String comment = rs.getString(5);
+				String photo = rs.getString(6);
+
+				RoomReview RoomReview = new RoomReview(id, roomNum, guestid, score, comment, photo);
 				RoomReviewList.add(RoomReview);
 			}
 		} catch (ClassNotFoundException e) {
@@ -125,7 +135,15 @@ public class RoomReviewDao extends DBUtil {
 		return RoomReviewList;
 	}
 
-	// 更新客户评价信息
+	/**
+	 * 未实现的评价表更新
+	 * 
+	 * @param id
+	 * @param income
+	 * @param expend
+	 * @param date
+	 * @return
+	 */
 	public boolean RoomReviewUpdate(String id, String income, String expend, String date) {
 		String sql = "CALL proc_RoomReviewUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
 		DBPrint.PrintUpdateSQL("RoomReview", sql);
@@ -179,7 +197,13 @@ public class RoomReviewDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除客户评价——根据客户评价编号
+	/**
+	 * 根据评价表编号删除表
+	 * 
+	 * @param RoomReviewid
+	 *            评价表id
+	 * @return
+	 */
 	public boolean RoomReviewDelete(String RoomReviewid) {
 		String sql = "CALL proc_RoomReviewDel( '" + RoomReviewid + "',@state)";
 		DBPrint.PrintDelSQL("RoomReview", sql);

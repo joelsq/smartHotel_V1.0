@@ -103,8 +103,7 @@
 									href="#panel-element-finSelect">查询财务报表</a>
 							</div>
 							<!-- 查询用户 -->
-							<div id="panel-element-finSelect"
-								class="panel-collapse collapse">
+							<div id="panel-element-finSelect" class="panel-collapse collapse">
 								<form
 									action="<%=request.getContextPath()%>/FinancialReportServlet?method=select"
 									id="FinForm2" method="post">
@@ -114,7 +113,7 @@
 											value="${Date}" />
 									</div>
 									<div class="list-group-item">
-									*空查询为所有信息
+										*空查询为所有信息
 										<button type="reset" class="tabSub" value="reset"
 											style="margin-left: 60px;">重置</button>
 										<button type="submit" class="tabSub" value="select">查询</button>
@@ -132,10 +131,11 @@
 							</div>
 							<!-- 更新用户-->
 							<div id="panel-element-8" class="panel-collapse collapse in">
-								<form action="FinancialReportServlet?method=update" method="post">
+								<form action="FinancialReportServlet?method=update"
+									method="post">
 									<!-- 输入栏 -->
 									<div class="list-group-item">
-										报表编号（只读）<input readonly name="id" 
+										报表编号（只读）<input readonly name="id"
 											value="${updateFinList.getFinId()}">
 									</div>
 									<div class="list-group-item">
@@ -143,7 +143,8 @@
 											value="${updateFinList.getFinTodayIncome() }">
 									</div>
 									<div class="list-group-item">
-										支出<input name="expend" value="${updateFinList.getFinTodayExpend() }">
+										支出<input name="expend"
+											value="${updateFinList.getFinTodayExpend() }">
 									</div>
 									<div class="list-group-item">
 										日期（只读）<input readonly name="date"

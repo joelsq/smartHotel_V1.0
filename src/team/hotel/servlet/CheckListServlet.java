@@ -65,22 +65,16 @@ public class CheckListServlet extends HttpServlet {
 
 		/******************* 添加客人入住登记信息 ******************/
 		else if (method.endsWith("add")) {
-
-			//String checkguestid = request.getParameter("checkguestid");
 			String guestName = request.getParameter("guestName");
 			String guestPhone = request.getParameter("guestPhone");
-			//String guestGender = request.getParameter("guestGender");
 			String roomid = request.getParameter("roomId");
 			String checkInDates = request.getParameter("checkInDate");
-			//String checkDays = request.getParameter("checkDays");
-			//String checkOutDates = request.getParameter("checkOutDate");
 			String checkMealType = request.getParameter("checkMealType");
-			//String checkNumOfPeople = request.getParameter("checkNumOfPeople");
 
-			CheckList checklist = new CheckList(null, null, guestName, guestPhone, null, roomid,null,
-					checkInDates, null, null, checkMealType, null, null, null);
+			CheckList checklist = new CheckList(null, null, guestName, guestPhone, null, roomid, null, checkInDates,
+					null, null, checkMealType, null, null, null);
 			System.out.println("测试：新增客人入住信息：" + checklist.toString());
-			
+
 			boolean success = db.CheckListAdd(checklist);
 			System.out.println("新增客人入住登记信息：" + success);
 			if (success)
@@ -97,10 +91,8 @@ public class CheckListServlet extends HttpServlet {
 			String guestPhone = request.getParameter("guestPhone");
 			String roomNum = request.getParameter("roomNum");
 			String checkInDates = request.getParameter("checkInDate");
-
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDates = request.getParameter("checkOutDate");
-
 			String checkMealType = request.getParameter("checkMealType");
 			CheckList checklist = new CheckList(null, null, guestName, guestPhone, null, null, roomNum, checkInDates,
 					checkDays, checkOutDates, checkMealType, null, null, null);
@@ -125,16 +117,13 @@ public class CheckListServlet extends HttpServlet {
 		/******************* 入住登记信息更新操作 ******************/
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
-			// String checklistId = request.getParameter("checklistId");
 			String guestName = request.getParameter("guestName");
 			String guestPhone = request.getParameter("guestPhone");
 			String guestGender = request.getParameter("guestGender");
 			String roomNum = request.getParameter("roomNum");
 			String checkInDates = request.getParameter("checkInDate");
-
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDates = request.getParameter("checkOutDate");
-
 			String checkMealType = request.getParameter("checkMealType");
 			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
 			String checkRoomConsume = request.getParameter("checkRoomConsume");

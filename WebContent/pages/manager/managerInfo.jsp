@@ -66,21 +66,21 @@
 						<h2>酒店动态</h2>
 						<p>酒店新增的服务及日常管理.</p>
 						<p>
-							<a class="btn" href="#">详细 »</a>
+							<button class="tabSub">详细</button>
 						</p>
 					</div>
 					<div class="col-md-4 column">
 						<h2>用户评价</h2>
 						<p>用户通过客户页面，对酒店进行评价和反馈.</p>
 						<p>
-							<a class="btn" href="#">详细 »</a>
+							<button class="tabSub">详细</button>
 						</p>
 					</div>
 					<div class="col-md-4 column">
 						<h2>内部平台</h2>
 						<p>客房设置和优惠活动，与客服人员交流.</p>
 						<p>
-							<a class="btn" href="#">详细 »</a>
+							<button class="tabSub">详细</button>
 						</p>
 					</div>
 				</div>

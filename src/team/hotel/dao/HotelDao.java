@@ -1,20 +1,18 @@
 package team.hotel.dao;
 
 import java.sql.Connection;
-//import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//import team.hotel.domain.CheckList;
 import team.hotel.domain.Hotel;
-//import team.hotel.domain.Room;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月8日 其他特殊数据库操作
+ * @version 创建时间：2018年7月8日 
+ * 查询酒店信息——未完成
  */
 public class HotelDao extends DBUtil {
 

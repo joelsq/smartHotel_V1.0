@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 数据库-登录系统
+ * @version 创建时间：2018年7月6日 数据库-登录和注册
  */
 public class LoginDao {
 	boolean bInited = false;
@@ -39,7 +39,16 @@ public class LoginDao {
 		return conn;
 	}
 
-	// 用户登录
+	/**
+	 * 登录系统
+	 * 
+	 * @param Name
+	 *            用户名
+	 * @param password
+	 *            密码
+	 * @return 权限信息
+	 * @throws ClassNotFoundException
+	 */
 	public String loginSuccess(String Name, String password) throws ClassNotFoundException {
 		String returnValue = "loginInit";
 		// 调用数据库的proc_login_au存储过程
@@ -85,7 +94,18 @@ public class LoginDao {
 
 	}
 
-	// 用户注册
+	/**
+	 * 注册
+	 * 
+	 * @param Name
+	 *            用户名
+	 * @param pw1
+	 *            密码
+	 * @param pw2
+	 *            再次确认密码
+	 * @return 注册反馈信息
+	 * @throws ClassNotFoundException
+	 */
 	public String Register(String Name, String pw1, String pw2) throws ClassNotFoundException {
 		String returnValue = "registerInit";
 		// 调用数据库的proc_register存储过程

@@ -35,41 +35,42 @@
 <body>
 	<h3 class="text-center">checklist 增删查改 测试 Good Luck</h3>
 	<!-- 新增入住表 -->
-	<form action="<%=request.getContextPath()%>/CheckListServlet?method=add"
+	<form
+		action="<%=request.getContextPath()%>/CheckListServlet?method=add"
 		id="CheckListForm" method="post">
 		<!-- 输入栏 -->
 		<table class="tab1">
 			<tbody>
 				<tr>
-					
+
 					<td align="justify">入住客人编号</td>
 					<td><input name="checkguestid" type="text" class="allInput"
 						value="${checkguestid}" /></td>
-					
+
 					<td align="justify">房间号</td>
 					<td><input name="checkRoomid" type="text" class="allInput"
-						value="${checkRoomid}" /></td>  
-						
+						value="${checkRoomid}" /></td>
+
 					<td align="justify">入住时间</td>
-                    <td><input name="checkinDate" type="date" class="allInput"
+					<td><input name="checkinDate" type="date" class="allInput"
 						value="${checkinDate}" /></td>
-						
+
 					<td align="justify">入住天数</td>
-                    <td><input name="checkDays" type="text" class="allInput"
+					<td><input name="checkDays" type="text" class="allInput"
 						value="${checkDays}" /></td>
-						
+
 					<td align="justify">退房时间</td>
-                    <td><input name="checkoutDate" type="date" class="allInput"
+					<td><input name="checkoutDate" type="date" class="allInput"
 						value="${checkoutDate}" /></td>
-						
+
 					<td align="justify">餐饮类型</td>
-                    <td><input name="checkMealType" type="text" class="allInput"
+					<td><input name="checkMealType" type="text" class="allInput"
 						value="${checkMealType}" /></td>
-						
+
 					<td align="justify">入住人数</td>
-                    <td><input name="checkNumOfPeople" type="text" class="allInput"
-						value="${checkNumOfPeople}" /></td>
-			
+					<td><input name="checkNumOfPeople" type="text"
+						class="allInput" value="${checkNumOfPeople}" /></td>
+
 					<td align="justify">
 						<button type="submit" class="tabSub" value="add">新增</button>
 				</tr>
@@ -80,19 +81,20 @@
 
 	<!-- 查询房间 -->
 	<h3>所有房间</h3>
-	
+
 	<!-- 房间查询 -->
-	<form action="<%=request.getContextPath()%>/CheckListServlet?method=select"
+	<form
+		action="<%=request.getContextPath()%>/CheckListServlet?method=select"
 		id="CheckListForm" method="post">
 		<!-- 查询输入栏 -->
 		<table class="tab2">
 			<tbody>
 				<tr>
-			
-			        <td align="justify">入住表编号</td>
+
+					<td align="justify">入住表编号</td>
 					<td><input name="id" type="text" class="allInput"
 						value="${id}" /></td>
-						
+
 					<td align="justify">入住客人编号</td>
 					<td><input name="checkid" type="text" class="allInput"
 						value="${checkid}" /></td>
@@ -100,51 +102,51 @@
 					<td align="justify">入住客人姓名</td>
 					<td><input name="guestName" type="text" class="allInput"
 						value="${guestName}" /></td>
-						
+
 					<td align="justify">电话</td>
-                    <td><input name="phone" type="text" class="allInput"
+					<td><input name="phone" type="text" class="allInput"
 						value="${phone}" /></td>
-						
-					<td align="justify">性别</td>	
+
+					<td align="justify">性别</td>
 					<td><input name="guestGender" type="text" class="allInput"
 						value="${guestGender}" /></td>
-					
+
 					<td align="justify">房间号</td>
 					<td><input name="roomid" type="text" class="allInput"
 						value="${roomid}" /></td>
-                       
-                    <td align="justify">房间数量</td>
-                    <td><input name="roomNum2" type="text" class="allInput"
+
+					<td align="justify">房间数量</td>
+					<td><input name="roomNum2" type="text" class="allInput"
 						value="${roomNum2}" /></td>
-						
+
 					<td align="justify">入住时间</td>
-                    <td><input name="checkinDate" type="text" class="allInput"
+					<td><input name="checkinDate" type="text" class="allInput"
 						value="${checkinDate}" /></td>
-						
+
 					<td align="justify">入住天数</td>
-                    <td><input name="checkDays" type="text" class="allInput"
+					<td><input name="checkDays" type="text" class="allInput"
 						value="${checkDays}" /></td>
-						
+
 					<td align="justify">退房时间</td>
-                    <td><input name="checkoutDate" type="text" class="allInput"
+					<td><input name="checkoutDate" type="text" class="allInput"
 						value="${checkoutDate}" /></td>
-						
+
 					<td align="justify">餐饮类型</td>
-                    <td><input name="checkMealType" type="text" class="allInput"
+					<td><input name="checkMealType" type="text" class="allInput"
 						value="${checkMealType}" /></td>
-						
+
 					<td align="justify">入住人数</td>
-                    <td><input name="checkNumOfPeople" type="text" class="allInput"
-						value="${checkNumOfPeople}" /></td>
-			
+					<td><input name="checkNumOfPeople" type="text"
+						class="allInput" value="${checkNumOfPeople}" /></td>
+
 					<td align="justify">房间消费</td>
-					<td><input name="checkRoomConsume" type="text" class="allInput"
-						value="${checkRoomConsume}" /></td>
+					<td><input name="checkRoomConsume" type="text"
+						class="allInput" value="${checkRoomConsume}" /></td>
 
 					<td align="justify">总消费</td>
-					<td><input name="checkTotalConsume" type="text" class="allInput"
-						value="${checkTotalConsume}" /></td>
-						
+					<td><input name="checkTotalConsume" type="text"
+						class="allInput" value="${checkTotalConsume}" /></td>
+
 					<td align="justify">
 						<button type="submit" class="tabSub" value="select">查询</button>
 				</tr>
@@ -175,7 +177,8 @@
 				<td>${data.getgetCheckMealType()}</td>
 				<td>${data.getCheckNumOfPeople()}</td>
 				<td><a
-					href="CheckListServlet?method=detail&num=${data.getGuestId()}">详细</a> <a
+					href="CheckListServlet?method=detail&num=${data.getGuestId()}">详细</a>
+					<a
 					href="CheckListServlet?method=updateBefore&num=${data.getChecklistId()}">更新</a>
 					<a href="CheckListServlet?method=delete&num=${data.getGuestId()}"
 					onclick="javascript:return confirm('确认删除吗？');">删除</a></td>

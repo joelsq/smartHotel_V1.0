@@ -2,7 +2,8 @@ package team.hotel.dao;
 
 /**
  * @author Suqiao Lin
- * @version 创建时间：2018年7月6日 用于测试、打印
+ * @version 创建时间：2018年7月6日 
+ * 用于测试、打印sql语句
  */
 public class DBPrint {
 	static public void PrintAddSQL(String table, String sql) {

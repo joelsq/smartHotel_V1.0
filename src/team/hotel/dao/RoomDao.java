@@ -21,7 +21,11 @@ public class RoomDao extends DBUtil {
 	Statement stmt = null;
 	ResultSet rs = null;
 
-	// 读取所有房间信息
+	/**
+	 * 读取房间信息
+	 * 
+	 * @return 所有房间信息
+	 */
 	public List<Room> readRoom() {
 		roomList.clear();
 		String sql = "CALL proc_roomSelect(NULL,@state)";
@@ -77,7 +81,13 @@ public class RoomDao extends DBUtil {
 
 	}
 
-	// 查询房间——混杂查询
+	/**
+	 * 根据房间信息查询房间
+	 * 
+	 * @param room
+	 *            房间信息
+	 * @return 符合条件的房间列表
+	 */
 	public List<Room> RoomList(Room room) {
 		PreparedStatement ptmt = null;
 		String room_num = room.getRoomNum();
@@ -160,7 +170,13 @@ public class RoomDao extends DBUtil {
 		return roomList;
 	}
 
-	// 更新房间信息
+	/**
+	 * 更新房间信息
+	 * 
+	 * @param room
+	 *            待更新的房间信息
+	 * @return 更新成功与否
+	 */
 	public boolean RoomUpdate(Room room) {
 		// String id = room.getRoomId();
 		String roomNum = room.getRoomNum();
@@ -223,7 +239,13 @@ public class RoomDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除房间——根据房间编号
+	/**
+	 * 根据房间编号删除房间
+	 * 
+	 * @param roomNum
+	 *            房间编号
+	 * @return 删除成功与否
+	 */
 	public boolean RoomDelete(String roomNum) {
 		String sql = "CALL proc_roomDel( '" + roomNum + "',@state)";
 		System.out.println("更新房间的sql语句=" + sql);
@@ -280,9 +302,14 @@ public class RoomDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 新增房间
+	/**
+	 * 新增房间
+	 * 
+	 * @param room
+	 *            待新增的房间
+	 * @return 新增成功与否
+	 */
 	public boolean RoomAdd(Room room) {
-		// String id = room.getRoomId();
 		String roomNum = room.getRoomNum();
 		String roomType = room.getRoomType();
 		String area = room.getRoomArea();
@@ -294,9 +321,8 @@ public class RoomDao extends DBUtil {
 		String roomWashroom = room.getRoomWashroom();
 		String roomIsStay = room.getRoomIsStay();
 
-		String sql = "CALL proc_roomAdd('" + roomNum + "','" + roomType + "'," + area + "," + maxnum
-				+ "," + price + "," + roomAircondition + "," + roomTV + "," + roomWifi + "," + roomWashroom + ","
-				+ roomIsStay + ",@state)";
+		String sql = "CALL proc_roomAdd('" + roomNum + "','" + roomType + "'," + area + "," + maxnum + "," + price + ","
+				+ roomAircondition + "," + roomTV + "," + roomWifi + "," + roomWashroom + "," + roomIsStay + ",@state)";
 		System.out.println("新增房间的sql语句=" + sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -349,5 +375,4 @@ public class RoomDao extends DBUtil {
 		return returnValue;
 	}
 
-	
 }

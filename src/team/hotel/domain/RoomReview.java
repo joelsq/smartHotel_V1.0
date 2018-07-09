@@ -3,7 +3,7 @@ import java.io.Serializable;
 /**
 * @author Suqiao Lin
 * @version 创建时间：2018年7月5日
-* 类说明
+* 客房评价
 */
 
 public class RoomReview implements Serializable{

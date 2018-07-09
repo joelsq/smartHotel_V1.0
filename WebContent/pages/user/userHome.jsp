@@ -126,7 +126,7 @@
 											value="${checkMealType}" />
 									</div>
 									<div class="list-group-item">
-									
+
 										<button type="submit" class="tabSub" value="select">查询</button>
 									</div>
 								</form>

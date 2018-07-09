@@ -66,7 +66,6 @@ public class FinancialReportServlet extends HttpServlet {
 
 		/******************* 添加财务报表 ******************/
 		else if (method.endsWith("add")) {
-			//String finId = request.getParameter("finId");
 			String finTodayIncome = request.getParameter("income");
 			String finTodayExpend = request.getParameter("expend");
 			String finDate = request.getParameter("Date");
@@ -93,7 +92,6 @@ public class FinancialReportServlet extends HttpServlet {
 		else if (method.endsWith("updateBefore")) {
 			String date = request.getParameter("num");
 			System.out.println("updateBefore处理中！财务报表日期为：" + date);
-			// FinancialReport fin = new FinancialReport(f, null, null, null);
 
 			List<FinancialReport> fin = db.FinancialReportSelect(date);
 			System.out.println(fin.get(0));

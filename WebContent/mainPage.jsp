@@ -116,7 +116,8 @@
 							<img alt="300x200" src="media/image/mainPage/room3-1.jpg" />
 							<div class="caption">
 								<h3>总统套房</h3>
-								<p>面积336平方米的总统套房内设有一应俱全的起居厅、会客厅、两间卧室及配有厨房的用餐区，是舒逸、奢华与雅致品位的理想诠释。套房采用希尔顿订制的Serenity Bed，搭配豪华床上用品，包括舒达床垫和床架、柔软羽绒床褥、羽绒被与羽绒枕以及特制……</p>
+								<p>面积336平方米的总统套房内设有一应俱全的起居厅、会客厅、两间卧室及配有厨房的用餐区，是舒逸、奢华与雅致品位的理想诠释。套房采用希尔顿订制的Serenity
+									Bed，搭配豪华床上用品，包括舒达床垫和床架、柔软羽绒床褥、羽绒被与羽绒枕以及特制……</p>
 								<p>
 									<a class="btn btn-primary" href="pages/room/room3.jsp">查看详情</a>
 								</p>
@@ -229,7 +230,7 @@
 					<li><a href="#">法律声明</a></li>
 					<li><a href="#">知识产权</a></li>
 				</ul>
-				<div style="clear:both"></div>
+				<div style="clear: both"></div>
 				<div>&copy; 2018 smartHotel_V1.0.com All Rights Reserved</div>
 			</div>
 		</div>
@@ -240,11 +241,12 @@
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-                    <div class="modal-header">
-                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                         <h5 class="modal-title" id="myModalLabel">登录页面</h5>
-                    </div>
-                    <div class="modal-body">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h5 class="modal-title" id="myModalLabel">登录页面</h5>
+					</div>
+					<div class="modal-body">
 						<form action="Login?method=login" method="post"
 							class="form-horizontal" role="form">
 							<div style="text-align: center" class="form-group">
@@ -267,11 +269,11 @@
 										<label><input type="checkbox" />记住我</label>
 									</div>
 								</div>
-		
-		
-								<div class="col-sm-offset-3 col-sm-7" style="margin-top:15px;">
+
+
+								<div class="col-sm-offset-3 col-sm-7" style="margin-top: 15px;">
 									<button type="submit" class="btn btn-default">Sign in</button>
-		
+
 								</div>
 							</div>
 						</form>
@@ -286,11 +288,12 @@
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-                    <div class="modal-header">
-                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                         <h5 class="modal-title" id="myModalLabel">注册页面</h5>
-                    </div>
-                    <div class="modal-body">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h5 class="modal-title" id="myModalLabel">注册页面</h5>
+					</div>
+					<div class="modal-body">
 						<form action="Login?method=register" method="post"
 							class="form-horizontal" role="form">
 							<div style="text-align: center" class="form-group">
@@ -314,7 +317,7 @@
 							<div class="form-group">
 								<div class="col-sm-offset-3 col-sm-7">
 									<button type="submit" class="btn btn-default">注册</button>
-	
+
 								</div>
 							</div>
 						</form>

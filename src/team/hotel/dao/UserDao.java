@@ -19,7 +19,11 @@ public class UserDao extends DBUtil {
 	List<User> userList = new ArrayList<User>();
 	DBPrint DBPrint = new DBPrint();
 
-	// 读取所有用户信息
+	/**
+	 * 获取酒店用户信息
+	 * 
+	 * @return 所有用户信息
+	 */
 	public List<User> UserRead() {
 		userList.clear();
 
@@ -75,12 +79,18 @@ public class UserDao extends DBUtil {
 		return userList;
 	}
 
-	// 查询用户——自定义语句
+	/**
+	 * 根据用户信息查询用户
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @return 用户列表
+	 */
 	public List<User> UserSelect(User user) {
-		String userId=user.getUserId();
-		String Name=user.getUserName();
-		String auth=user.getAuthority();
-		
+		String userId = user.getUserId();
+		String Name = user.getUserName();
+		String auth = user.getAuthority();
+
 		userList.clear();
 		Connection conn = null;
 		ResultSet rs = null;
@@ -88,15 +98,15 @@ public class UserDao extends DBUtil {
 		try {
 			conn = getConnection();
 			System.out.println("准备 筛选数据库User表 数据");
-			System.out.println("参数：" + userId+","+Name + "," + auth);
+			System.out.println("参数：" + userId + "," + Name + "," + auth);
 			StringBuilder sql = new StringBuilder("SELECT * FROM  user where 1=1 ");
 			List<String> paramList = new ArrayList<String>();
 
-			if (userId!= null && !"".equals(userId.trim())) {
+			if (userId != null && !"".equals(userId.trim())) {
 				sql.append(" and user_id =? ");
 				paramList.add(userId);
 			}
-			
+
 			if (Name != null && !"".equals(Name.trim())) {
 				sql.append(" and user_name like '%' ? '%' ");
 				paramList.add(Name);
@@ -105,14 +115,14 @@ public class UserDao extends DBUtil {
 				sql.append(" and authority like '%' ? '%'");
 				paramList.add(auth);
 			}
-			
+
 			ptmt = conn.prepareStatement(sql.toString());
 			for (int i = 0; i < paramList.size(); i++) {
 				ptmt.setString(i + 1, paramList.get(i));
 				System.out.println(paramList.get(i));
 			}
 			team.hotel.dao.DBPrint.PrintSQL("User", ptmt.toString());
-			System.out.println("User查询执行的语句："+sql.toString());
+			System.out.println("User查询执行的语句：" + sql.toString());
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
 				String id = rs.getString(1);
@@ -124,11 +134,11 @@ public class UserDao extends DBUtil {
 				String userLastIP = rs.getString(7);
 
 				User u = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
-				
+
 				userList.add(u);
-				System.out.println("查询用户:"+u);
+				System.out.println("查询用户:" + u);
 			}
-			//System.out.println("UserDao测试");
+			// System.out.println("UserDao测试");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -159,16 +169,21 @@ public class UserDao extends DBUtil {
 		return userList;
 	}
 
-	// 更新用户信息
+	/**
+	 * 更新用户信息
+	 * 
+	 * @param user
+	 * @return 更新成功与否
+	 */
 	public boolean UserUpdate(User user) {
-		String userName=user.getUserName();
-		String userPassword=user.getPassword();
-		String userCredit=user.getCredits();
-		String auth=user.getAuthority();
-		
-		String sql = "CALL proc_userUpdate('" + userName + "','" + 
-			userPassword + "'," + userCredit+ ",'"+ auth+"'," +null + "," +null+ ",@state)";
-		
+		String userName = user.getUserName();
+		String userPassword = user.getPassword();
+		String userCredit = user.getCredits();
+		String auth = user.getAuthority();
+
+		String sql = "CALL proc_userUpdate('" + userName + "','" + userPassword + "'," + userCredit + ",'" + auth + "',"
+				+ null + "," + null + ",@state)";
+
 		team.hotel.dao.DBPrint.PrintUpdateSQL("User", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -220,7 +235,13 @@ public class UserDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除用户——根据用户编号
+	/**
+	 * 根据用户编号删除用户
+	 * 
+	 * @param userId
+	 *            用户编号
+	 * @return 删除成功与否
+	 */
 	public boolean UserDelete(String userId) {
 		String sql = "CALL proc_userDel( '" + userId + "',@state)";
 		team.hotel.dao.DBPrint.PrintDelSQL("User", sql);
@@ -273,14 +294,19 @@ public class UserDao extends DBUtil {
 		return returnValue;
 	}
 
-	//新增用户（客服或者管理员）
+	/**
+	 * 新增管理员或者客服人员或客人
+	 * 
+	 * @param user
+	 * @return 新增成功与否
+	 */
 	public boolean UserAdd(User user) {
-		String userName=user.getUserName();
-		String userPassword=user.getPassword();
-		String auth=user.getAuthority();
-		
-		String sql = "CALL proc_userAdd('" + userName + "','" + 
-			userPassword + "'," + null + ",'"+ auth+"'," +null + "," +null+ ",@state)";
+		String userName = user.getUserName();
+		String userPassword = user.getPassword();
+		String auth = user.getAuthority();
+
+		String sql = "CALL proc_userAdd('" + userName + "','" + userPassword + "'," + null + ",'" + auth + "'," + null
+				+ "," + null + ",@state)";
 		team.hotel.dao.DBPrint.PrintAddSQL("User", sql);
 		boolean returnValue = false;
 		Connection conn = null;

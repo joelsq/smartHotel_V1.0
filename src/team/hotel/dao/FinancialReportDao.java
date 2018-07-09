@@ -17,7 +17,11 @@ public class FinancialReportDao extends DBUtil {
 
 	List<FinancialReport> financialReportList = new ArrayList<FinancialReport>();
 
-	// 读取所有财务报表信息
+	/**
+	 * 读取所有财务报表}
+	 * 
+	 * @return 所有财务报表
+	 */
 	public List<FinancialReport> FinancialReportRead() {
 		financialReportList.clear();
 
@@ -68,14 +72,20 @@ public class FinancialReportDao extends DBUtil {
 		return financialReportList;
 	}
 
-	// 查询财务报表——日期
+	/**
+	 * 根据日期查询财务报表
+	 * 
+	 * @param date
+	 *            财务报表日期
+	 * @return 报表查询结果
+	 */
 	public List<FinancialReport> FinancialReportSelect(String date) {
 		financialReportList.clear();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql; 
-		if(date=="")
+		String sql;
+		if (date == "")
 			sql = "CALL proc_financial_reportSelect(null,@state)";
 		else
 			sql = "CALL proc_financial_reportSelect('" + date + "',@state)";
@@ -124,7 +134,13 @@ public class FinancialReportDao extends DBUtil {
 		return financialReportList;
 	}
 
-	// 更新财务报表信息
+	/**
+	 * 更新财务报表
+	 * 
+	 * @param report
+	 *            待更新的财务报表
+	 * @return 更新成功或失败
+	 */
 	public boolean FinancialReportUpdate(FinancialReport report) {
 		String id = report.getFinId();
 		String income = report.getFinTodayIncome();
@@ -183,7 +199,14 @@ public class FinancialReportDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 删除财务报表——根据财务报表编号
+	/**
+	 * 根据财务报表id删除报表
+	 * 
+	 * @param financialReportid
+	 *            财务报表id
+	 * @return 删除成功或失败
+	 * 
+	 */
 	public boolean FinancialReportDelete(String financialReportid) {
 		String sql = "CALL proc_financial_reportDel(" + financialReportid + ",@state)";
 		DBPrint.PrintDelSQL("FinancialReport", sql);
@@ -236,13 +259,19 @@ public class FinancialReportDao extends DBUtil {
 		return returnValue;
 	}
 
-	// 新增财务报表信息
+	/**
+	 * 新增财务报表
+	 * 
+	 * @param report
+	 *            待新增的财务报表
+	 * @return 新增成功或失败
+	 */
 	public boolean FinancialReportAdd(FinancialReport report) {
 		String income = report.getFinTodayIncome();
 		String expend = report.getFinTodayExpend();
 		String date = report.getFinDate();
 
-		String sql = "call proc_financial_reportAdd("+income + "," + expend + ",'" + date + "',@state)";
+		String sql = "call proc_financial_reportAdd(" + income + "," + expend + ",'" + date + "',@state)";
 		DBPrint.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;

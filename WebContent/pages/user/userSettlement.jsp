@@ -41,42 +41,52 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-                <ul class="nav">
-                    <li><a href="pages/user/userHome.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">入住登记信息管理</a>
-                    </li>
-                    <li><a href="pages/user/userSettlement.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">结算信息管理</a></li>
-                </ul>
+				<ul class="nav">
+					<li><a href="pages/user/userHome.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">入住登记信息管理</a>
+					</li>
+					<li><a href="pages/user/userSettlement.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">结算信息管理</a></li>
+				</ul>
 				<div class="list-group">
 					<div class="panel-group" id="panel-177842">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-												data-toggle="collapse" data-parent="#panel-177842"
-												href="#panel-element-45719">结算信息管理</a>
+									data-toggle="collapse" data-parent="#panel-177842"
+									href="#panel-element-45719">结算信息管理</a>
 							</div>
-							<div id="panel-element-45719"
-								class="panel-collapse collapse">
+							<div id="panel-element-45719" class="panel-collapse collapse">
 								<form action="RoomServlet?method=update" method="post">
 									<div class="list-group-item">
-										客房定价<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										客房定价<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										餐饮消费<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										餐饮消费<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										客房消费<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										客房消费<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										客房类型<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										客房类型<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										结算时间<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										结算时间<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										入住天数<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										入住天数<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										消费总额<input name="roomNum" type="text" class="allInput" value="${roomNum}" />
+										消费总额<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 								</form>
 							</div>

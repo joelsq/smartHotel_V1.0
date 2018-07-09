@@ -70,13 +70,13 @@
 			<div class="col-md-12 column">
 				<div class="tabbable" id="tabs-672275">
 					<ul class="nav nav-tabs">
-						
+
 						<li><a href="#panel-user" data-toggle="tab">用户管理</a></li>
 					</ul>
-					
-						<!-- 用戶信息面板 -->
-						<div class="tab-pane" id="panel-user">
-							<div class="tab-pane active" id="panel-User1">
+
+					<!-- 用戶信息面板 -->
+					<div class="tab-pane" id="panel-user">
+						<div class="tab-pane active" id="panel-User1">
 							<div class="row clearfix">
 								<div class="col-md-12 column">
 									<div class="list-group">
@@ -104,13 +104,13 @@
 															密码<input name="password" type="text" class="allInput"
 																value="${password}" />
 														</div>
-														
-														
+
+
 														<div class="list-group-item">
-															权限<input name="authority" type="text"
-																class="allInput" value="${authority}" />
+															权限<input name="authority" type="text" class="allInput"
+																value="${authority}" />
 														</div>
-														
+
 														<div class="list-group-item">
 															<button type="submit" class="tabSub" value="add">新增</button>
 														</div>
@@ -132,7 +132,7 @@
 														action="<%=request.getContextPath()%>/UserServlet?method=select"
 														id="UserForm" method="post">
 														<!-- 输入栏 -->
-														
+
 														<div class="list-group-item">
 															用户名<input name="userName" type="text" class="allInput"
 																value="${userName}" />
@@ -141,7 +141,7 @@
 															权限<input name="authority" type="text" class="allInput"
 																value="${authority}" />
 														</div>
-														
+
 														<div class="list-group-item">
 															<button type="submit" class="tabSub btn1" value="select">查询</button>
 														</div>
@@ -157,8 +157,7 @@
 														href="#panel-element-8">更新用户信息</a>
 												</div>
 												<!-- 更新用户-->
-												<div id="panel-element-8"
-													class="panel-collapse collapse in">
+												<div id="panel-element-8" class="panel-collapse collapse in">
 													<form action="UserServlet?method=update" method="post">
 														<!-- 输入栏 -->
 														<div class="list-group-item">
@@ -169,12 +168,12 @@
 															密码<input name="password"
 																value="${updateUser.getPassword() }">
 														</div>
-														
+
 														<div class="list-group-item">
 															权限<input name="authority"
 																value="${updateUser.getAuthority() }">
 														</div>
-														
+
 														<div class="list-group-item">
 															<button type="submit" class="tabSub" value="update">更新</button>
 														</div>
@@ -191,7 +190,7 @@
 														<th>密码</th>
 														<th>积分</th>
 														<th>权限</th>
-														
+
 													</tr>
 												</thead>
 												<tbody>
@@ -220,11 +219,11 @@
 								</div>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

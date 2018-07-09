@@ -20,31 +20,31 @@ import team.hotel.domain.User;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UserServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	//	doGet(request, response);
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -52,20 +52,21 @@ public class UserServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		UserDao db = new UserDao();
 
-		String method = request.getParameter("method");//请求的操作
+		String method = request.getParameter("method");// 请求的操作
 		if (method == null || method.equals("")) {
 			method = "index";
 		}
 
 		/******************* 管理员查看所有用户信息 ******************/
-		if (method.endsWith("index")||method == null || method.equals("")) {
+		if (method.endsWith("index") || method == null || method.equals("")) {
 			List<User> userlist = db.UserRead();
 			session.setAttribute("userlist", userlist);
 			response.sendRedirect("pages/manager/managerUser.jsp");
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			// request.getRequestDispatcher("pages/test/userindex.jsp").forward(request,
+			// response);
 			return;
 		}
-		
+
 		/******************* 添加用户 ******************/
 		else if (method.endsWith("add")) {
 			String userId = request.getParameter("userId");
@@ -73,7 +74,7 @@ public class UserServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String credits = request.getParameter("credits");
 			String authority = request.getParameter("authority");
-			User user=new User(userId, userName, password, credits, authority, null, null);
+			User user = new User(userId, userName, password, credits, authority, null, null);
 			boolean success = db.UserAdd(user);
 			System.out.println("新增用户：" + success);
 			if (success)
@@ -88,24 +89,26 @@ public class UserServlet extends HttpServlet {
 			// 接受表单内容
 			String userName = request.getParameter("userName");
 			String authority = request.getParameter("authority");
-			User user=new User(null, userName, null,null, authority, null, null);
-			
+			User user = new User(null, userName, null, null, authority, null, null);
+
 			// 查询消息列表并传给页面
 			request.setAttribute("userlist", db.UserSelect(user));
 			// 向页面跳转(刷新页面)
 			request.getRequestDispatcher("pages/manager/managerUser.jsp").forward(request, response);
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			// request.getRequestDispatcher("pages/test/userindex.jsp").forward(request,
+			// response);
 		}
-		/*******************更新页面跳转和数据传输 ******************/
+		/******************* 更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
 			String userId = request.getParameter("num");
 			System.out.println("edit处理中！用户编号为：" + userId);
-			User user=new User(userId, null, null,null,null,null, null);
+			User user = new User(userId, null, null, null, null, null, null);
 			List<User> userlist = db.UserSelect(user);
 			System.out.println(userlist.get(0));
 			session.setAttribute("updateUser", userlist.get(0));// 传到页面的实体，用于提取当前的值
 			response.sendRedirect("pages/manager/managerUser.jsp");
-			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
+			// request.getRequestDispatcher("pages/test/userindex.jsp").forward(request,
+			// response);
 			return;
 		}
 		/******************* 更新操作 ******************/
@@ -116,7 +119,7 @@ public class UserServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String credits = request.getParameter("credits");
 			String authority = request.getParameter("authority");
-			User user=new User(userId, userName,password, credits, authority, null, null);
+			User user = new User(userId, userName, password, credits, authority, null, null);
 
 			boolean canUpdate = db.UserUpdate(user);
 			if (canUpdate) {// 根据情况，返回结果
@@ -126,7 +129,7 @@ public class UserServlet extends HttpServlet {
 			}
 			return;
 		}
-		/******************* 删除******************/
+		/******************* 删除 ******************/
 		else if (method.endsWith("delete")) {
 			String userId = request.getParameter("userId");
 			boolean success = db.UserDelete(userId);
@@ -135,7 +138,7 @@ public class UserServlet extends HttpServlet {
 			else
 				out.print("<script>alert('删除失败!');window.location='UserServlet?method=index</script>");
 		}
-		
+
 	}
 
 }

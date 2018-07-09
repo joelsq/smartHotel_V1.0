@@ -28,7 +28,7 @@
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<div class="page-header">
-				<br>
+					<br>
 					<h1>
 						Smart Hotel 酒店管理系统 <small>软件工程课程小组作业</small>
 					</h1>

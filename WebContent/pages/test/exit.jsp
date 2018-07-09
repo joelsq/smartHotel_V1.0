@@ -8,6 +8,6 @@
 </head>
 <body>
 	<% session.invalidate(); %>
-   <jsp:forward page="../mainPage.jsp"></jsp:forward>
+	<jsp:forward page="../mainPage.jsp"></jsp:forward>
 </body>
 </html>
