@@ -41,11 +41,15 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-                <ul class="nav">
-                    <li><a href="pages/user/userHome.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">入住登记信息管理</a>
-                    </li>
-                    <li><a href="pages/user/userSettlement.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">结算信息管理</a></li>
-                </ul>
+				<ul class="nav">
+					<li><a href="pages/user/userHome.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">入住登记信息管理</a>
+					</li>
+					<li><a href="pages/user/userSettlement.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">结算信息管理</a></li>
+				</ul>
 				<div class="list-group">
 					<div class="panel-group" id="panel-UserHome">
 
@@ -56,8 +60,7 @@
 									href="#panel-element-checkin">增加入住信息</a>
 							</div>
 							<!-- 新增入住信息 -->
-							<div id="panel-element-checkin"
-								class="panel-collapse collapse">
+							<div id="panel-element-checkin" class="panel-collapse collapse">
 								<form
 									action="<%=request.getContextPath()%>/CheckListServlet?method=add"
 									id="CheckinForm1" method="post">
@@ -71,16 +74,16 @@
 											value="${guestPhone}" />
 									</div>
 									<div class="list-group-item">
-										房间编号<input name="userMaxnumOfPeople" type="text"
-											class="allInput" value="${userMaxnumOfPeople}" />
+										房间编号<input name="roomId" type="text" class="allInput"
+											value="${roomId}" />
 									</div>
 									<div class="list-group-item">
-										所选的餐饮标准<input name="userArea" type="text" class="allInput"
-											value="${userArea}" />
+										所选的餐饮标准<input name="checkMealType" type="text"
+											class="allInput" value="${userArea}" />
 									</div>
 									<div class="list-group-item">
-										入住时间<input name="userPrice" type="date" class="allInput"
-											value="${userPrice}" />
+										入住时间<input name="checkInDate" type="date" class="allInput"
+											value="${checkInDate}" />
 									</div>
 									<div class="list-group-item">
 										<button type="submit" class="tabSub" value="add">新增</button>
@@ -90,40 +93,40 @@
 						</div>
 
 						<!-- 查询功能 -->
-						<div class="panel panel-default">
+						<div class="panel panel-select">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-									data-toggle="collapse" data-parent="#panel-177841"
-									href="#panel-element-45717">查询客房信息</a>
+									data-toggle="collapse" data-parent="#panel-UserHome"
+									href="#panel-element-select">查询入住信息</a>
 							</div>
 							<!-- 查询房间 -->
-							<div id="panel-element-45717"
-								class="panel-collapse collapse">
+							<div id="panel-element-select" class="panel-collapse collapse">
 								<form
 									action="<%=request.getContextPath()%>/CheckListServlet?method=select"
-									id="UserForm" method="post">
+									id="CheckForm2" method="post">
 									<!-- 输入栏 -->
 									<div class="list-group-item">
-										客人姓名<input name="userNum" type="text" class="allInput"
-											value="${userNum}" />
+										客人姓名<input name="guestName" type="text" class="allInput"
+											value="${guestName}" />
 									</div>
 									<div class="list-group-item">
-										证件号<input name="userType" type="text" class="allInput"
-											value="${userType}" />
+										手机号<input name="guestPhone" type="text" class="allInput"
+											value="${guestPhone}" />
 									</div>
 									<div class="list-group-item">
-										房间编号<input name="userMaxnumOfPeople" type="text"
-											class="allInput" value="${userMaxnumOfPeople}" />
+										房间编号<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										入住时间<input name="userPrice" type="date" class="allInput"
-											value="${userPrice}" />
+										入住时间<input name="checkInDate" type="date" class="allInput"
+											value="${checkInDate}" />
 									</div>
 									<div class="list-group-item">
-										是否入住<input name="userIsStay" type="text" class="allInput"
-											value="${userIsStay}" />
+										餐饮类型<input name="checkMealType" type="text" class="allInput"
+											value="${checkMealType}" />
 									</div>
 									<div class="list-group-item">
+									
 										<button type="submit" class="tabSub" value="select">查询</button>
 									</div>
 								</form>
@@ -131,32 +134,39 @@
 						</div>
 
 						<!-- 更新功能 -->
-						<div class="panel panel-default">
+						<div class="panel panel-update">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-									data-toggle="collapse" data-parent="#panel-177841"
-									href="#panel-element-45718">更新客房信息</a>
+									data-toggle="collapse" data-parent="#panel-UserHome"
+									href="#panel-element-update">更新入住信息</a>
 							</div>
 							<!-- 更新房间 -->
-							<div id="panel-element-45718"
-								class="panel-collapse collapse in">
+							<div id="panel-element-update" class="panel-collapse collapse in">
 								<form action="CheckListServlet?method=update" method="post">
 									<!-- 输入栏 -->
 									<div class="list-group-item">
-										客人姓名<input readonly name="userNum" value="${updateUser.getUserNum()}">
+										客人姓名<input name="guestName" type="text" class="allInput"
+											value="${guestName}" />
 									</div>
 									<div class="list-group-item">
-										证件号<input name="userType" value="${updateUser.getUserType() }">
+										手机号<input name="guestPhone" type="text" class="allInput"
+											value="${guestPhone}" />
 									</div>
 									<div class="list-group-item">
-										房间编号<input name="userArea" value="${updateUser.getUserArea() }">
+										房间编号<input name="roomNum" type="text" class="allInput"
+											value="${roomNum}" />
 									</div>
 									<div class="list-group-item">
-										所选的餐饮标准<input name="userMaxnumOfPeople" type="text"
-											class="allInput" value="${userMaxnumOfPeople}" />
+										入住时间<input name="checkInDate" type="date" class="allInput"
+											value="${checkInDate}" />
 									</div>
 									<div class="list-group-item">
-										入住时间<input name="userArea" value="${updateUser.getUserArea() }">
+										餐饮类型<input name="checkMealType" type="text" class="allInput"
+											value="${checkMealType}" />
+									</div>
+									<div class="list-group-item">
+										入住时间<input name="checkOutDate" type="date" class="allInput"
+											value="${checkOutDate}" />
 									</div>
 									<div class="list-group-item">
 										<button type="submit" class="tabSub" value="update">更新</button>
@@ -164,33 +174,35 @@
 								</form>
 							</div>
 						</div>
-						
+
 						<table class="table">
-					        <thead>
-					            <tr class="success">
-					                <th>客人姓名</th>
-					                <th>证件号</th>
-					                <th>房间编号</th>
-					                <th>所选的餐饮标准</th>
-					                <th>入住时间</th>
-					                <th>是否入住</th>
-					                <th>操作</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-								<c:forEach items="${userlist}" var="data" varStatus="status">
+							<thead>
+								<tr class="success">
+									<th>序号</th>
+									<th>客人姓名</th>
+									<th>手机号</th>
+									<th>房间编号</th>
+									<th>入住时间</th>
+									<th>退房时间</th>
+									<th>所选的餐饮标准</th>
+									<th></th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${checklist}" var="data" varStatus="status">
 									<tr>
 										<td>${status.index+1}</td>
-										<td>${data.getUserNum()}</td>
-										<td>${data.getUserType()}</td>
-										<td>${data.getUserMaxnumOfPeople()}</td>
-										<td>${data.getUserIsStay()}</td>
+										<td>${data.getGuestName()}</td>
+										<td>${data.getGuestPhone()}</td>
+										<td>${data.getRoomNum()}</td>
+										<td>${data.getCheckInDate()}</td>
+										<td>${data.getCheckOutDate()}</td>
+										<td>${data.getCheckMealType()}</td>
 										<td><a
-											href="<%=request.getContextPath()%>/CheckListServlet?method=detail&num=${data.getUserNum()}">详细</a>
-										<a 	 href="<%=request.getContextPath()%>/CheckListServlet?method=updateBefore&num=${data.getUserNum()}" 
-										class="btn">	修改</a>
-											<a
-											href="<%=request.getContextPath()%>/CheckListServlet?method=delete&num=${data.getUserNum()}"
+											href="<%=request.getContextPath()%>/CheckListServlet?method=updateBefore&num=${data.getChecklistId()}"
+											class="btn"> 修改</a> <a
+											href="<%=request.getContextPath()%>/CheckListServlet?method=delete&num=${data.getChecklistId()}"
 											onclick="javascript:return confirm('确认删除吗？');">删除</a></td>
 									</tr>
 								</c:forEach>

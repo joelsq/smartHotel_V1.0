@@ -41,7 +41,7 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-<!-- 				<ul class="nav navbar-nav navbar-right">
+				<!-- 				<ul class="nav navbar-nav navbar-right">
 					<li><a id="modal-exit" href="pages/exit.jsp" role="button"
 						class="btn"><span class="glyphicon"></span>退出系统</a>
 				</ul> -->
@@ -138,8 +138,9 @@
 											value="${roomIsStay}" />
 									</div>
 									<div class="list-group-item">
+									*空查询为所有信息
 										<button type="reset" class="tabSub" value="reset"
-											style="margin-left: 180px;">重置</button>
+											style="margin-left: 60px;">重置</button>
 										<button type="submit" class="tabSub btn1" value="select">查询</button>
 									</div>
 								</form>
