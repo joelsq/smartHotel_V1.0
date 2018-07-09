@@ -61,7 +61,7 @@ public class UserServlet extends HttpServlet {
 		if (method.endsWith("index")||method == null || method.equals("")) {
 			List<User> userlist = db.UserRead();
 			session.setAttribute("userlist", userlist);
-			response.sendRedirect("pages/manager/managerUser.jsp/");
+			response.sendRedirect("pages/manager/managerHome.jsp/");
 			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 			return;
 		}
@@ -96,7 +96,7 @@ public class UserServlet extends HttpServlet {
 			// 查询消息列表并传给页面
 			request.setAttribute("userlist", db.UserSelect(user));
 			// 向页面跳转(刷新页面)
-			request.getRequestDispatcher("pages/manager/managerUser.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
 			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 		}
 		/*******************更新页面跳转和数据传输 ******************/
@@ -107,7 +107,7 @@ public class UserServlet extends HttpServlet {
 			List<User> userlist = db.UserSelect(user);
 			System.out.println(userlist.get(0));
 			session.setAttribute("updateUser", userlist.get(0));// 传到页面的实体，用于提取当前的值
-			response.sendRedirect("pages/manager/managerUser.jsp");
+			response.sendRedirect("pages/manager/managerHome.jsp");
 			//request.getRequestDispatcher("pages/test/userindex.jsp").forward(request, response);
 			return;
 		}
