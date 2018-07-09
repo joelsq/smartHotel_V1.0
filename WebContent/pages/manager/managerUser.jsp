@@ -60,7 +60,7 @@
 						onmouseout="this.style.color='#fff';" style="color: #fff">用户管理</a></li>
 				</ul>
 				<div class="list-group">
-					<div class="panel-group" id="panel-1">
+					<div class="panel-group" id="panel-User">
 
 						<!-- 增加功能 -->
 						<div class="panel panel-default">
