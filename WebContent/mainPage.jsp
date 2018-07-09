@@ -31,8 +31,7 @@
 				<!-- 导航 -->
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#">首页</a></li>
-					<li><a href="#">简介</a></li>
-					<li><a href="#">信息</a></li>
+					<li><a href="pages/info/info.jsp">项目简介</a></li>
 
 					<ul class="nav navbar-nav navbar-right">
 						<li><a id="modal-269755" href="#modal-container-269754"

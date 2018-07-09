@@ -58,7 +58,7 @@ public class RoomServlet extends HttpServlet {
 		}
 
 		/******************* 主页index ******************/
-		if (method.endsWith("index")||method==null||method=="") {
+		if (method.endsWith("index")) {
 			List<Room> roomlist = db.readRoom();
 			session.setAttribute("roomlist", roomlist);
 			
@@ -74,10 +74,8 @@ public class RoomServlet extends HttpServlet {
 			String maxnum = request.getParameter("roomMaxnumOfPeople");
 			String area = request.getParameter("roomArea");
 			String price = request.getParameter("roomPrice");
-			Room room = new Room(null, roomNum, roomType, maxnum, area, price, null, null, null, null, "0");
+			Room room = new Room(null, roomNum, roomType,area, maxnum, price, null, null, null, null, "0");
 			boolean success = db.RoomAdd(room);
-			// boolean success = db.RoomAdd(null, roomNum, roomType, area, maxnum, price,
-			// null, null, null, null, "0");
 			System.out.println("新增房间：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='RoomServlet?method=index';</script>");
@@ -97,8 +95,6 @@ public class RoomServlet extends HttpServlet {
 			// 查询消息列表并传给页面
 			request.setAttribute("roomlist", db.RoomList(r));
 			// 向页面跳转(刷新页面)
-			//测试页面
-			//request.getRequestDispatcher("pages/test/roomindex.jsp").forward(request, response);
 			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
 		}
 		/******************* 更新页面跳转和数据传输 ******************/
@@ -110,7 +106,6 @@ public class RoomServlet extends HttpServlet {
 			System.out.println(room.get(0));
 			session.setAttribute("updateRoom", room.get(0));// 传到页面的实体，用于提取当前的值
 			request.getRequestDispatcher("pages/manager/managerHome.jsp").forward(request, response);
-			//request.getRequestDispatcher("pages/manager/roomUpdate.jsp").forward(request, response);
 			//测试页面
 			//response.sendRedirect("pages/test/roomUpdate.jsp");
 			return;

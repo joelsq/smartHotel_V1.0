@@ -77,6 +77,7 @@ public class UserDao extends DBUtil {
 
 	// 查询用户——自定义语句
 	public List<User> UserSelect(User user) {
+		String userId=user.getUserId();
 		String Name=user.getUserName();
 		String auth=user.getAuthority();
 		
@@ -87,16 +88,21 @@ public class UserDao extends DBUtil {
 		try {
 			conn = getConnection();
 			System.out.println("准备 筛选数据库User表 数据");
-			System.out.println("参数：" + Name + "," + auth);
-			StringBuilder sql = new StringBuilder("SELECT * FROM `user` where 1=1");
+			System.out.println("参数：" + userId+","+Name + "," + auth);
+			StringBuilder sql = new StringBuilder("SELECT * FROM  user where 1=1 ");
 			List<String> paramList = new ArrayList<String>();
 
+			if (userId!= null && !"".equals(userId.trim())) {
+				sql.append(" and user_id =? ");
+				paramList.add(userId);
+			}
+			
 			if (Name != null && !"".equals(Name.trim())) {
 				sql.append(" and user_name like '%' ? '%' ");
 				paramList.add(Name);
 			}
 			if (auth != null && !"".equals(auth.trim())) {
-				sql.append(" and user_authority='?' ");
+				sql.append(" and authority like '%' ? '%'");
 				paramList.add(auth);
 			}
 			
@@ -106,7 +112,7 @@ public class UserDao extends DBUtil {
 				System.out.println(paramList.get(i));
 			}
 			team.hotel.dao.DBPrint.PrintSQL("User", ptmt.toString());
-
+			System.out.println("User查询执行的语句："+sql.toString());
 			rs = ptmt.executeQuery();
 			while (rs.next()) {
 				String id = rs.getString(1);
@@ -118,8 +124,9 @@ public class UserDao extends DBUtil {
 				String userLastIP = rs.getString(7);
 
 				User u = new User(id, userName, userPassword, userCredit, userAu, userLastVisit, userLastIP);
+				
 				userList.add(u);
-				//System.out.println(u);
+				System.out.println("查询用户:"+u);
 			}
 			//System.out.println("UserDao测试");
 		} catch (ClassNotFoundException e) {
@@ -156,10 +163,11 @@ public class UserDao extends DBUtil {
 	public boolean UserUpdate(User user) {
 		String userName=user.getUserName();
 		String userPassword=user.getPassword();
+		String userCredit=user.getCredits();
 		String auth=user.getAuthority();
 		
 		String sql = "CALL proc_userUpdate('" + userName + "','" + 
-			userPassword + "'," + null + ",'"+ auth+"'," +null + "," +null+ ",@state)";
+			userPassword + "'," + userCredit+ ",'"+ auth+"'," +null + "," +null+ ",@state)";
 		
 		team.hotel.dao.DBPrint.PrintUpdateSQL("User", sql);
 		boolean returnValue = false;

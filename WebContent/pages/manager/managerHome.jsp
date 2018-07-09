@@ -41,26 +41,38 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-                <ul class="nav">
-                    <li><a href="pages/manager/managerHome.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">客房标准管理</a>
-                    </li>
-                    <li><a href="pages/manager/managerInfo.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">酒店信息管理</a></li>
-                    <li><a href="pages/manager/managerFinancial.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">财务信息</a></li>
-                    <li><a href="pages/manager/managerUser.jsp"  onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';" style="color:#fff">用户管理</a></li>
-                </ul>
+				<div class="page-header">
+					<h1>
+						酒店经理管理
+					</h1>
+				</div>
+				<ul class="nav" id="管理页面链接">
+					<li><a href="pages/manager/managerHome.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">客房标准管理</a>
+					</li>
+					<li><a href="pages/manager/managerInfo.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">酒店信息管理</a></li>
+					<li><a href="pages/manager/managerFinancial.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">财务信息</a></li>
+					<li><a href="pages/manager/managerUser.jsp"
+						onmouseover="this.style.color='#000';"
+						onmouseout="this.style.color='#fff';" style="color: #fff">用户管理</a></li>
+				</ul>
 				<div class="list-group">
-					<div class="panel-group" id="panel-177841">
+					<div class="panel-group" id="panel-Room">
 
 						<!-- 增加功能 -->
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-									data-toggle="collapse" data-parent="#panel-177841"
+									data-toggle="collapse" data-parent="#panel-Room"
 									href="#panel-element-45716">增加客房信息</a>
 							</div>
 							<!-- 新增房间 -->
-							<div id="panel-element-45716"
-								class="panel-collapse collapse">
+							<div id="panel-element-45716" class="panel-collapse collapse">
 								<form
 									action="<%=request.getContextPath()%>/RoomServlet?method=add"
 									id="RoomForm" method="post">
@@ -96,12 +108,11 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-									data-toggle="collapse" data-parent="#panel-177841"
+									data-toggle="collapse" data-parent="#panel-Room"
 									href="#panel-element-45717">查询客房信息</a>
 							</div>
 							<!-- 查询房间 -->
-							<div id="panel-element-45717"
-								class="panel-collapse collapse">
+							<div id="panel-element-45717" class="panel-collapse collapse">
 								<form
 									action="<%=request.getContextPath()%>/RoomServlet?method=select"
 									id="RoomForm" method="post">
@@ -133,12 +144,11 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<a class="panel-title list-group-item collapsed active"
-									data-toggle="collapse" data-parent="#panel-177841"
+									data-toggle="collapse" data-parent="#panel-Room"
 									href="#panel-element-45718">更新客房信息</a>
 							</div>
 							<!-- 更新房间 -->
-							<div id="panel-element-45718"
-								class="panel-collapse collapse in">
+							<div id="panel-element-45718" class="panel-collapse collapse in">
 								<form action="RoomServlet?method=update" method="post">
 									<!-- 输入栏 -->
 									<div class="list-group-item">
@@ -150,18 +160,16 @@
 											value="${updateRoom.getRoomType() }">
 									</div>
 									<div class="list-group-item">
-										面积<input name="roomArea"
-											value="${updateRoom.getRoomArea() }">
+										面积<input name="roomArea" value="${updateRoom.getRoomArea() }">
 									</div>
 									<div class="list-group-item">
 										最大容纳人数<input name="roomMaxnumOfPeople"
 											value="${updateRoom.getRoomMaxnumOfPeople() }">
 									</div>
 									<div class="list-group-item">
-										价格<input name="roomPrice"
-											value="${updateRoom.getRoomPrice()}">
+										价格<input name="roomPrice" value="${updateRoom.getRoomPrice()}">
 									</div>
-									<div class="list-group-item">
+									<%-- <div class="list-group-item">
 										空调<input type="checkbox" name="checkbox1"
 											value="${updateRoom.getRoomAircondition()}"> 电视<input
 											type="checkbox" name="checkbox2"
@@ -170,7 +178,7 @@
 											value="${updateRoom.getRoomWifi()}"> 浴室<input
 											type="checkbox" name="checkbox4"
 											value="${updateRoom.getRoomWashroom()}">
-									</div>
+									</div> --%>
 									<div class="list-group-item">
 										<button type="submit" class="tabSub" value="update">更新</button>
 									</div>
@@ -185,22 +193,19 @@
 									<th>房间编号</th>
 									<th>类型</th>
 									<th>可容纳人数</th>
-									<th>是否入住</th>
+									<th>价格</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${roomlist}" var="data"
-									varStatus="status">
+								<c:forEach items="${roomlist}" var="data" varStatus="status">
 									<tr>
 										<td>${status.index+1}</td>
 										<td>${data.getRoomNum()}</td>
 										<td>${data.getRoomType()}</td>
 										<td>${data.getRoomMaxnumOfPeople()}</td>
-										<td>${data.getRoomIsStay()}</td>
-										<td><a
-											href="<%=request.getContextPath()%>/RoomServlet?method=detail&num=${data.getRoomNum()}">详细</a>
-											<a
+										<td>${data.getRoomPrice()}</td>
+										<td>											<a
 											href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}"
 											class="btn"> 修改</a> <a
 											href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"
@@ -212,9 +217,9 @@
 					</div>
 				</div>
 
-				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </body>
 <script>

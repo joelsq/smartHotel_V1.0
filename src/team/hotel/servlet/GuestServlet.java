@@ -94,7 +94,8 @@ public class GuestServlet extends HttpServlet {
 			// 查询消息列表并传给页面
 			request.setAttribute("guestlist", db.GuestSelect(guest));
 			// 向页面跳转(刷新页面)
-			request.getRequestDispatcher("pages/test/guestindex.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/manager/managerInfo.jsp").forward(request, response);
+			//request.getRequestDispatcher("pages/test/guestindex.jsp").forward(request, response);
 		}
 		/*******************更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
@@ -104,7 +105,8 @@ public class GuestServlet extends HttpServlet {
 			List<Guest> guestlist = db.GuestSelect(guest);
 			System.out.println(guestlist.get(0));
 			session.setAttribute("updateGuest", guestlist.get(0));// 传到页面的实体，用于提取当前的值
-			response.sendRedirect("pages/test/guestUpdate.jsp");
+			//response.sendRedirect("pages/test/guestUpdate.jsp");
+			request.getRequestDispatcher("pages/manager/manager.jsp").forward(request, response);
 			return;
 		}
 		/******************* 更新操作 ******************/

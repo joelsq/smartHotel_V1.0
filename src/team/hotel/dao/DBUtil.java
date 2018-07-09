@@ -2,10 +2,10 @@ package team.hotel.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 
 //import com.mysql.jdbc.PreparedStatement;
 
@@ -14,7 +14,9 @@ import java.sql.PreparedStatement;
  * @version 创建时间：2018年7月5日 数据库连接
  */
 public class DBUtil {
+
 	
+	/*
 	public static final String DRIVER = "com.mysql.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/mybatis";
 	public static final String USER = "root";
@@ -23,7 +25,7 @@ public class DBUtil {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-// 
+
 //	public void getConnection() {
 //		try {
 //			Class.forName(DRIVER);
@@ -83,7 +85,7 @@ public class DBUtil {
 //			e.printStackTrace();
 //		}
 //	}
-
+*/
 
 	boolean bInited = false;
 

@@ -41,6 +41,11 @@
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12 column">
+            <div class="page-header">
+				<h1>
+					酒店经理管理
+				</h1>
+			</div>
                 <ul class="nav">
                     <li><a href="pages/manager/managerHome.jsp" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#fff';"  style="color:#fff">客房标准管理</a>
                     </li>
