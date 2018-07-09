@@ -77,31 +77,31 @@ public class CheckListServlet extends HttpServlet {
 			String roomNum = request.getParameter("roomNum");
 			String checkInDates = request.getParameter("checkInDate");
 
-			SimpleDateFormat convert = new SimpleDateFormat("yyyy-MM-dd");// 小写的mm表示的是分钟
-
-			java.util.Date checkInDate = null;
-			try {
-				checkInDate = convert.parse(checkInDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//SimpleDateFormat convert = new SimpleDateFormat("yyyy-MM-dd");// 小写的mm表示的是分钟
+//
+//			java.util.Date checkInDate = null;
+//			try {
+//				checkInDate = convert.parse(checkInDates);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDates = request.getParameter("checkOutDate");
 
-			java.util.Date checkOutDate = null;
-			try {
-				checkOutDate = convert.parse(checkOutDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			java.util.Date checkOutDate = null;
+//			try {
+//				checkOutDate = convert.parse(checkOutDates);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			String checkMealType = request.getParameter("checkMealType");
 			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
 
 			CheckList checklist = new CheckList(null, checkguestid, guestName, guestPhone, guestGender, null, roomNum,
-					checkInDate, checkDays, checkOutDate, checkMealType, checkNumOfPeople, null, null);
+					checkInDates, checkDays, checkOutDates, checkMealType, checkNumOfPeople, null, null);
 
 			boolean success = db.CheckListAdd(checklist);
 			System.out.println("新增客人入住登记信息：" + success);
@@ -119,28 +119,14 @@ public class CheckListServlet extends HttpServlet {
 			String guestPhone = request.getParameter("guestPhone");
 			String roomNum = request.getParameter("roomNum");
 			String checkInDates = request.getParameter("checkInDate");
-			SimpleDateFormat convert = new SimpleDateFormat("yyyy-MM-dd");// 小写的mm表示的是分钟
-
-			java.util.Date checkInDate = null;
-			try {
-				checkInDate = convert.parse(checkInDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDates = request.getParameter("checkOutDate");
 
-			java.util.Date checkOutDate = null;
-			try {
-				checkOutDate = convert.parse(checkOutDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			String checkMealType = request.getParameter("checkMealType");
-			CheckList checklist = new CheckList(null, null, guestName, guestPhone, null, null, roomNum, checkInDate,
-					checkDays, checkOutDate, checkMealType, null, null, null);
+			CheckList checklist = new CheckList(null, null, guestName, guestPhone, 
+					null, null, roomNum, checkInDates,checkDays, checkOutDates,
+					checkMealType, null, null, null);
 
 			// 查询消息列表并传给页面
 			request.setAttribute("checklist", db.CheckListSelect(checklist));
@@ -168,32 +154,18 @@ public class CheckListServlet extends HttpServlet {
 			String guestGender = request.getParameter("guestGender");
 			String roomNum = request.getParameter("roomNum");
 			String checkInDates = request.getParameter("checkInDate");
-			SimpleDateFormat convert = new SimpleDateFormat("yyyy-MM-dd");// 小写的mm表示的是分钟
-			java.util.Date checkInDate = null;
-			try {
-				checkInDate = convert.parse(checkInDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			String checkDays = request.getParameter("checkDays");
 			String checkOutDates = request.getParameter("checkOutDate");
 
-			java.util.Date checkOutDate = null;
-			try {
-				checkOutDate = convert.parse(checkOutDates);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			String checkMealType = request.getParameter("checkMealType");
 			String checkNumOfPeople = request.getParameter("checkNumOfPeople");
 			String checkRoomConsume = request.getParameter("checkRoomConsume");
 			String checkTotalConsume = request.getParameter("checkTotalConsume");
 
-			CheckList checklist = new CheckList(null, null, guestName, guestPhone, guestGender, null, roomNum,
-					checkInDate, checkDays, checkOutDate, checkMealType, checkNumOfPeople, checkRoomConsume,
-					checkTotalConsume);
+			CheckList checklist = new CheckList(null, null, guestName, guestPhone, guestGender,
+					null, roomNum,	checkInDates, checkDays, checkOutDates, checkMealType, 
+					checkNumOfPeople, checkRoomConsume,checkTotalConsume);
 
 			boolean canUpdate = db.CheckListUpdate(checklist);
 			if (canUpdate) {// 根据登陆情况，跳转页面

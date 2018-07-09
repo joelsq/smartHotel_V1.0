@@ -58,36 +58,36 @@ public class FinancialReportServlet extends HttpServlet {
 
 		/******************* 管理员查看财务报表信息 ******************/
 		if (method.endsWith("index")) {
-			List<FinancialReport> finanacialreportlist = db.FinancialReportRead();
-			session.setAttribute("finanacialreportlist", finanacialreportlist);
-			response.sendRedirect("pages/test/finanacialreportindex.jsp");
+			List<FinancialReport> finList = db.FinancialReportRead();
+			session.setAttribute("finList", finList);
+			response.sendRedirect("pages/manager/managerFinancial.jsp");
 			return;
 		}
 
 		/******************* 添加财务报表 ******************/
 		else if (method.endsWith("add")) {
-			String finId = request.getParameter("finId");
-			String finTodayIncome = request.getParameter("finTodayIncome");
-			String finTodayExpend = request.getParameter("finTodayExpend");
-			String finDate = request.getParameter("finDate");
-			FinancialReport finanacialreport = new FinancialReport(finId, finTodayIncome, finTodayExpend, finDate);
-			boolean success = db.FinancialReportAdd(finanacialreport);
+			//String finId = request.getParameter("finId");
+			String finTodayIncome = request.getParameter("income");
+			String finTodayExpend = request.getParameter("expend");
+			String finDate = request.getParameter("Date");
+			FinancialReport fin = new FinancialReport(null, finTodayIncome, finTodayExpend, finDate);
+			boolean success = db.FinancialReportAdd(fin);
 			System.out.println("新增财务报表：" + success);
 			if (success)
 				out.print("<script>alert('新增成功!');window.location='FinancialReportServlet?method=index';</script>");
 			else
 				out.print(
-						"<script>alert('编号重复，新增失败!');window.location='FinancialReportServlet?method=index';</script>");
+						"<script>alert('今日已有报表！请选择更新操作');window.location='FinancialReportServlet?method=index';</script>");
 			return;
 		}
 		/******************* 查询 ******************/
 		else if (method.endsWith("select")) {
 			System.out.println("进入FinancialReportSelect");
-
+			
 			// 查询消息列表并传给页面
-			request.setAttribute("finanacialreportlist", db.FinancialReportSelect(request.getParameter("finDate")));
+			request.setAttribute("finList", db.FinancialReportSelect(request.getParameter("Date")));
 			// 向页面跳转(刷新页面)
-			request.getRequestDispatcher("pages/test/finanacialreportindex.jsp").forward(request, response);
+			request.getRequestDispatcher("pages/manager/managerFinancial.jsp").forward(request, response);
 		}
 		/******************* 更新页面跳转和数据传输 ******************/
 		else if (method.endsWith("updateBefore")) {
@@ -95,19 +95,19 @@ public class FinancialReportServlet extends HttpServlet {
 			System.out.println("updateBefore处理中！财务报表日期为：" + date);
 			// FinancialReport fin = new FinancialReport(f, null, null, null);
 
-			List<FinancialReport> finanacialreportlist = db.FinancialReportSelect(date);
-			System.out.println(finanacialreportlist.get(0));
-			session.setAttribute("updateFinancialReport", finanacialreportlist.get(0));// 传到页面的实体，用于提取当前的值
-			response.sendRedirect("pages/test/finanacialreportUpdate.jsp");
+			List<FinancialReport> fin = db.FinancialReportSelect(date);
+			System.out.println(fin.get(0));
+			session.setAttribute("updateFinList", fin.get(0));// 传到页面的实体，用于提取当前的值
+			response.sendRedirect("pages/manager/managerFinancial.jsp");
 			return;
 		}
 		/******************* 更新财务报表操作 ******************/
 		else if (method.endsWith("update")) {
 			System.out.println("update处理中！");
-			String finId = request.getParameter("finId");
-			String finTodayIncome = request.getParameter("finTodayIncome");
-			String finTodayExpend = request.getParameter("finTodayExpend");
-			String finDate = request.getParameter("finDate");
+			String finId = request.getParameter("id");
+			String finTodayIncome = request.getParameter("income");
+			String finTodayExpend = request.getParameter("expend");
+			String finDate = request.getParameter("date");
 			FinancialReport finanacialreport = new FinancialReport(finId, finTodayIncome, finTodayExpend, finDate);
 
 			boolean canUpdate = db.FinancialReportUpdate(finanacialreport);

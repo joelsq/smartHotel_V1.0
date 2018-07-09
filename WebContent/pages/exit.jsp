@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>退出系统</title>
 </head>
 <body>
-	<h3>出错页</h3>
+	<% session.invalidate(); %>
+   <jsp:forward page="../mainPage.jsp"></jsp:forward>
 </body>
 </html>
