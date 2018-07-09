@@ -33,3 +33,5 @@ src/team/hotel/dao/DBUtil.java
          - [X] ****浏览房间****  
          - [ ] ****预定房间****
          - [ ] ****入住评价****
+
+未实现的部分，domain,dao已经实现，servlet待实现或者已经实现但未通过功能测试
