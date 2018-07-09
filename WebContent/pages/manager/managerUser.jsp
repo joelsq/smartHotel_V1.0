@@ -120,8 +120,13 @@
 										权限<input name="authority" type="text" class="allInput"
 											value="${authority}" />
 									</div>
+			<!-- 						<div class="list-group-item">
+										<button class="tabSub" type="reset" value="reset">重置</button>
+
+									</div> -->
 									<div class="list-group-item">
 										<button type="submit" class="tabSub" value="select">查询</button>
+
 									</div>
 								</form>
 							</div>
