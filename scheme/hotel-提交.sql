@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.4.1 (64 bit)
-MySQL - 5.7.21-log : Database - hotel
+MySQL - 5.7.20-log : Database - hotel
 *********************************************************************
 */
 
@@ -42,28 +42,24 @@ DROP TABLE IF EXISTS `checklist`;
 
 CREATE TABLE `checklist` (
   `checklist_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '入住列表编号',
-  `check_guest_id` smallint(5) unsigned NOT NULL COMMENT '入住客人编号',
-  `check_room_id` smallint(5) unsigned NOT NULL COMMENT '入住房间编号',
-  `check_in_date` datetime DEFAULT NULL COMMENT '入住时间',
+  `check_guest_id` smallint(5) unsigned DEFAULT NULL COMMENT '入住客人编号',
+  `check_room_id` smallint(5) unsigned DEFAULT NULL COMMENT '入住房间编号',
+  `check_in_date` date DEFAULT NULL COMMENT '入住时间',
   `check_days` smallint(5) unsigned DEFAULT NULL COMMENT '入住天数',
-  `check_out_date` datetime DEFAULT NULL COMMENT '退房时间',
+  `check_out_date` date DEFAULT NULL COMMENT '退房时间',
   `check_meal_type` varchar(30) DEFAULT NULL COMMENT '餐饮类型',
   `check_num_of_people` tinyint(4) unsigned DEFAULT NULL COMMENT '入住人数',
-  `check_room_consume` tinyint(5) unsigned DEFAULT NULL COMMENT '客房消费',
-  `check_total_consume` tinyint(5) unsigned DEFAULT NULL COMMENT '消费总额',
+  `check_room_consume` int(10) unsigned DEFAULT NULL COMMENT '客房消费',
+  `check_total_consume` int(10) unsigned DEFAULT NULL COMMENT '消费总额',
   PRIMARY KEY (`checklist_id`),
   KEY `guest_id` (`check_guest_id`),
-  KEY `room_id` (`check_room_id`),
-  CONSTRAINT `checklist_ibfk_1` FOREIGN KEY (`check_room_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `checklist_ibfk_2` FOREIGN KEY (`check_guest_id`) REFERENCES `guest` (`guest_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  KEY `room_id` (`check_room_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `checklist` */
 
 insert  into `checklist`(`checklist_id`,`check_guest_id`,`check_room_id`,`check_in_date`,`check_days`,`check_out_date`,`check_meal_type`,`check_num_of_people`,`check_room_consume`,`check_total_consume`) values 
-(1,1,1,'2018-07-06 11:41:31',3,NULL,'lunch',2,200,230),
-(7,1,1,'2018-07-06 20:05:00',2,NULL,NULL,2,NULL,NULL),
-(11,3,7,'2018-07-06 23:05:13',2,'2018-07-08 12:00:00',NULL,3,NULL,NULL);
+(14,NULL,15,'2018-07-02',NULL,NULL,'dinner',NULL,0,0);
 
 /*Table structure for table `financial_report` */
 
@@ -75,13 +71,14 @@ CREATE TABLE `financial_report` (
   `fin_today_expend` smallint(5) unsigned DEFAULT NULL COMMENT '今天的支出',
   `fin_date` date DEFAULT NULL COMMENT '日期',
   PRIMARY KEY (`fin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `financial_report` */
 
 insert  into `financial_report`(`fin_id`,`fin_today_income`,`fin_today_expend`,`fin_date`) values 
 (1,1000,400,'2018-07-06'),
-(2,4000,1000,'2018-07-04');
+(3,100,2000,'2018-07-13'),
+(4,100,200,'2018-07-15');
 
 /*Table structure for table `guest` */
 
@@ -94,16 +91,28 @@ CREATE TABLE `guest` (
   `guest_password` varchar(30) DEFAULT NULL COMMENT '客人登录密码',
   `guest_document_num` varchar(30) DEFAULT NULL COMMENT '客人证件号',
   `guest_gender` varchar(10) DEFAULT NULL COMMENT '客人性别',
-  `guset_last_visit` datetime DEFAULT NULL COMMENT '客人最近登录时间',
-  `guset_last_ip` varchar(23) DEFAULT NULL COMMENT '客人最近登录ip',
+  `guest_last_visit` datetime DEFAULT NULL COMMENT '客人最近登录时间',
+  `guest_last_ip` varchar(23) DEFAULT NULL COMMENT '客人最近登录ip',
   PRIMARY KEY (`guest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 /*Data for the table `guest` */
 
-insert  into `guest`(`guest_id`,`guest_name`,`guest_phone`,`guest_password`,`guest_document_num`,`guest_gender`,`guset_last_visit`,`guset_last_ip`) values 
-(1,'guest','13923333333','123456','442000111122223333','female',NULL,NULL),
-(3,'aa','13229058730','111111','441222000668','male',NULL,NULL);
+insert  into `guest`(`guest_id`,`guest_name`,`guest_phone`,`guest_password`,`guest_document_num`,`guest_gender`,`guest_last_visit`,`guest_last_ip`) values 
+(1,'guest','null','null','442000111122223333','male',NULL,NULL),
+(2,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(4,'test','12313132131','123456','1222222132313','male',NULL,NULL),
+(6,'guest3','12313132131','123456','5454552341','male',NULL,NULL),
+(7,'guest3','41222143412421','123456','2412441224142','female',NULL,NULL),
+(10,'10',NULL,NULL,NULL,NULL,NULL,NULL),
+(15,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(20,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(21,'wang','21324',NULL,NULL,NULL,NULL,NULL),
+(22,'ting','135468839593','123456',NULL,NULL,NULL,NULL),
+(23,'guest1','12313132131','123456',NULL,NULL,NULL,NULL),
+(24,'guest4','18923336472','123456',NULL,NULL,NULL,NULL),
+(25,'Joe','1342342341','123456',NULL,NULL,NULL,NULL),
+(26,'abc','41341411','123456',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `login_log` */
 
@@ -136,17 +145,22 @@ CREATE TABLE `room` (
   `room_washroom` tinyint(4) unsigned DEFAULT '1' COMMENT '卫生间',
   `room_is_stay` tinyint(4) unsigned DEFAULT '0' COMMENT '是否入住',
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 /*Data for the table `room` */
 
 insert  into `room`(`room_id`,`room_num`,`room_type`,`room_area`,`room_maxnum_of_people`,`room_price`,`room_aircondition`,`room_TV`,`room_wifi`,`room_washroom`,`room_is_stay`) values 
-(1,'R1-1','大床房',25,2,200,1,1,1,1,0),
-(2,'R2-1','双床房',25,2,200,1,1,1,1,0),
-(3,'R3-1','家庭房',35,4,300,1,1,1,1,0),
-(4,'R1-2','大床房',25,2,200,1,1,1,1,0),
 (5,'R1-3','大床房',25,2,200,1,1,1,1,0),
-(7,'R2-2','家庭房',25,2,250,1,1,1,1,0);
+(14,'R3-2','大床房',35,2,500,NULL,NULL,NULL,NULL,0),
+(15,'R1-10','大床房',35,2,500,NULL,NULL,NULL,NULL,0),
+(16,'R1-5','大床',20,2,1000,NULL,NULL,NULL,NULL,0),
+(18,'R1-4','总统套房',50,2,1000,NULL,NULL,NULL,NULL,0),
+(19,'R1-1','单人',35,1,500,NULL,NULL,NULL,NULL,0),
+(20,'R1-13','优惠房',25,2,300,NULL,NULL,NULL,NULL,0),
+(21,'R1-6','优惠房',25,1,140,NULL,NULL,NULL,NULL,0),
+(22,'R1-19','总统套房',50,4,1000,NULL,NULL,NULL,NULL,0),
+(23,'R2-1','总统套房',50,2,2000,NULL,NULL,NULL,NULL,0),
+(24,'R4-1','总统套房',2,1,2000,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `room_review` */
 
@@ -162,13 +176,9 @@ CREATE TABLE `room_review` (
   PRIMARY KEY (`review_id`),
   KEY `review_room_id` (`review_room_num`),
   CONSTRAINT `room_review_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `room_review` */
-
-insert  into `room_review`(`review_id`,`review_room_num`,`review_guest_id`,`review_score`,`review_comment`,`review_photo`) values 
-(2,'R4-2',3,104,NULL,NULL),
-(3,'R5-2',5,1,NULL,NULL);
 
 /*Table structure for table `user` */
 
@@ -183,16 +193,22 @@ CREATE TABLE `user` (
   `last_visit` datetime DEFAULT NULL COMMENT '最近登录时间',
   `last_ip` varchar(23) DEFAULT NULL COMMENT '最近登录ip',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1007 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1014 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
 insert  into `user`(`user_id`,`user_name`,`password`,`credits`,`authority`,`last_visit`,`last_ip`) values 
-(1002,'admin','123456',10,'manager','2018-07-06 16:21:26','0:0:0:0:0:0:0:1'),
-(1003,'客服001','123456',NULL,'user','2018-07-06 17:06:28',NULL),
-(1004,'guest','123456',NULL,'guest','2018-07-06 17:06:55',NULL),
-(1005,'lg','111222',10,'guest',NULL,NULL),
-(1006,'lgg','123456',10,'guest',NULL,NULL);
+(1002,'admin','123456',10,'manager','2018-07-09 16:57:11','0:0:0:0:0:0:0:1'),
+(1004,'user','123456',NULL,'user','2018-07-09 17:00:14',NULL),
+(1005,'lg','111222',10,'test',NULL,NULL),
+(1006,'Joe','test',10,'test','2018-07-09 01:29:00',NULL),
+(1007,'guest2','1212',0,'guest','2018-07-09 15:55:55',NULL),
+(1008,'lxx','123456',0,'test',NULL,NULL),
+(1009,'guest3','123456',NULL,'guest',NULL,NULL),
+(1010,'王小二','1234456',NULL,'guest',NULL,NULL),
+(1011,'张三','12345',NULL,'',NULL,NULL),
+(1012,'林','123456',100,'manager',NULL,NULL),
+(1013,'Bob','bob',NULL,'guest',NULL,NULL);
 
 /* Procedure structure for procedure `proc_checklistAdd` */
 
@@ -200,16 +216,21 @@ insert  into `user`(`user_id`,`user_name`,`password`,`credits`,`authority`,`last
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistAdd`(in checkGuestId smallint,in checkRoomId smallint,IN checkInDate datetime, IN checkDays smallint,
-IN checkOutDate datetime, IN checkMealType VARCHAR(30), IN checkNumOfPeople tinyint, IN checkRoomConsume TINYINT,IN checkTotalConsume TINYINT, OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistAdd`(in guestname varchar(30),In guestPhone varchar(30),
+in roomid smallint,IN checkInDate date, IN checkMealType VARCHAR(30), OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
+     declare g smallint;
      SET state='addchecklistinit';
-     SET id_exist=(SELECT checkInDate FROM `checklist` WHERE checkInDate=check_in_date);
+     SET id_exist=(SELECT check_room_id FROM `checklist` WHERE roomid=check_room_id);
      IF  id_exist IS NOT NULL THEN
 	SET state='addChecklistFailed';
      ELSE
-	INSERT INTO `checklist` VALUES(NULL,checkGuestId,checkRoomId,checkInDate,checkDays,checkOutDate,checkMealType,checkNumOfPeople,checkRoomConsume,checkTotalConsume);
+	set g=(select guest_id from `guest` where guestname=guest_name);
+	if g is Null then
+		insert into `guest` values(null,guestname,guestPhone,'123456',null,null,null,null);	
+	end if;
+	INSERT INTO `checklist` VALUES(NULL,g,roomId,checkInDate,null,null,checkMealType,null,0,0);
 	SET state='addChecklistSuccess';
      END IF;
 END */$$
@@ -221,16 +242,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistDel`(IN checkRoomId smallint, OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistDel`(IN checklistId smallint, OUT state VARCHAR(30))
 BEGIN
 DECLARE id_exist SMALLINT;
      SET state='delchecklistinit';
-     SET id_exist=(SELECT checklist_id FROM `checklist` WHERE checkRoomId=check_room_id);
+     SET id_exist=(SELECT checklist_id FROM `checklist` WHERE checklistId=checklist_id);
 	IF  id_exist IS NULL THEN
 	    SET state='delChecklistFailed';
 	ELSE
 	    DELETE FROM `checklist` 
-	    WHERE checkRoomId=check_room_id;
+	    WHERE checklistId=checklist_id;
 	    SET state='delChecklistSuccess';
 	END IF;
 	END */$$
@@ -246,7 +267,7 @@ DELIMITER $$
 BEGIN
 SET state='selectInit';
 	IF checkGuestId IS NULL THEN
-		SELECT * FROM `checklist` ORDER BY check_guest_id ASC;
+		SELECT * FROM `checklist` ORDER BY checklist_id ASC;
 		SET state='selectAllChecklist';
 	ELSE
 		SELECT * FROM `checklist` WHERE checkGuestId=check_guest_id;
@@ -261,32 +282,32 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistUpdate`(IN checkGuestId SMALLINT,IN checkRoomId SMALLINT,IN checkInDate datetime, IN checkDays smallint,
-IN checkOutDate datetime, IN checkMealType varchar(30), IN checkNumOfPeople tinyint, IN checkRoomConsume TINYINT,IN checkTotalConsume TINYINT, OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_checklistUpdate`(in checklistId smallint,IN checkGuestId SMALLINT,IN checkRoomId SMALLINT,IN checkInDate datetime, IN checkDays smallint,
+IN checkOutDate datetime, IN checkMealType varchar(30), IN checkNumOfPeople tinyint, IN checkRoomConsume int,IN checkTotalConsume int, OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
      SET state='updateChecklistInit';
-     SET id_exist=(SELECT checklist_id FROM `checklist` WHERE checkInDate=check_in_date);
+     SET id_exist=(SELECT checklist_id FROM `checklist` WHERE checklistId=checklist_id);
 	IF  id_exist IS NULL THEN
 	    SET state='updateChecklistFailed';
 	ELSE
 	   IF checkDays IS NOT NULL THEN
-		UPDATE `checklist` SET check_days=checkDays WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_days=checkDays WHERE checklistId=checklist_id;
 	   END IF;
 	   IF checkOutDate IS NOT NULL THEN
-		UPDATE `checklist` SET check_out_date=checkOutDate WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_out_date=checkOutDate WHERE checklistId=checklist_id;
 	   END IF;
 	   IF checkMealType IS NOT NULL THEN
-		UPDATE `checklist` SET check_meal_type=checkMealType WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_meal_type=checkMealType WHERE checklistId=checklist_id;
 	   END IF;
 	   IF checkNumOfPeople IS NOT NULL THEN
-		UPDATE `checklist` SET check_num_of_people=checkNumOfPeople WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_num_of_people=checkNumOfPeople WHERE checklistId=checklist_id;
 	   END IF;
 	   IF checkRoomConsume IS NOT NULL THEN
-		UPDATE `checklist` SET check_room_consume=checkRoomConsume WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_room_consume=checkRoomConsume WHERE checklistId=checklist_id;
 	   END IF;
 	   IF checkTotalConsume IS NOT NULL THEN
-		UPDATE `checklist` SET check_total_consume_consume=checkTotalConsume WHERE checkInDate=check_in_date;
+		UPDATE `checklist` SET check_total_consume=checkTotalConsume WHERE checklistId=checklist_id;
 	   END IF;
 	   SET state='updateChecklistSuccess';
 	END IF;
@@ -300,15 +321,15 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportAdd`(IN finTodayIncome VARCHAR(10), IN finTodayExpend VARCHAR(30),
-IN finDate TINYINT, OUT state VARCHAR(30))
+IN finDate Date, OUT state VARCHAR(30))
 BEGIN
-     DECLARE id_exist SMALLINT;
+     DECLARE id_exist date;
      SET state='addfinancial_reportinit';
-     SET id_exist=(SELECT fin_today_income FROM `finacial_report` WHERE finTodayIncome=fin_today_income);
+     SET id_exist=(SELECT fin_date FROM `financial_report` WHERE finDate=fin_date);
      IF  id_exist IS NOT NULL THEN
 	SET state='addFinancial_reportFailed';
      ELSE
-	INSERT INTO `finacial_report` VALUES(NULL,finTodayIncome,finTodayExpend,finDate);
+	INSERT INTO `financial_report` VALUES(NULL,finTodayIncome,finTodayExpend,finDate);
 	SET state='addFinancial_reportSuccess';
      END IF;
 END */$$
@@ -320,16 +341,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportDel`(IN finTodayIncome VARCHAR(10), OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportDel`(IN id smallint, OUT state VARCHAR(30))
 BEGIN
 DECLARE id_exist SMALLINT;
      SET state='deluserinit';
-     SET id_exist=(SELECT fin_id FROM `financial_report` WHERE finTodayIncome=fin_today_income);
+     SET id_exist=(SELECT fin_id FROM `financial_report` WHERE id=fin_id);
 	IF  id_exist IS NULL THEN
 	    SET state='delFinancial_reportFailed';
 	ELSE
 	    DELETE FROM `financial_report` 
-	    WHERE finTodayIncome=fin_today_income;
+	    WHERE id=fin_id;
 	    SET state='delFiancial_reportSuccess';
 	END IF;
 	END */$$
@@ -341,14 +362,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportSelect`(IN finTodayIncome VARCHAR(10), OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportSelect`(IN finDate Date, OUT state VARCHAR(30))
 BEGIN
 SET state='selectInit';
-	IF finTodayIncome IS NULL THEN
-		SELECT * FROM `financial_report` ORDER BY fin_today_income ASC;
+	IF finDate IS NULL THEN
+		SELECT * FROM `financial_report` ORDER BY fin_id ASC;
 		SET state='selectAllFinancial_report';
 	ELSE
-		SELECT * FROM `financial_report` WHERE fin_today_income=finTodayIncome;
+		SELECT * FROM `financial_report` WHERE finDate=fin_date;
 		SET state='selectOneFinancial_report';
 	END IF;
 	END */$$
@@ -360,23 +381,23 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportUpdate`(IN finTodayIncome VARCHAR(10), IN finTodayExpend VARCHAR(30),
-IN finDate TINYINT,OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_financial_reportUpdate`(IN id smallint, IN income smallint,
+in expend smallint,IN finDate date,OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
      SET state='updateFinancial_reportInit';
-     SET id_exist=(SELECT fin_id FROM `financial_report` WHERE finTodayIncome=fin_today_income);
+     SET id_exist=(SELECT fin_id FROM `financial_report` WHERE id=fin_id);
 	IF  id_exist IS NULL THEN
 	    SET state='updateFinancial_reportRFailed';
 	ELSE
-	   IF roomType IS NOT NULL THEN
-		UPDATE `financial_report` SET fin_today_income=finTodayIncome WHERE finTodayIncome=fin_today_income;
+	   IF income IS NOT NULL THEN
+		UPDATE `financial_report` SET fin_today_income=income WHERE id=fin_id;
 	   END IF;
-	   IF roomArea IS NOT NULL THEN
-		UPDATE `financial_report` SET fin_today_expend=finTodayExpend WHERE finTodayIncome=fin_today_income;
+	   IF expend IS NOT NULL THEN
+		UPDATE `financial_report` SET fin_today_expend=expend WHERE id=fin_id;
 	   END IF;
-	   IF roomMaxnum IS NOT NULL THEN
-		UPDATE `financial_report` SET fin_date=finDate WHERE finTodayIncome=fin_today_income;
+	   IF finDate IS NOT NULL THEN
+		UPDATE `financial_report` SET fin_date=finDate WHERE id=fin_id;
 	   END IF;
 	  
 	   SET state='updateFinancial_reportSuccess';
@@ -395,7 +416,7 @@ IN guestPassword varchar(30), IN guestDocumentnum VARCHAR(30), IN guestGender VA
 BEGIN
      DECLARE id_exist SMALLINT;
      SET state='addguestinit';
-     SET id_exist=(SELECT guest_name FROM `guest` WHERE guestName=guest_name);
+     SET id_exist=(SELECT guest_document_num FROM `guest` WHERE guestDocumentnum=guest_document_num);
      IF  id_exist IS NOT NULL THEN
 	SET state='addGuestFailed';
      ELSE
@@ -412,16 +433,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_guestDel`(IN guestName VARCHAR(10), OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_guestDel`(IN id smallint, OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
      SET state='delguestinit';
-     SET id_exist=(SELECT guest_id FROM `guest` WHERE guestName=guest_name);
+     SET id_exist=(SELECT guest_id FROM `guest` WHERE id=guest_id);
 	IF  id_exist IS NULL THEN
 	    SET state='delGuestFailed';
 	ELSE
 	    DELETE FROM `guest` 
-	    WHERE guestName=guest_name;
+	    WHERE id=guest_id;
 	    SET state='delGuestSuccess';
 	END IF;
 END */$$
@@ -540,10 +561,38 @@ BEGIN
 		set state='loginUser';
 	    elseif au='guest' then
 		set state='loginGuest';
+	    ElseIf au='test' then
+		set state='test';
 	    else
 	        set state='loginUnknowAu';
 	    end if;
 	    UPDATE `user` SET last_visit=NOW() WHERE inputname=user_name;
+	END IF;
+    END IF;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_register` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_register` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_register`(IN rname VARCHAR(30),IN pw1 VARCHAR(32),in pw2 varchar(32),
+OUT state varchar(20))
+BEGIN
+    DECLARE name_exist VARCHAR(30);
+    DECLARE pw VARCHAR(32);
+    SET state='registerInit';
+    SET name_exist=(SELECT user_name FROM `user` WHERE rname=user_name);
+    IF  name_exist IS not NULL THEN
+	SET state='nameExist';
+    ELSE
+	if pw1!=pw2 then
+		set state='differentPw';
+	else
+		set state='registerSuccess';
+		INSERT INTO `user` VALUES(NULL,rname,pw1,0,'guest',null,null);
 	END IF;
     END IF;
     END */$$
@@ -794,8 +843,8 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userAdd`(IN userName VARCHAR(10), IN userPassword VARCHAR(30),
-IN userCredits int, IN userAuthority varchar(20), IN userLastVisit SMALLINT, IN userLastIp TINYINT, OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userAdd`(IN userName VARCHAR(30), IN userPassword VARCHAR(32),
+IN userCredits int, IN userAuthority varchar(20), IN userLastVisit datetime, IN userLastIp varchar(23), OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist VARCHAR(10);
      SET state='adduserinit';
@@ -815,16 +864,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userDel`(IN userName VARCHAR(10), OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userDel`(IN id smallint, OUT state VARCHAR(30))
 BEGIN
 DECLARE id_exist SMALLINT;
      SET state='deluserinit';
-     SET id_exist=(SELECT user_id FROM `user` WHERE userName=user_name);
+     SET id_exist=(SELECT user_id FROM `user` WHERE id=user_id);
 	IF  id_exist IS NULL THEN
 	    SET state='delUserFailed';
 	ELSE
 	    DELETE FROM `user` 
-	    WHERE userName=user_name;
+	    WHERE id=user_id;
 	    SET state='delUserSuccess';
 	END IF;
 	END */$$
@@ -836,7 +885,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userSelect`(IN userName VARCHAR(10), OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userSelect`(IN userName VARCHAR(30), OUT state VARCHAR(30))
 BEGIN
 SET state='selectInit';
 	IF userName IS NULL THEN
@@ -855,8 +904,8 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userUpdate`(IN userName VARCHAR(10), IN userPassword VARCHAR(30),
-IN userCredits TINYINT, IN userAuthority TINYINT, IN userLast_visit SMALLINT, IN userLast_ip TINYINT, OUT state VARCHAR(30))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_userUpdate`(IN userName VARCHAR(30), IN userPassword VARCHAR(32),
+IN userCredits int, IN userAuthority varchar(20), IN userLast_visit datetime, IN userLast_ip varchar(32), OUT state VARCHAR(30))
 BEGIN
      DECLARE id_exist SMALLINT;
      SET state='updateUserInit';
@@ -865,7 +914,7 @@ BEGIN
 	    SET state='updateUserFailed';
 	ELSE
 	   IF userPassword IS NOT NULL THEN
-		UPDATE `user` SET password=userPassword WHERE userName=user_name;
+		UPDATE `user` SET PASSWORD=userPassword WHERE userName=user_name;
 	   END IF;
 	   IF userCredits IS NOT NULL THEN
 		UPDATE `user` SET credits=userCredits WHERE userName=user_name;
