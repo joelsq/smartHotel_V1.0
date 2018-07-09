@@ -57,28 +57,22 @@
 						<div class="item active">
 							<img alt="" src="media/image/mainPage/hotel-home-001.jpg" />
 							<div class="carousel-caption">
-								<h4>First Thumbnail label</h4>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<h4>花园之家</h4>
+								<p>怡然自得所，路迎八方客。</p>
 							</div>
 						</div>
 						<div class="item">
 							<img alt="" src="media/image/mainPage/hotel-home-002.jpg" />
 							<div class="carousel-caption">
-								<h4>Second Thumbnail label</h4>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<h4>盛情之旅</h4>
+								<p>倾城一笑，醉在金怀。</p>
 							</div>
 						</div>
 						<div class="item">
 							<img alt="" src="media/image/mainPage/hotel-home-003.jpg" />
 							<div class="carousel-caption">
-								<h4>Third Thumbnail label</h4>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<h4>万客青睐</h4>
+								<p>博众家之长，迎天下来客。</p>
 							</div>
 						</div>
 					</div>
@@ -99,9 +93,7 @@
 							<img alt="300x200" src="media/image/mainPage/room1-1.png" />
 							<div class="caption">
 								<h3>客房</h3>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<p>高雅的豪华客房装修典雅、风格现代，充满亚洲风情。客房搭配豪华床上用品，包括舒达床垫和床架、柔软羽绒床褥、羽绒被与羽绒枕以及特制装饰床尾巾。室内全景落地玻璃窗为您带来辽阔的视野空间。客房的有线和无线高速互联网与先进室内多媒体……</p>
 								<p>
 									<a class="btn btn-primary" href="pages/room/room1.jsp">查看详情</a>
 								</p>
@@ -113,9 +105,7 @@
 							<img alt="300x200" src="media/image/mainPage/room2-1.jpg" />
 							<div class="caption">
 								<h3>行政房</h3>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<p>入住较高楼层的行政套房，获得8层行政酒廊的专属礼遇，免费享用欧陆早餐、以及晚间鸡尾酒与开胃小菜。客房搭配豪华床上用品，包括舒达床垫和床架、柔软羽绒床褥、羽绒被与羽绒枕以及特制装饰床尾巾。房间设计新颖独特，室内全景落地玻璃窗为……</p>
 								<p>
 									<a class="btn btn-primary" href="pages/room/room2.jsp">查看详情</a>
 								</p>
@@ -127,9 +117,7 @@
 							<img alt="300x200" src="media/image/mainPage/room3-1.jpg" />
 							<div class="caption">
 								<h3>总统套房</h3>
-								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-									quam. Donec id elit non mi porta gravida at eget metus. Nullam
-									id dolor id nibh ultricies vehicula ut id elit.</p>
+								<p>面积336平方米的总统套房内设有一应俱全的起居厅、会客厅、两间卧室及配有厨房的用餐区，是舒逸、奢华与雅致品位的理想诠释。套房采用希尔顿订制的Serenity Bed，搭配豪华床上用品，包括舒达床垫和床架、柔软羽绒床褥、羽绒被与羽绒枕以及特制……</p>
 								<p>
 									<a class="btn btn-primary" href="pages/room/room3.jsp">查看详情</a>
 								</p>
@@ -242,7 +230,8 @@
 					<li><a href="#">法律声明</a></li>
 					<li><a href="#">知识产权</a></li>
 				</ul>
-				<div>&copy; 2016 smartHotel_V1.0.com All Rights Reserved</div>
+				<div style="clear:both"></div>
+				<div>&copy; 2018 smartHotel_V1.0.com All Rights Reserved</div>
 			</div>
 		</div>
 
@@ -252,36 +241,42 @@
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="Login?method=login" method="post"
-						class="form-horizontal" role="form">
-						<div style="text-align: center" class="form-group">
-							<label for="adminName" class="col-sm-2 control-label">用户名</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="adminName"
-									name="adminName" />
-							</div>
-						</div>
-						<div style="text-align: center" class="form-group">
-							<label for="adminPassword" class="col-sm-2 control-label">密码</label>
-							<div class="col-sm-4">
-								<input type="password" class="form-control" id="password"
-									name="password" />
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-2">
-								<div class="checkbox">
-									<label><input type="checkbox" />记住我</label>
+                    <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                         <h5 class="modal-title" id="myModalLabel">登录页面</h5>
+                    </div>
+                    <div class="modal-body">
+						<form action="Login?method=login" method="post"
+							class="form-horizontal" role="form">
+							<div style="text-align: center" class="form-group">
+								<label for="adminName" class="col-sm-3 control-label">用户名</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="adminName"
+										name="adminName" />
 								</div>
 							</div>
-
-
-							<div class="col-sm-offset-0 col-sm-1">
-								<button type="submit" class="btn btn-default">Sign in</button>
-
+							<div style="text-align: center" class="form-group">
+								<label for="adminPassword" class="col-sm-3 control-label">密码</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" id="password"
+										name="password" />
+								</div>
 							</div>
-						</div>
-					</form>
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-7">
+									<div class="checkbox">
+										<label><input type="checkbox" />记住我</label>
+									</div>
+								</div>
+		
+		
+								<div class="col-sm-offset-3 col-sm-7" style="margin-top:15px;">
+									<button type="submit" class="btn btn-default">Sign in</button>
+		
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -292,33 +287,39 @@
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="Login?method=register" method="post"
-						class="form-horizontal" role="form">
-						<div style="text-align: center" class="form-group">
-							<label for="Name" class="col-sm-2 control-label">用户名</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="Name" name="Name" />
+                    <div class="modal-header">
+                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                         <h5 class="modal-title" id="myModalLabel">注册页面</h5>
+                    </div>
+                    <div class="modal-body">
+						<form action="Login?method=register" method="post"
+							class="form-horizontal" role="form">
+							<div style="text-align: center" class="form-group">
+								<label for="Name" class="col-sm-3 control-label">用户名</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="Name" name="Name" />
+								</div>
 							</div>
-						</div>
-						<div style="text-align: center" class="form-group">
-							<label for="pw1" class="col-sm-2 control-label">密码</label>
-							<div class="col-sm-4">
-								<input type="password" class="form-control" id="pw1" name="pw1" />
+							<div style="text-align: center" class="form-group">
+								<label for="pw1" class="col-sm-3 control-label">密码</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" id="pw1" name="pw1" />
+								</div>
 							</div>
-						</div>
-						<div style="text-align: center" class="form-group">
-							<label for="pw2" class="col-sm-2 control-label">再次输入密码</label>
-							<div class="col-sm-4">
-								<input type="password" class="form-control" id="pw2" name="pw2" />
+							<div style="text-align: center" class="form-group">
+								<label for="pw2" class="col-sm-3 control-label">再次输入密码</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" id="pw2" name="pw2" />
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-0 col-sm-1">
-								<button type="submit" class="btn btn-default">注册</button>
-
+							<div class="form-group">
+								<div class="col-sm-offset-3 col-sm-7">
+									<button type="submit" class="btn btn-default">注册</button>
+	
+								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
