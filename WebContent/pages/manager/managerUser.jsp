@@ -121,7 +121,8 @@
 											value="${authority}" />
 									</div>
 									<div class="list-group-item">
-										<button type="reset" class="tabSub" value="reset" style="margin-left:180px;">重置</button>
+									*空查询为所有信息
+										<button type="reset" class="tabSub" value="reset" style="margin-left:60px;">重置</button>
 										<button type="submit" class="tabSub" value="select">查询</button>
 									</div>
 								</form>

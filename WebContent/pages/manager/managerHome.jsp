@@ -41,10 +41,12 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
+				<!-- 				<ul class="nav navbar-nav navbar-right">
+					<li><a id="modal-exit" href="pages/exit.jsp" role="button"
+						class="btn"><span class="glyphicon"></span>退出系统</a>
+				</ul> -->
 				<div class="page-header">
-					<h1>
-						酒店经理管理
-					</h1>
+					<h1>酒店经理管理</h1>
 				</div>
 				<ul class="nav" id="管理页面链接">
 					<li><a href="pages/manager/managerHome.jsp"
@@ -98,7 +100,8 @@
 											value="${roomPrice}" />
 									</div>
 									<div class="list-group-item">
-										<button type="reset" class="tabSub" value="reset" style="margin-left:180px;">重置</button>
+										<button type="reset" class="tabSub" value="reset"
+											style="margin-left: 180px;">重置</button>
 										<button type="submit" class="tabSub" value="add">新增</button>
 									</div>
 								</form>
@@ -135,7 +138,9 @@
 											value="${roomIsStay}" />
 									</div>
 									<div class="list-group-item">
-										<button type="reset" class="tabSub" value="reset" style="margin-left:180px;">重置</button>
+									*空查询为所有信息
+										<button type="reset" class="tabSub" value="reset"
+											style="margin-left: 60px;">重置</button>
 										<button type="submit" class="tabSub btn1" value="select">查询</button>
 									</div>
 								</form>
@@ -182,7 +187,8 @@
 											value="${updateRoom.getRoomWashroom()}">
 									</div> --%>
 									<div class="list-group-item">
-										<button type="submit" class="tabSub" value="update" style="margin-left:280px;">更新</button>
+										<button type="submit" class="tabSub" value="update"
+											style="margin-left: 280px;">更新</button>
 									</div>
 								</form>
 							</div>
@@ -207,7 +213,7 @@
 										<td>${data.getRoomType()}</td>
 										<td>${data.getRoomMaxnumOfPeople()}</td>
 										<td>${data.getRoomPrice()}</td>
-										<td>											<a
+										<td><a
 											href="<%=request.getContextPath()%>/RoomServlet?method=updateBefore&num=${data.getRoomNum()}"
 											class="btn"> 修改</a> <a
 											href="<%=request.getContextPath()%>/RoomServlet?method=delete&num=${data.getRoomNum()}"

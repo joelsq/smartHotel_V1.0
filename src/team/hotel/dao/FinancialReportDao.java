@@ -74,8 +74,11 @@ public class FinancialReportDao extends DBUtil {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-
-		String sql = "CALL proc_select('" + date + "',@state)";
+		String sql; 
+		if(date=="")
+			sql = "CALL proc_financial_reportSelect(null,@state)";
+		else
+			sql = "CALL proc_financial_reportSelect('" + date + "',@state)";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
@@ -128,7 +131,7 @@ public class FinancialReportDao extends DBUtil {
 		String expend = report.getFinTodayExpend();
 		String date = report.getFinDate();
 
-		String sql = "CALL proc_financialReportUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
+		String sql = "CALL proc_financial_reportUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
 		DBPrint.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -143,7 +146,7 @@ public class FinancialReportDao extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateFinancialReportSuccess")) {
+				if (state.equals("updateFinancial_reportSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -182,7 +185,7 @@ public class FinancialReportDao extends DBUtil {
 
 	// 删除财务报表——根据财务报表编号
 	public boolean FinancialReportDelete(String financialReportid) {
-		String sql = "CALL proc_financialReportDel( '" + financialReportid + "',@state)";
+		String sql = "CALL proc_financial_reportDel(" + financialReportid + ",@state)";
 		DBPrint.PrintDelSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -196,7 +199,7 @@ public class FinancialReportDao extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("delFinancialReportSuccess")) {
+				if (state.equals("delFiancial_reportSuccess")) {
 					returnValue = true;
 					break;
 				}
@@ -235,12 +238,11 @@ public class FinancialReportDao extends DBUtil {
 
 	// 新增财务报表信息
 	public boolean FinancialReportAdd(FinancialReport report) {
-		String id = report.getFinId();
 		String income = report.getFinTodayIncome();
 		String expend = report.getFinTodayExpend();
 		String date = report.getFinDate();
 
-		String sql = "CALL proc_financialReportUpdate(" + id + "," + income + "," + expend + ",'" + date + "',@state)";
+		String sql = "call proc_financial_reportAdd("+income + "," + expend + ",'" + date + "',@state)";
 		DBPrint.PrintUpdateSQL("FinancialReport", sql);
 		boolean returnValue = false;
 		Connection conn = null;
@@ -255,7 +257,7 @@ public class FinancialReportDao extends DBUtil {
 			rs = stmt.executeQuery("SELECT @state");
 			while (rs.next()) {
 				String state = rs.getString(1);
-				if (state.equals("updateFinancialReportSuccess")) {
+				if (state.equals("addFinancial_reportSuccess")) {
 					returnValue = true;
 					break;
 				}
