@@ -98,6 +98,7 @@
 											value="${roomPrice}" />
 									</div>
 									<div class="list-group-item">
+										<button type="reset" class="tabSub" value="reset" style="margin-left:180px;">重置</button>
 										<button type="submit" class="tabSub" value="add">新增</button>
 									</div>
 								</form>
@@ -134,6 +135,7 @@
 											value="${roomIsStay}" />
 									</div>
 									<div class="list-group-item">
+										<button type="reset" class="tabSub" value="reset" style="margin-left:180px;">重置</button>
 										<button type="submit" class="tabSub btn1" value="select">查询</button>
 									</div>
 								</form>
@@ -180,7 +182,7 @@
 											value="${updateRoom.getRoomWashroom()}">
 									</div> --%>
 									<div class="list-group-item">
-										<button type="submit" class="tabSub" value="update">更新</button>
+										<button type="submit" class="tabSub" value="update" style="margin-left:280px;">更新</button>
 									</div>
 								</form>
 							</div>
