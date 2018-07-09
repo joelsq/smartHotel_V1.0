@@ -47,16 +47,16 @@
 					</ol>
 					<div class="carousel-inner">
 						<div class="item active">
-							<img alt="" src="../../media/image/room/room1/room1-1.jpg" />
+							<img alt="" src="${pageContext.request.contextPath }/media/image/room/room1/room1-1.jpg" />
 						</div>
 						<div class="item">
-							<img alt="" src="../../media/image/room/room1/room1-2.jpg" />
+							<img alt="" src="${pageContext.request.contextPath }/media/image/room/room1/room1-2.jpg" />
 						</div>
 						<div class="item">
-							<img alt="" src="../../media/image/room/room1/room1-3.jpg" />
+							<img alt="" src="${pageContext.request.contextPath }/media/image/room/room1/room1-3.jpg" />
 						</div>
 						<div class="item">
-							<img alt="" src="../../media/image/room/room1/room1-4.jpg" />
+							<img alt="" src="${pageContext.request.contextPath }/media/image/room/room1/room1-4.jpg" />
 						</div>
 					</div>
 					<a class="left carousel-control" href="#carousel-590534"
